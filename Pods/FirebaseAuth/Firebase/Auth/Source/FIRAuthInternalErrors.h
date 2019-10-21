@@ -18,8 +18,6 @@
 
 #import "FIRAuthErrors.h"
 
-NS_ASSUME_NONNULL_BEGIN
-
 /** @var FIRAuthPublicErrorCodeFlag
     @brief Bitmask value indicating the error represents a public error code when this bit is
         zeroed. Error codes which don't contain this flag will be wrapped in an @c NSError whose
@@ -355,11 +353,6 @@ typedef NS_ENUM(NSInteger, FIRAuthInternalErrorCode) {
   FIRAuthInternalErrorCodeWebInternalError =
       FIRAuthPublicErrorCodeFlag | FIRAuthErrorCodeWebInternalError,
 
-  /** Indicates that an internal error occurred within a SFSafariViewController or UIWebview.
-   */
-  FIRAuthInternalErrorCodeWebSignInUserInteractionFailure =
-      FIRAuthPublicErrorCodeFlag | FIRAuthErrorCodeWebSignInUserInteractionFailure,
-
   // The enum values between 17046 and 17051 are reserved and should NOT be used for new error
   // codes.
 
@@ -382,21 +375,11 @@ typedef NS_ENUM(NSInteger, FIRAuthInternalErrorCode) {
   FIRAuthInternalErrorCodeLocalPlayerNotAuthenticated =
       FIRAuthPublicErrorCodeFlag | FIRAuthErrorCodeLocalPlayerNotAuthenticated,
 
-  /** Indicates that the Game Center local player was not authenticated.
-   */
-  FIRAuthInternalErrorCodeGameKitNotLinked =
-      FIRAuthPublicErrorCodeFlag | FIRAuthErrorCodeGameKitNotLinked,
-
   /** Indicates that a non-null user was expected as an argmument to the operation but a null
         user was provided.
    */
   FIRAuthInternalErrorCodeNullUser =
       FIRAuthPublicErrorCodeFlag | FIRAuthErrorCodeNullUser,
-
-  /** Indicates that the provider id given for the web operation is invalid.
-   */
-  FIRAuthInternalErrorCodeInvalidProviderID =
-    FIRAuthPublicErrorCodeFlag | FIRAuthErrorCodeInvalidProviderID,
 
   /** Indicates that the Firebase Dynamic Link domain used is either not configured or is unauthorized
       for the current project.
@@ -469,5 +452,3 @@ typedef NS_ENUM(NSInteger, FIRAuthInternalErrorCode) {
    */
   FIRAuthInternalErrorCodeRPCResponseDecodingError = 5,
 };
-
-NS_ASSUME_NONNULL_END

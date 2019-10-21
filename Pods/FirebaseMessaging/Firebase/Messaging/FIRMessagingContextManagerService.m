@@ -130,7 +130,6 @@ typedef NS_ENUM(NSUInteger, FIRMessagingContextManagerMessageType) {
 
 + (void)scheduleLocalNotificationForMessage:(NSDictionary *)message
                                      atDate:(NSDate *)date {
-#if TARGET_OS_IOS
   NSDictionary *apsDictionary = message;
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
@@ -183,7 +182,6 @@ typedef NS_ENUM(NSUInteger, FIRMessagingContextManagerMessageType) {
   }
   [application scheduleLocalNotification:notification];
 #pragma clang diagnostic pop
-#endif
 }
 
 + (NSDictionary *)parseDataFromMessage:(NSDictionary *)message {

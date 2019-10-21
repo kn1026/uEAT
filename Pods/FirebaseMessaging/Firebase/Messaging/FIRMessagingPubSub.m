@@ -16,8 +16,6 @@
 
 #import "FIRMessagingPubSub.h"
 
-#import <GoogleUtilities/GULUserDefaults.h>
-
 #import "FIRMessaging.h"
 #import "FIRMessagingClient.h"
 #import "FIRMessagingDefines.h"
@@ -188,14 +186,14 @@ static NSString *const kPendingSubscriptionsListKey =
 #pragma mark - Storing Pending Topics
 
 - (void)archivePendingTopicsList:(FIRMessagingPendingTopicsList *)topicsList {
-  GULUserDefaults *defaults = [GULUserDefaults standardUserDefaults];
+  NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
   NSData *pendingData = [NSKeyedArchiver archivedDataWithRootObject:topicsList];
   [defaults setObject:pendingData forKey:kPendingSubscriptionsListKey];
   [defaults synchronize];
 }
 
 - (void)restorePendingTopicsList {
-  GULUserDefaults *defaults = [GULUserDefaults standardUserDefaults];
+  NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
   NSData *pendingData = [defaults objectForKey:kPendingSubscriptionsListKey];
   FIRMessagingPendingTopicsList *subscriptions;
   @try {

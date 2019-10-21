@@ -14,29 +14,7 @@
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="O8s-eo-zZF">
-                                <rect key="frame" x="82" y="363" width="250" height="170"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="250" id="NGU-jm-D2c"/>
-                                    <constraint firstAttribute="height" constant="170" id="zNc-1f-mn9"/>
-                                </constraints>
-                            </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="presentd" translatesAutoresizingMaskIntoConstraints="NO" id="dhX-aV-bev">
-                                <rect key="frame" x="0.0" y="746" width="414" height="130"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="130" id="q5e-RJ-NXl"/>
-                                </constraints>
-                            </imageView>
-                        </subviews>
                         <color key="backgroundColor" red="0.14923459289999999" green="0.1526758969" blue="0.17255401610000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                        <constraints>
-                            <constraint firstAttribute="bottom" secondItem="dhX-aV-bev" secondAttribute="bottom" constant="20" id="3wO-Ap-B2J"/>
-                            <constraint firstItem="dhX-aV-bev" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Bcm-hl-bYi"/>
-                            <constraint firstItem="dhX-aV-bev" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Y31-F3-fbo"/>
-                            <constraint firstItem="O8s-eo-zZF" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="nkd-NW-OOd"/>
-                            <constraint firstItem="O8s-eo-zZF" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="zAK-84-bel"/>
-                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                 </viewController>
@@ -45,8 +23,4 @@
             <point key="canvasLocation" x="52.173913043478265" y="375"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="logo" width="560" height="404"/>
-        <image name="presentd" width="714" height="272"/>
-    </resources>
 </document>

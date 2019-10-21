@@ -38,7 +38,7 @@ NSString *const kFIRMessagingMessageLinkKey = @"gcm." @"app_link";
 NSString *const kFIRMessagingRemoteNotificationsProxyEnabledInfoPlistKey =
     @"FirebaseAppDelegateProxyEnabled";
 
-NSString *const kFIRMessagingSubDirectoryName = @"Google/FirebaseMessaging";
+NSString *const kFIRMessagingApplicationSupportSubDirectory = @"Google/FirebaseMessaging";
 
 // Notifications
 NSString *const kFIRMessagingCheckinFetchedNotification = @"com.google.gcm.notif-checkin-fetched";

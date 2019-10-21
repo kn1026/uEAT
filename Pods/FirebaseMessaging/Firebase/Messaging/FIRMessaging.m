@@ -29,7 +29,6 @@
 #import "FIRMessagingContextManagerService.h"
 #import "FIRMessagingDataMessageManager.h"
 #import "FIRMessagingDefines.h"
-#import "FIRMessagingExtensionHelper.h"
 #import "FIRMessagingLogger.h"
 #import "FIRMessagingPubSub.h"
 #import "FIRMessagingReceiver.h"
@@ -44,11 +43,11 @@
 #import <FirebaseCore/FIRAppInternal.h>
 #import <FirebaseCore/FIRComponent.h>
 #import <FirebaseCore/FIRComponentContainer.h>
+#import <FirebaseCore/FIRComponentRegistrant.h>
+#import <FirebaseCore/FIRCoreConfigurable.h>
 #import <FirebaseCore/FIRDependency.h>
-#import <FirebaseCore/FIRLibrary.h>
 #import <FirebaseInstanceID/FirebaseInstanceID.h>
 #import <GoogleUtilities/GULReachabilityChecker.h>
-#import <GoogleUtilities/GULUserDefaults.h>
 
 #import "NSError+FIRMessaging.h"
 
@@ -143,7 +142,7 @@ NSString *const kFIRMessagingPlistAutoInitEnabled =
 @property(nonatomic, readwrite, strong) FIRMessagingRmqManager *rmq2Manager;
 @property(nonatomic, readwrite, strong) FIRMessagingReceiver *receiver;
 @property(nonatomic, readwrite, strong) FIRMessagingSyncMessageManager *syncMessageManager;
-@property(nonatomic, readwrite, strong) GULUserDefaults *messagingUserDefaults;
+@property(nonatomic, readwrite, strong) NSUserDefaults *messagingUserDefaults;
 
 /// Message ID's logged for analytics. This prevents us from logging the same message twice
 /// which can happen if the user inadvertently calls `appDidReceiveMessage` along with us
@@ -159,38 +158,44 @@ NSString *const kFIRMessagingPlistAutoInitEnabled =
 @protocol FIRMessagingInstanceProvider
 @end
 
-@interface FIRMessaging () <FIRMessagingInstanceProvider, FIRLibrary>
+@interface FIRMessaging () <FIRMessagingInstanceProvider,
+                            FIRCoreConfigurable,
+                            FIRComponentRegistrant>
 @end
 
 @implementation FIRMessaging
 
-+ (FIRMessaging *)messaging {
-  FIRApp *defaultApp = [FIRApp defaultApp];  // Missing configure will be logged here.
-  id<FIRMessagingInstanceProvider> instance =
-      FIR_COMPONENT(FIRMessagingInstanceProvider, defaultApp.container);
+// File static to support InstanceID tests that call [FIRMessaging messaging] after
+// [FIRMessaging messagingForTests].
+static FIRMessaging *sMessaging;
 
-  // We know the instance coming from the container is a FIRMessaging instance, cast it and move on.
-  FIRMessaging *messaging = (FIRMessaging *)instance;
++ (FIRMessaging *)messaging {
+  if (sMessaging != nil) {
+    return sMessaging;
+  }
+  FIRApp *defaultApp = [FIRApp defaultApp];  // Missing configure will be logged here.
+  id<FIRMessagingInstanceProvider> messaging =
+      FIR_COMPONENT(FIRMessagingInstanceProvider, defaultApp.container);
 
   static dispatch_once_t onceToken;
   dispatch_once(&onceToken, ^{
-    [messaging start];
+    [(FIRMessaging *)messaging start];
   });
-  return messaging;
+  sMessaging = (FIRMessaging *)messaging;
+  return sMessaging;
 }
 
-+ (FIRMessagingExtensionHelper *)extensionHelper {
-    static dispatch_once_t once;
-    static FIRMessagingExtensionHelper *extensionHelper;
-    dispatch_once(&once, ^{
-        extensionHelper = [[FIRMessagingExtensionHelper alloc] init];
-    });
-    return extensionHelper;
++ (FIRMessaging *)messagingForTests {
+  sMessaging = [[FIRMessaging alloc] initWithAnalytics:nil
+                                        withInstanceID:[FIRInstanceID instanceID]
+                                      withUserDefaults:[NSUserDefaults standardUserDefaults]];
+  [sMessaging start];
+  return sMessaging;
 }
 
 - (instancetype)initWithAnalytics:(nullable id<FIRAnalyticsInterop>)analytics
                    withInstanceID:(FIRInstanceID *)instanceID
-                 withUserDefaults:(GULUserDefaults *)defaults {
+                 withUserDefaults:(NSUserDefaults *)defaults {
   self = [super init];
   if (self != nil) {
     _loggedMessageIDs = [NSMutableSet set];
@@ -210,9 +215,8 @@ NSString *const kFIRMessagingPlistAutoInitEnabled =
 #pragma mark - Config
 
 + (void)load {
-  [FIRApp registerInternalLibrary:(Class<FIRLibrary>)self
-                 withName:@"fire-fcm"
-              withVersion:FIRMessagingCurrentLibraryVersion()];
+  [FIRApp registerAsConfigurable:self];
+  [FIRComponentContainer registerAsComponentRegistrant:self];
 }
 
 + (nonnull NSArray<FIRComponent *> *)componentsToRegister {
@@ -225,7 +229,7 @@ NSString *const kFIRMessagingPlistAutoInitEnabled =
     id<FIRAnalyticsInterop> analytics = FIR_COMPONENT(FIRAnalyticsInterop, container);
         return [[FIRMessaging alloc] initWithAnalytics:analytics
                                         withInstanceID:[FIRInstanceID instanceID]
-                                      withUserDefaults:[GULUserDefaults standardUserDefaults]];
+                                      withUserDefaults:[NSUserDefaults standardUserDefaults]];
   };
   FIRComponent *messagingProvider =
       [FIRComponent componentWithProtocol:@protocol(FIRMessagingInstanceProvider)
@@ -277,7 +281,7 @@ NSString *const kFIRMessagingPlistAutoInitEnabled =
                                                                           withHost:hostname];
   [self.reachability start];
 
-  [self setupFileManagerSubDirectory];
+  [self setupApplicationSupportSubDirectory];
   // setup FIRMessaging objects
   [self setupRmqManager];
   [self setupClient];
@@ -289,9 +293,10 @@ NSString *const kFIRMessagingPlistAutoInitEnabled =
   [self setupNotificationListeners];
 }
 
-- (void)setupFileManagerSubDirectory {
-  if (![[self class] hasSubDirectory:kFIRMessagingSubDirectoryName]) {
-    [[self class] createSubDirectory:kFIRMessagingSubDirectoryName];
+- (void)setupApplicationSupportSubDirectory {
+  NSString *messagingSubDirectory = kFIRMessagingApplicationSupportSubDirectory;
+  if (![[self class] hasApplicationSupportSubDirectory:messagingSubDirectory]) {
+    [[self class] createApplicationSupportSubDirectory:messagingSubDirectory];
   }
 }
 
@@ -319,7 +324,7 @@ NSString *const kFIRMessagingPlistAutoInitEnabled =
 }
 
 - (void)setupReceiver {
-  self.receiver = [[FIRMessagingReceiver alloc] initWithUserDefaults:self.messagingUserDefaults];
+  self.receiver = [[FIRMessagingReceiver alloc] init];
   self.receiver.delegate = self;
 }
 
@@ -476,22 +481,15 @@ NSString *const kFIRMessagingPlistAutoInitEnabled =
   // Similarly, |application:openURL:sourceApplication:annotation:| will also always be called, due
   // to the default swizzling done by FIRAAppDelegateProxy in Firebase Analytics
   } else if ([appDelegate respondsToSelector:openURLWithSourceApplicationSelector]) {
-#if TARGET_OS_IOS
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
     [appDelegate application:application
                      openURL:url
            sourceApplication:FIRMessagingAppIdentifier()
                   annotation:@{}];
-#pragma clang diagnostic pop
-#endif
   } else if ([appDelegate respondsToSelector:handleOpenURLSelector]) {
-#if TARGET_OS_IOS
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
     [appDelegate application:application handleOpenURL:url];
 #pragma clang diagnostic pop
-#endif
   }
 }
 
@@ -970,8 +968,8 @@ NSString *const kFIRMessagingPlistAutoInitEnabled =
 
 #pragma mark - Application Support Directory
 
-+ (BOOL)hasSubDirectory:(NSString *)subDirectoryName {
-  NSString *subDirectoryPath = [self pathForSubDirectory:subDirectoryName];
++ (BOOL)hasApplicationSupportSubDirectory:(NSString *)subDirectoryName {
+  NSString *subDirectoryPath = [self pathForApplicationSupportSubDirectory:subDirectoryName];
   BOOL isDirectory;
   if (![[NSFileManager defaultManager] fileExistsAtPath:subDirectoryPath
                                             isDirectory:&isDirectory]) {
@@ -982,16 +980,16 @@ NSString *const kFIRMessagingPlistAutoInitEnabled =
   return YES;
 }
 
-+ (NSString *)pathForSubDirectory:(NSString *)subDirectoryName {
-  NSArray *directoryPaths = NSSearchPathForDirectoriesInDomains(FIRMessagingSupportedDirectory(),
++ (NSString *)pathForApplicationSupportSubDirectory:(NSString *)subDirectoryName {
+  NSArray *directoryPaths = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory,
                                                                 NSUserDomainMask, YES);
-  NSString *dirPath = directoryPaths.lastObject;
-  NSArray *components = @[dirPath, subDirectoryName];
+  NSString *applicationSupportDirPath = directoryPaths.lastObject;
+  NSArray *components = @[applicationSupportDirPath, subDirectoryName];
   return [NSString pathWithComponents:components];
 }
 
-+ (BOOL)createSubDirectory:(NSString *)subDirectoryName {
-  NSString *subDirectoryPath = [self pathForSubDirectory:subDirectoryName];
++ (BOOL)createApplicationSupportSubDirectory:(NSString *)subDirectoryName {
+  NSString *subDirectoryPath = [self pathForApplicationSupportSubDirectory:subDirectoryName];
   BOOL hasSubDirectory;
 
   if (![[NSFileManager defaultManager] fileExistsAtPath:subDirectoryPath

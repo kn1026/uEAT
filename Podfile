@@ -22,7 +22,7 @@ target 'uEAT' do
     pod 'SinchVerification-Swift'
     #pod 'KDCircularProgress'
     #pod 'IGRPhotoTweaks'
-    pod 'Pulsator'
+    #pod 'Pulsator'
     pod 'Cache'
     #pod 'JDropDownAlert'
     pod 'SwiftyJSON'
@@ -32,6 +32,9 @@ target 'uEAT' do
     pod "ZSWTaggedString/Swift", "~> 4.0"
     pod "SquareInAppPaymentsSDK"
     #pod 'SCLAlertView'
+    pod 'FireStore'
+    pod 'Firebase/Core'
+    pod 'Firebase/Firestore'
 
 
   use_frameworks!
