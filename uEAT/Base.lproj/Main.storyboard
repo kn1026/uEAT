@@ -61,6 +61,10 @@
                         <viewLayoutGuide key="safeArea" id="5BF-lg-P2C"/>
                     </view>
                     <connections>
+                        <outlet property="loginWidth" destination="l3E-I6-x4g" id="CUg-15-f7I"/>
+                        <outlet property="logoHeight" destination="yzh-Cq-q7E" id="pML-em-qr4"/>
+                        <outlet property="presentedHeight" destination="qm9-zt-NYn" id="quM-1R-3DC"/>
+                        <outlet property="presentedWidth" destination="xv0-Lm-Ggs" id="3GS-5l-qSO"/>
                         <segue destination="en5-vi-iv8" kind="show" identifier="moveToPhoneVC" id="x1P-dc-Wnn"/>
                     </connections>
                 </viewController>
@@ -179,6 +183,8 @@
                     </view>
                     <navigationItem key="navigationItem" id="Bbd-xB-W7d"/>
                     <connections>
+                        <outlet property="BackHeight" destination="ciu-yX-88E" id="Ygy-Qn-hsU"/>
+                        <outlet property="BackWidth" destination="i3k-Q8-WSV" id="G50-Cw-IWk"/>
                         <outlet property="phoneTxtField" destination="dCg-eW-1kN" id="Vg9-85-aJ4"/>
                     </connections>
                 </viewController>

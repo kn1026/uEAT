@@ -11,6 +11,8 @@ import UIKit
 class PhoneVC: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var phoneTxtField: UITextField!
+    @IBOutlet weak var BackHeight: NSLayoutConstraint!
+    @IBOutlet weak var BackWidth: NSLayoutConstraint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +26,7 @@ class PhoneVC: UIViewController, UITextFieldDelegate {
         
         phoneTxtField.keyboardType = .numberPad
         
+        scaleImageDimension()
         
     }
     
@@ -34,6 +37,18 @@ class PhoneVC: UIViewController, UITextFieldDelegate {
         phoneTxtField.becomeFirstResponder()
         
         
+        
+    }
+    
+    
+    func scaleImageDimension() {
+        
+        BackWidth.constant = self.view.frame.width * (BackWidth.constant / CGFloat(ratio_width))
+        BackHeight.constant = self.view.frame.height * (BackHeight.constant / CGFloat(ratio_height))
+        
+        
+        
+    
         
     }
     
