@@ -22,9 +22,6 @@ class PhoneVeriVC: UIViewController, UITextFieldDelegate {
     var verification: Verification!
     
     
-
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -74,11 +71,7 @@ class PhoneVeriVC: UIViewController, UITextFieldDelegate {
         
         
         SwiftLoader.show(title: "", animated: true)
-        
-        
-        
-        
-        
+
         
     }
     
@@ -344,7 +337,6 @@ class PhoneVeriVC: UIViewController, UITextFieldDelegate {
                     
                     if code == "100497" {
                         
-                        
                         //self.processSignIn()
                         
                     } else {
@@ -363,10 +355,6 @@ class PhoneVeriVC: UIViewController, UITextFieldDelegate {
                         
                     }
                     
-                    
-                    
-                    
-                    
                     /*
                     SwiftLoader.hide()
                     self.showErrorAlert("Ops!", msg: (error?.localizedDescription)!)
@@ -374,6 +362,7 @@ class PhoneVeriVC: UIViewController, UITextFieldDelegate {
                     SwiftLoader.hide()
                     self.performSegue(withIdentifier: "MoveToEmailVC", sender: nil)
                     */
+                    
                 }
                 
                 

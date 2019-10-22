@@ -70,10 +70,7 @@ class PhoneVC: UIViewController, UITextFieldDelegate {
         
         SwiftLoader.show(title: "", animated: true)
         
-        
-        
-        
-        
+         
         
     }
     
@@ -98,10 +95,7 @@ class PhoneVC: UIViewController, UITextFieldDelegate {
         BackWidth.constant = self.view.frame.width * (BackWidth.constant / CGFloat(ratio_width))
         BackHeight.constant = self.view.frame.height * (BackHeight.constant / CGFloat(ratio_height))
         
-        
-        
-    
-        
+
     }
     
     
@@ -236,6 +230,7 @@ private var kAssociationKeyMaxLength: Int = 0
 extension UITextField {
 
     @IBInspectable var maxLength: Int {
+        
         get {
             if let length = objc_getAssociatedObject(self, &kAssociationKeyMaxLength) as? Int {
                 return length
@@ -247,9 +242,12 @@ extension UITextField {
             objc_setAssociatedObject(self, &kAssociationKeyMaxLength, newValue, .OBJC_ASSOCIATION_RETAIN)
             addTarget(self, action: #selector(checkMaxLength), for: .editingChanged)
         }
+        
     }
 
     @objc func checkMaxLength(textField: UITextField) {
+        
+        
         guard let prospectiveText = self.text,
             prospectiveText.count > maxLength
             else {

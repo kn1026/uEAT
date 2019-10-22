@@ -49,9 +49,11 @@ public class SwiftLoader: UIView {
     }
     
     class var sharedInstance: SwiftLoader {
+        
         struct Singleton {
             static let instance = SwiftLoader(frame: CGRect(origin: CGPoint(x: 0,y: 0),size: CGSize(width: Config().size,height: Config().size)))
         }
+        
         return Singleton.instance
     }
     
@@ -60,8 +62,6 @@ public class SwiftLoader: UIView {
     }
     
     public class func show(title: String?, animated : Bool) {
-        
-        
         
         let currentWindow : UIWindow = UIApplication.shared.keyWindow!
         let loader = SwiftLoader.sharedInstance
