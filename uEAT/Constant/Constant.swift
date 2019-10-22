@@ -78,6 +78,9 @@ var cardID = ""
 var cardBrand = ""
 var cardLast4Digits = ""
 
+var ratio_width = 414
+var ratio_height = 896
+
 
 
 var defaultBrand = ""

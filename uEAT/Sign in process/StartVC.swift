@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class StartVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +25,11 @@ class ViewController: UIViewController {
         
     }
 
-
+    @IBAction func LoginBtnPressed(_ sender: Any) {
+        
+        self.performSegue(withIdentifier: "moveToPhoneVC", sender: nil)
+        
+    }
+    
 }
 
