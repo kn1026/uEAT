@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		055BA5CFCC1AB664AC8157A1 /* Pods_uEATTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9BE1A4E86A50AEBC44B58BE /* Pods_uEATTests.framework */; };
+		6A016D6C235EB34B0065D0D5 /* PhoneVeriVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A016D6B235EB34B0065D0D5 /* PhoneVeriVC.swift */; };
+		6A016D6F235EB5C60065D0D5 /* RoundedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A016D6E235EB5C60065D0D5 /* RoundedLabel.swift */; };
 		6A1D05B0235E58E000BEB5A2 /* PhoneVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1D05AF235E58E000BEB5A2 /* PhoneVC.swift */; };
 		6A1F6E58235E0A0B00EE750B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6A1F6E57235E0A0B00EE750B /* GoogleService-Info.plist */; };
 		6A1F6E5B235E0B6A00EE750B /* avatarImgRendered.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1F6E5A235E0B6A00EE750B /* avatarImgRendered.swift */; };
@@ -56,6 +58,8 @@
 		0EFAA3FA37E74E71CFF5679E /* Pods-uEAT-uEATUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-uEAT-uEATUITests.release.xcconfig"; path = "Target Support Files/Pods-uEAT-uEATUITests/Pods-uEAT-uEATUITests.release.xcconfig"; sourceTree = "<group>"; };
 		25FCF34D98B6E2B71FBAAA6C /* Pods-uEAT.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-uEAT.debug.xcconfig"; path = "Target Support Files/Pods-uEAT/Pods-uEAT.debug.xcconfig"; sourceTree = "<group>"; };
 		3F6597D333681D2BCB619610 /* Pods-uEATTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-uEATTests.release.xcconfig"; path = "Target Support Files/Pods-uEATTests/Pods-uEATTests.release.xcconfig"; sourceTree = "<group>"; };
+		6A016D6B235EB34B0065D0D5 /* PhoneVeriVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneVeriVC.swift; sourceTree = "<group>"; };
+		6A016D6E235EB5C60065D0D5 /* RoundedLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedLabel.swift; sourceTree = "<group>"; };
 		6A1D05AF235E58E000BEB5A2 /* PhoneVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneVC.swift; sourceTree = "<group>"; };
 		6A1F6E57235E0A0B00EE750B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6A1F6E5A235E0B6A00EE750B /* avatarImgRendered.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = avatarImgRendered.swift; sourceTree = "<group>"; };
@@ -131,11 +135,21 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		6A016D6D235EB3560065D0D5 /* Storyboard */ = {
+			isa = PBXGroup;
+			children = (
+				6A4BC7CF235A7565006332DD /* Main.storyboard */,
+				6A4BC7D4235A7566006332DD /* LaunchScreen.storyboard */,
+			);
+			path = Storyboard;
+			sourceTree = "<group>";
+		};
 		6A1D05AE235E58C000BEB5A2 /* Sign in process */ = {
 			isa = PBXGroup;
 			children = (
 				6A4BC7CD235A7565006332DD /* StartVC.swift */,
 				6A1D05AF235E58E000BEB5A2 /* PhoneVC.swift */,
+				6A016D6B235EB34B0065D0D5 /* PhoneVeriVC.swift */,
 			);
 			path = "Sign in process";
 			sourceTree = "<group>";
@@ -162,6 +176,7 @@
 				6A1F6E64235E0B8100EE750B /* fancyBtn.swift */,
 				6A1F6E5C235E0B7100EE750B /* borderAvatarView.swift */,
 				6A1F6E5A235E0B6A00EE750B /* avatarImgRendered.swift */,
+				6A016D6E235EB5C60065D0D5 /* RoundedLabel.swift */,
 			);
 			path = ModView;
 			sourceTree = "<group>";
@@ -216,15 +231,14 @@
 		6A4BC7C8235A7565006332DD /* uEAT */ = {
 			isa = PBXGroup;
 			children = (
+				6A016D6D235EB3560065D0D5 /* Storyboard */,
 				6A1D05AE235E58C000BEB5A2 /* Sign in process */,
 				6A1F6E73235E0BC200EE750B /* Constant */,
 				6A1F6E70235E0B9D00EE750B /* SwifLoader */,
 				6A1F6E59235E0B5100EE750B /* ModView */,
 				6A1F6E56235E09F900EE750B /* Google info */,
 				6A1FED23235E032500198533 /* Delegate */,
-				6A4BC7CF235A7565006332DD /* Main.storyboard */,
 				6A4BC7D2235A7566006332DD /* Assets.xcassets */,
-				6A4BC7D4235A7566006332DD /* LaunchScreen.storyboard */,
 				6A4BC7D7235A7566006332DD /* Info.plist */,
 			);
 			path = uEAT;
@@ -539,6 +553,7 @@
 			files = (
 				6A1F6E6B235E0B8D00EE750B /* modTxtField.swift in Sources */,
 				6A1F6E6D235E0B9200EE750B /* ProfileView.swift in Sources */,
+				6A016D6F235EB5C60065D0D5 /* RoundedLabel.swift in Sources */,
 				6A1F6E5D235E0B7100EE750B /* borderAvatarView.swift in Sources */,
 				6A1F6E75235E0BCE00EE750B /* Constant.swift in Sources */,
 				6A1F6E72235E0BAA00EE750B /* SwiftLoader.swift in Sources */,
@@ -548,6 +563,7 @@
 				6A4BC7CA235A7565006332DD /* AppDelegate.swift in Sources */,
 				6A1F6E69235E0B8A00EE750B /* ModifiedSearchBar.swift in Sources */,
 				6A4BC7CC235A7565006332DD /* SceneDelegate.swift in Sources */,
+				6A016D6C235EB34B0065D0D5 /* PhoneVeriVC.swift in Sources */,
 				6A1F6E65235E0B8100EE750B /* fancyBtn.swift in Sources */,
 				6A1F6E6F235E0B9600EE750B /* windowInfo.swift in Sources */,
 				6A1F6E5F235E0B7500EE750B /* circleView.swift in Sources */,

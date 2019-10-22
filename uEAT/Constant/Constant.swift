@@ -82,6 +82,8 @@ var ratio_width = 414
 var ratio_height = 896
 
 
+let BColor = UIColor(red: 226, green: 221, blue: 0, alpha: 1)
+
 
 var defaultBrand = ""
 var defaultcardLast4Digits = ""
