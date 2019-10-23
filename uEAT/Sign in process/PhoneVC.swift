@@ -148,9 +148,22 @@ class PhoneVC: UIViewController, UITextFieldDelegate {
                   self.showErrorAlert("Ops !", msg: "Your phone number is invalid")
                   
               } else {
-                  self.swiftLoader()
+                
+                self.swiftLoader()
+                var finalPhone = ""
+                
+                if converted == "9454686613" {
+                    
+                    finalPhone = "+63\(converted)"
+                    
+                } else {
+                    
+                    
+                    finalPhone = "+1\(converted)"
+                    
+                }
                   
-                  let finalPhone = "+1\(converted)"
+                  
                   self.verification = SMSVerification(applicationKey, phoneNumber: finalPhone)
                   
                   
@@ -211,7 +224,7 @@ class PhoneVC: UIViewController, UITextFieldDelegate {
                 
                 new.append(String((i)))
                 
-                
+            
             }
             
         }

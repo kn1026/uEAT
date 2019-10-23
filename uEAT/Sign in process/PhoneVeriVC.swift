@@ -11,6 +11,7 @@ import Firebase
 import FirebaseAuth
 import SinchVerification
 
+
 class PhoneVeriVC: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var label4: RoundedLabel!
@@ -20,7 +21,7 @@ class PhoneVeriVC: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var HidenTxtView: UITextField!
     
     var verification: Verification!
-    
+    var campusList = [CampusModel]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,6 +40,83 @@ class PhoneVeriVC: UIViewController, UITextFieldDelegate {
         
         
     }
+    
+    
+    func getCampus(completed: @escaping DownloadComplete) {
+        
+        
+        DataService.instance.mainDataBaseRef.child("Available_Campus").observeSingleEvent(of: .value, with: { (schoolData) in
+            
+            if schoolData.exists() {
+                
+                if let snap = schoolData.children.allObjects as? [DataSnapshot] {
+                    
+                    for item in snap {
+                        if let postDict = item.value as? Dictionary<String, Any> {
+                            
+                            
+                            var dict = postDict
+                            
+                            
+                            if let status = dict["Status"] as? Int {
+                                
+                                if status == 0 {
+                                    
+                                    dict.updateValue(item.key, forKey: "School_Name")
+                                    
+                                    let SchoolDataResult = CampusModel(postKey: schoolData.key, School_model: dict)
+                                    
+                                    self.campusList.append(SchoolDataResult)
+                                    
+                                }
+                                
+                                
+                            }
+                            
+                        }
+                        
+                    }
+                    
+                    completed()
+                    
+                }
+                
+                
+                
+            } else {
+                
+                SwiftLoader.hide()
+                
+                self.showErrorAlert("Ops", msg: "Can't get campus data, please check your connection and try again")
+                
+            }
+            
+            
+            
+            
+            
+        })
+        
+        
+        
+    }
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        
+        if segue.identifier == "moveToCampusVC"{
+            if let destination = segue.destination as? CampusVC
+            {
+                
+                destination.campusList = self.campusList
+                
+            }
+        }
+        
+        
+    }
+    
     // func show error alert
     
     func showErrorAlert(_ title: String, msg: String) {
@@ -323,6 +401,8 @@ class PhoneVeriVC: UIViewController, UITextFieldDelegate {
     
     func verifyCode(code: String) {
         
+        self.swiftLoader()
+        
         verification.verify(
             code, completion:
             { (success:Bool, error:Error?) -> Void in
@@ -331,37 +411,36 @@ class PhoneVeriVC: UIViewController, UITextFieldDelegate {
                     
                     //self.processSignIn()
                     
-                }
-                    
-                else {
-                    
-                    if code == "100497" {
+    
+                    self.getCampus() {
                         
-                        //self.processSignIn()
-                        
-                    } else {
-                        
-                        self.label1.backgroundColor = UIColor.placeholderText
-                        self.label2.backgroundColor = UIColor.placeholderText
-                        self.label3.backgroundColor = UIColor.placeholderText
-                        self.label4.backgroundColor = UIColor.placeholderText
-                        
-                        self.label1.text = ""
-                        self.label2.text = ""
-                        self.label3.text = ""
-                        self.label4.text = ""
-                        
-                        self.HidenTxtView.text = ""
+                        SwiftLoader.hide()
+                        self.performSegue(withIdentifier: "moveToCampusVC", sender: nil)
                         
                     }
                     
-                    /*
+                   
+                    
+                    
+                } else {
+                    
+                    
+                    self.label1.backgroundColor = UIColor.placeholderText
+                    self.label2.backgroundColor = UIColor.placeholderText
+                    self.label3.backgroundColor = UIColor.placeholderText
+                    self.label4.backgroundColor = UIColor.placeholderText
+                    
+                    self.label1.text = ""
+                    self.label2.text = ""
+                    self.label3.text = ""
+                    self.label4.text = ""
+                    
+                    self.HidenTxtView.text = ""
                     SwiftLoader.hide()
+                    
                     self.showErrorAlert("Ops!", msg: (error?.localizedDescription)!)
                     
-                    SwiftLoader.hide()
-                    self.performSegue(withIdentifier: "MoveToEmailVC", sender: nil)
-                    */
+                    
                     
                 }
                 
@@ -373,4 +452,31 @@ class PhoneVeriVC: UIViewController, UITextFieldDelegate {
     }
     
 
+    @IBAction func NextBtnPressed(_ sender: Any) {
+        
+        
+        if let code = HidenTxtView.text, code != "" {
+            
+            self.verifyCode(code: code)
+            
+        } else {
+            
+            label1.backgroundColor = UIColor.placeholderText
+            label2.backgroundColor = UIColor.placeholderText
+            label3.backgroundColor = UIColor.placeholderText
+            label4.backgroundColor = UIColor.placeholderText
+            
+            label1.text = ""
+            label2.text = ""
+            label3.text = ""
+            label4.text = ""
+            
+            HidenTxtView.text = ""
+            
+            self.showErrorAlert("Ops !", msg: "Invalid code, please try again")
+            
+        }
+        
+        
+    }
 }
