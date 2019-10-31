@@ -15,12 +15,12 @@ class CampusVC: UIViewController {
     var campusList = [CampusModel]()
     var campus: String?
     var uniName: String?
+    var phoneNumber: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        
         
     }
     
@@ -80,6 +80,7 @@ class CampusVC: UIViewController {
             
             
             campus = uniName
+            
             self.performSegue(withIdentifier: "moveToEmailVC", sender: nil)
             
         } else {
@@ -121,6 +122,7 @@ class CampusVC: UIViewController {
                 destination.uniName = uniName
                 destination.campus = campus
                 destination.campusList = campusList
+                destination.phoneNumber = phoneNumber
             }
         }
         
@@ -156,8 +158,6 @@ extension CampusVC: UIPickerViewDelegate, UIPickerViewDataSource {
     
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        
-        
         
         
         CampusTxtField.text = self.campusList[row].School_Name

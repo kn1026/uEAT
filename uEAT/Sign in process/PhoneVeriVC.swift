@@ -20,6 +20,8 @@ class PhoneVeriVC: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var label2: RoundedLabel!
     @IBOutlet weak var HidenTxtView: UITextField!
     
+    var phoneNumber: String?
+    
     var verification: Verification!
     var campusList = [CampusModel]()
     
@@ -45,7 +47,7 @@ class PhoneVeriVC: UIViewController, UITextFieldDelegate {
     func getCampus(completed: @escaping DownloadComplete) {
         
         
-        DataService.instance.mainDataBaseRef.child("Available_Campus").observeSingleEvent(of: .value, with: { (schoolData) in
+        DataService.instance.mainRealTimeDataBaseRef.child("Available_Campus").observeSingleEvent(of: .value, with: { (schoolData) in
             
             if schoolData.exists() {
                 
@@ -101,6 +103,11 @@ class PhoneVeriVC: UIViewController, UITextFieldDelegate {
         
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        
+        self.view.endEditing(true)
+    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
@@ -110,6 +117,7 @@ class PhoneVeriVC: UIViewController, UITextFieldDelegate {
             {
                 
                 destination.campusList = self.campusList
+                destination.phoneNumber = phoneNumber
                 
             }
         }
@@ -409,16 +417,24 @@ class PhoneVeriVC: UIViewController, UITextFieldDelegate {
                 
                 if (success) {
                     
-                    //self.processSignIn()
+                    self.processSignIn()
                     
-    
+    /*
                     self.getCampus() {
                         
                         SwiftLoader.hide()
-                        self.performSegue(withIdentifier: "moveToCampusVC", sender: nil)
+                        
+                        if self.campusList.isEmpty != true {
+                            self.performSegue(withIdentifier: "moveToCampusVC", sender: nil)
+                        } else {
+                            self.showErrorAlert("Oops !", msg: "All campuses are not available")
+                        }
+                        
+                        
+                        
                         
                     }
-                    
+      */
                    
                     
                     
@@ -450,6 +466,363 @@ class PhoneVeriVC: UIViewController, UITextFieldDelegate {
         
         
     }
+    
+    func processSignIn() {
+         
+    
+        DataService.instance.checkPhoneUserRef.child(phoneNumber!).observeSingleEvent(of: .value, with: { (snapData) in
+                         
+                 if snapData.exists() {
+                             
+    
+                    if let postDict = snapData.value as? Dictionary<String, AnyObject> {
+                                                    
+                                                    
+                            if let email = postDict["Email"] as? String {
+                                                        
+                                Auth.auth().signIn(withEmail: email, password: dpwd, completion: { (users, error) in
+                                
+                                
+                                if error != nil {
+                                    
+                                    
+                                    self.showErrorAlert("Oops !!!", msg: error!.localizedDescription)
+                                    
+                                    return
+                                }
+                                    
+                                    let uid = users?.user.uid
+                                    
+                                    
+                                    
+                                    DataService.instance.mainFireStoreRef.collection("Users").whereField("userUID", isEqualTo: uid!).getDocuments { (snap, err) in
+                                        
+                                        if err != nil {
+                                            
+                                            self.showErrorAlert("Opss !", msg: (err!.localizedDescription))
+                                            
+                                            return
+                                            
+                                        }
+                                        
+                                        var stripe_cus = ""
+                                        var emails = ""
+                                        
+                                        var user_name = ""
+                                        var phone = ""
+                                        var birthday = ""
+                                        var campused = ""
+                                        var gender = ""
+                                        for dict in (snap?.documents)! {
+                                            
+                                            
+                                            if let emailed = dict["Email"] as? String {
+                                                
+                                                emails = emailed
+                                                
+                                            }
+                                            
+                                            if let stripe_cused = dict["stripeID"] as? String {
+                                                
+                                                stripe_cus = stripe_cused
+                                                
+                                            }
+                                            
+                                            
+                                            
+                                            if let user_named = dict["Name"] as? String {
+                                                
+                                                user_name = user_named
+                                                
+                                            }
+                                            
+                                            if let phoned = dict["Phone"] as? String {
+                                                
+                                                phone = phoned
+                                                
+                                            }
+                                            
+                                            if let birthdays = dict["Birthday"] as? String {
+                                                
+                                                birthday = birthdays
+                                                
+                                            }
+                                            
+                                            if let campus = dict["Campus"] as? String {
+                                                
+                                                
+                                               campused = campus
+                                                
+                                            }
+                                            
+                                            if let gendered = dict["Gender"] as? String {
+                                                
+                                                
+                                               gender = gendered
+                                                
+                                            }
+                                            
+                                        }
+                                        
+         
+                                        let userDict = User(uid: uid!, Phone: phone, FullName: user_name, Campus: campused, Birthday: birthday, gender: gender, stripe_cus: stripe_cus, email: emails)
+                                        
+                                        let key = "\(userDict.uid)"
+
+                                        // Add objects to the cache
+                                        try? storage.setObject(userDict, forKey: key)
+ 
+ 
+                                        
+                                        SwiftLoader.hide()
+                                        self.performSegue(withIdentifier: "moveToIntroVC2", sender: nil)
+                                        
+                                        
+                                        
+                                        
+                                        
+                                    }
+                                    
+                                    
+                                })
+                                                        
+                        }
+                        
+                    }
+                             
+                             /*
+                     if let postDict = snapData.value as? Dictionary<String, AnyObject> {
+                                 
+                                 
+                                 if let email = postDict["Email"] as? String {
+                                     
+                                     Auth.auth().signIn(withEmail: email, password: dpwd, completion: { (users, error) in
+                                         
+                                         
+                                         if error != nil {
+                                             
+                                             
+                                             self.showErrorAlert("Oops !!!", msg: error!.localizedDescription)
+                                             
+                                             return
+                                         }
+                                         
+                                     
+                                         
+                                         userUID = (users?.user.uid)!
+                                         
+                                         DataService.instance.mainDataBaseRef.child("User").child(userUID).observeSingleEvent(of: .value, with: { (snap) in
+                                             
+                                             
+                                             if snap.exists() {
+                                                 
+                                                 if let postDicts = snap.value as? Dictionary<String, AnyObject> {
+                                                     
+                                                     
+                                                     var stripe_cus = ""
+                                                     var emails = ""
+                                                     
+                                                     var user_name = ""
+                                                     var phone = ""
+                                                     var birthday = ""
+                                                     
+                                                     
+                                                     if let emailed = postDicts["email"] as? String {
+                                                         
+                                                         emails = emailed
+                                                         
+                                                     }
+                                                     
+                                                     if let stripe_cused = postDicts["stripe_cus"] as? String {
+                                                         
+                                                         stripe_cus = stripe_cused
+                                                         
+                                                     }
+                                                     
+                                                     
+                                                     
+                                                     if let user_named = postDicts["user_name"] as? String {
+                                                         
+                                                         user_name = user_named
+                                                         
+                                                     }
+                                                     
+                                                     if let phoned = postDicts["phone"] as? String {
+                                                         
+                                                         phone = phoned
+                                                         
+                                                     }
+                                                     
+                                                     if let birthdays = postDicts["birthday"] as? String {
+                                                         
+                                                         birthday = birthdays
+                                                         
+                                                     }
+                                                     
+                                                     if let campus = postDicts["campus"] as? String {
+                                                         
+                                                         
+                                                         try? InformationStorage?.setObject(campus, forKey: "campus")
+                                                         
+                                                     }
+                                                     
+                                                     if let avatarUrl = postDicts["avatarUrl"] as? String {
+                                                         
+                                                         
+                                                         if avatarUrl != "nil" {
+                                                             
+                                                             try? InformationStorage?.setObject(avatarUrl, forKey: "avatarUrl")
+                                                             
+                                                             Alamofire.request(avatarUrl).responseImage { response in
+                                                                 
+                                                                 if let image = response.result.value {
+                                                                     
+                                                                     
+                                                                     
+                                                                     let wrapper = ImageWrapper(image: image)
+                                                                     try? InformationStorage?.setObject(wrapper, forKey: "avatarImg")
+                                                                     try? InformationStorage?.setObject(avatarUrl, forKey: "avatarUrl")
+                                                                     try? InformationStorage?.setObject(phone, forKey: "phone")
+                                                                     try? InformationStorage?.setObject(stripe_cus, forKey: "stripe_cus")
+                                                                     try? InformationStorage?.setObject(emails, forKey: "email")
+                                                                     try? InformationStorage?.setObject(user_name, forKey: "user_name")
+                                                                     try? InformationStorage?.setObject(birthday, forKey: "birthday")
+                                                                     
+                                                                     
+                                                                     SwiftLoader.hide()
+                                                                     
+                                                                     let userDefaults = UserDefaults.standard
+                                                                     
+                                                                     
+                                                                     if userDefaults.bool(forKey: "hasRunIntro") == false {
+                                                                         
+                                                                         
+                                                                         // Run code here for the first launch
+                                                                         self.performSegue(withIdentifier: "moveToIntroVC2", sender: nil)
+                                                                         
+                                                                         
+                                                                     } else {
+                                                                         
+                                                                         
+                                                                         self.performSegue(withIdentifier: "moveToMapVC1", sender: nil)
+                                                                         
+                                                                         
+                                                                     }
+                                                                     
+                                                                 }
+                                                                 
+                                                                 
+                                                             }
+                                                         } else {
+                                                             
+                                                             
+                                                             
+                                                             try? InformationStorage?.setObject(phone, forKey: "phone")
+                                                             try? InformationStorage?.setObject(stripe_cus, forKey: "stripe_cus")
+                                                             try? InformationStorage?.setObject(emails, forKey: "email")
+                                                             try? InformationStorage?.setObject(user_name, forKey: "user_name")
+                                                             try? InformationStorage?.setObject(birthday, forKey: "birthday")
+                                                             
+                                                             
+                                                             SwiftLoader.hide()
+                                                             
+                                                             
+                                                             let userDefaults = UserDefaults.standard
+                                                             
+                                                             
+                                                             if userDefaults.bool(forKey: "hasRunIntro") == false {
+                                                                 
+                                                                 
+                                                                 // Run code here for the first launch
+                                                                 self.performSegue(withIdentifier: "moveToIntroVC2", sender: nil)
+                                                                 
+                                                                 
+                                                             } else {
+                                                                 
+                                                                 
+                                                                 self.performSegue(withIdentifier: "moveToMapVC1", sender: nil)
+                                                                 
+                                                                 
+                                                             }
+                                                             
+                                                             
+                                                         }
+                                                         
+                                                         
+                                                         
+                                                     }
+                                                     
+                                                     
+                                                     
+                                                     
+                                                     
+                                                     
+                                                     
+                                                     
+                                                     
+                                                 }
+                                                 
+                                             } else {
+                                                 
+                                                 print(error?.localizedDescription as Any)
+                                                 self.showErrorAlert("Oops !!!", msg: "Error Occured, Can't find data")
+                                                 
+                                                 return
+                                                 
+                                                 
+                                             }
+                                             
+                                             
+                                             
+                                         })
+                                         
+                                         
+                                         
+                                     })
+                                     
+                                     
+                                 }
+                                 
+                                 
+                             }
+                             
+                             
+                             */
+                             
+                             
+                             
+                         } else {
+                             
+
+                     
+                     
+                             self.getCampus() {
+                                 
+                                 SwiftLoader.hide()
+                                 self.performSegue(withIdentifier: "moveToCampusVC", sender: nil)
+                                 
+                             }
+                     
+                     
+                     
+                             
+                     
+                     
+                             
+                             
+                         }
+                         
+                         
+                         
+                     })
+                     
+                     
+                     
+                     
+         
+     
+         
+     }
     
 
     @IBAction func NextBtnPressed(_ sender: Any) {

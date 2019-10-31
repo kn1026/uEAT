@@ -19,7 +19,8 @@ class EmailVC: UIViewController {
     var campus: String?
     var uniName: String?
     var campusList = [CampusModel]()
-    var email: String?
+    var emailFinal: String?
+    var phoneNumber: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,7 +82,7 @@ class EmailVC: UIViewController {
                     
                 }
                 
-                self.email = finalEmail
+                self.emailFinal = finalEmail
                  
                 swiftLoader()
                  
@@ -117,7 +118,7 @@ class EmailVC: UIViewController {
                 
                 Auth.auth().createUser(withEmail: finalEmail, password: dpwd, completion: { (user, error) in
                     
-                    
+                    self.emailFinal = finalEmail
                     
                     if error != nil {
 
@@ -256,6 +257,13 @@ class EmailVC: UIViewController {
         
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        
+        self.view.endEditing(true)
+        
+    }
+    
     
     // func show error alert
     
@@ -294,6 +302,23 @@ class EmailVC: UIViewController {
         
         
         
+        
+        
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        
+        
+        if segue.identifier == "moveToEmailVerificationVC"{
+            if let destination = segue.destination as? EmailVerificationVC{
+                destination.uniName = uniName
+                destination.campus = campus
+                destination.phoneNumber = phoneNumber
+                destination.email = emailFinal
+                
+            }
+        }
         
         
     }

@@ -20,6 +20,8 @@ class PhoneVC: UIViewController, UITextFieldDelegate {
     
     var verification: Verification!
     
+    var phoneNumber: String?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -100,9 +102,11 @@ class PhoneVC: UIViewController, UITextFieldDelegate {
     
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
         let newString = (textField.text! as NSString).replacingCharacters(in: range, with: string)
         textField.text = formattedNumber(number: newString)
         return false
+        
     }
     
     private func formattedNumber(number: String) -> String {
@@ -162,6 +166,9 @@ class PhoneVC: UIViewController, UITextFieldDelegate {
                     finalPhone = "+1\(converted)"
                     
                 }
+                
+                
+                
                   
                   
                   self.verification = SMSVerification(applicationKey, phoneNumber: finalPhone)
@@ -179,6 +186,8 @@ class PhoneVC: UIViewController, UITextFieldDelegate {
                       }
                       
                       SwiftLoader.hide()
+                    
+                      self.phoneNumber = finalPhone
                       self.performSegue(withIdentifier: "moveToPhoneVeriVC", sender: nil)
                       
                       
@@ -205,6 +214,7 @@ class PhoneVC: UIViewController, UITextFieldDelegate {
                 
              
                 destination.verification = verification
+                destination.phoneNumber = phoneNumber
                 
             }
         }
@@ -233,6 +243,12 @@ class PhoneVC: UIViewController, UITextFieldDelegate {
         
         
         return stringRepresentation
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        
+        self.view.endEditing(true)
     }
     
 }

@@ -12,28 +12,8 @@ import UIKit
 import CoreLocation
 
 
+let cuisine_list = ["American", "Vietnamese", "Japanese", "French", "Mexian", "Italian", "Thai", "Indian", "Thai", "Malay", "Turkish", "Spanish", "Chinese", "Filipino", "Greek", "Indonesian", "Swedish", "Jewish", "German", "Korean", "Irish"]
 
-let State = ["Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", " Massachusetts", "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"]
-
-let AState = ["AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA", "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ", "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY"]
-
-
-let Unidict = ["Plymouth State University": "@plymouth.edu",
-            "University of New Hampshire": "@wildcats.unh.edu",
-            "Keene State College": "@ksc.keene.edu",
-    "University of Vermont": "@uvm.edu",
-    "Champlain College": "@mymail.champlain.edu",
-    "UMass Amherst": "@umass.edu",
-    "Clark University": "@clarku.edu",
-    "WPI": "@wpi.edu",
-    "Holy Cross": "@g.holycross.edu",
-    "Assumption": "@my.assumption.edu",
-    "Worcester State University": "@worcester.edu",
-    "University of Connecticut": "@uconn.edu",
-    "University of Rhode Island": "@my.uri.edu", "Campus-connect-test" : "Campus-connect-test"]
-
-
-let uniList = ["Assumption", "Champlain College", "Clark University", "Holy Cross", "Keene State College", "Plymouth State University", "UMass Amherst", "University of Connecticut", "University of New Hampshire", "University of Rhode Island", "University of Vermont", "WPI", "Worcester State University", "Campus-connect-test"]
 
 
 let googleMap_Key = "AIzaSyAAYuBDXTubo_qcayPX6og_MrWq9-iM_KE"
@@ -98,12 +78,17 @@ var DestinationLocation = CLLocationCoordinate2D()
 var pickUpAddress = ""
 var destinationAddress = ""
 
-/*
+
 let diskConfig = DiskConfig(name: "Floppy")
 let memoryConfig = MemoryConfig(expiry: .never, countLimit: 10, totalCostLimit: 10)
+let storage = try! Storage(
+  diskConfig: diskConfig,
+  memoryConfig: memoryConfig,
+  transformer: TransformerFactory.forCodable(ofType: User.self)
+)
 
-let InformationStorage = try? Storage(diskConfig: diskConfig, memoryConfig: memoryConfig)
-*/
+
+
 
 
 var isShippingDone = false
@@ -231,4 +216,45 @@ func delay(_ seconds: Double, completion:@escaping ()->()) {
 
 func secondsToHoursMinutesSeconds (seconds : Int) -> (Int, Int, Int) {
     return (seconds / 3600, (seconds % 3600) / 60, (seconds % 3600) % 60)
+}
+
+
+extension Double {
+    func roundTo(places: Int) -> Double {
+        let divisor = pow(10.0, Double(places))
+        return (self * divisor).rounded() / divisor
+    }
+}
+
+
+extension DispatchQueue {
+    
+    static func background(delay: Double = 0.0, background: (()->Void)? = nil, completion: (() -> Void)? = nil) {
+        DispatchQueue.global(qos: .background).async {
+            background?()
+            if let completion = completion {
+                DispatchQueue.main.asyncAfter(deadline: .now() + delay, execute: {
+                    completion()
+                })
+            }
+        }
+    }
+    
+}
+extension StringProtocol {
+    var firstUppercased: String {
+        guard let first = first else { return "" }
+        return String(first).uppercased() + dropFirst()
+    }
+}
+
+extension Array where Element: Comparable {
+    func containsSameElements(as other: [Element]) -> Bool {
+        return self.count == other.count && self.sorted() == other.sorted()
+    }
+}
+extension Date {
+    func addedBy(minutes:Int) -> Date {
+        return Calendar.current.date(byAdding: .minute, value: minutes, to: self)!
+    }
 }

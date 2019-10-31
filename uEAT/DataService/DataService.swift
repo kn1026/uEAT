@@ -9,10 +9,6 @@
 import Foundation
 
 
-import Foundation
-
-let FIR_CHILD_USERS = "User_Info"
-let main = "uEAT"
 
 import Foundation
 import Firebase
@@ -30,28 +26,31 @@ class DataService {
         return _instance
     }
     
-    var mainDataBaseRef: DatabaseReference {
-        return Database.database().reference().child(main)
+    var mainRealTimeDataBaseRef: DatabaseReference {
+        return Database.database().reference()
     }
     
-    var fcmTokenUserRef: DatabaseReference {
-        return mainDataBaseRef.child("fcmToken")
+    var mainFireStoreRef: Firestore {
+        return Firestore.firestore()
     }
-  
+    
     var checkPhoneUserRef: DatabaseReference {
-        return mainDataBaseRef.child("Phone")
+        return mainRealTimeDataBaseRef.child("Phone")
     }
     
     var checkEmailUserRef: DatabaseReference {
-        return mainDataBaseRef.child("Email")
-    }
-    
-    var UsersRef: DatabaseReference {
-        return mainDataBaseRef.child(FIR_CHILD_USERS)
+        return mainRealTimeDataBaseRef.child("Email")
     }
 
     let connectedRef = Database.database().reference(withPath: ".info/connected")
     
     
+    var mainStorageRef: StorageReference {
+        return Storage.storage().reference(forURL: "gs://ueat-4397e.appspot.com")
+    }
+    
+    var CuisineStorageRef: StorageReference {
+        return mainStorageRef.child("Cuisine")
+    }
     
 }

@@ -7,15 +7,26 @@
 //
 
 import UIKit
+import GooglePlaces
+import Stripe
 import Firebase
+import UserNotifications
+
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
+    private let baseURLString: String = "https://obscure-cliffs-52108.herokuapp.com/"
+    private let appleMerchantIdentifier: String = "merchant.campusConnectPay"
+    private let publishableKey: String = Stripe_key
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        
+        STPPaymentConfiguration.shared().publishableKey = Stripe_key
         
         
         FirebaseApp.configure()
@@ -35,6 +46,38 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
+    
+    
+    func applicationWillTerminate(_ application: UIApplication) {
+         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+     }
+     
+    
+     
+     
+     class func getAppDelegate() -> AppDelegate {
+         return UIApplication.shared.delegate as! AppDelegate
+     }
+     
+     override init() {
+         super.init()
+         
+         // Stripe payment configuration
+         STPPaymentConfiguration.shared().companyName = "Campus Connect LLC"
+         
+         if !publishableKey.isEmpty {
+             STPPaymentConfiguration.shared().publishableKey = publishableKey
+         }
+         
+         if !appleMerchantIdentifier.isEmpty {
+             STPPaymentConfiguration.shared().appleMerchantIdentifier = appleMerchantIdentifier
+         }
+
+         // Main API client configuration
+         MainAPIClient.shared.baseURLString = baseURLString
+         
+         
+     }
 
 
 }

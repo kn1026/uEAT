@@ -11,6 +11,12 @@ import Firebase
 import FirebaseAuth
 
 class EmailVerificationVC: UIViewController {
+    
+    
+    var phoneNumber: String?
+    var email: String?
+    var campus: String?
+    var uniName: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,6 +64,24 @@ class EmailVerificationVC: UIViewController {
                 
             }
         })
+        
+    }
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        
+        
+        if segue.identifier == "moveToPersonalVC"{
+            if let destination = segue.destination as? PersonalInfoVC {
+                destination.uniName = uniName
+                destination.campus = campus
+                destination.phoneNumber = phoneNumber
+                destination.email = email
+                
+            }
+        }
+        
         
     }
     
