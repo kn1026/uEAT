@@ -12,10 +12,6 @@ import UIKit
 import CoreLocation
 
 
-let cuisine_list = ["American", "Vietnamese", "Japanese", "French", "Mexian", "Italian", "Thai", "Indian", "Thai", "Malay", "Turkish", "Spanish", "Chinese", "Filipino", "Greek", "Indonesian", "Swedish", "Jewish", "German", "Korean", "Irish"]
-
-
-
 let googleMap_Key = "AIzaSyAAYuBDXTubo_qcayPX6og_MrWq9-iM_KE"
 let googlePlace_key = "AIzaSyAAYuBDXTubo_qcayPX6og_MrWq9-iM_KE"
 let Stripe_key = "pk_live_1AA3PY5adk3jGDL1Eo5Db3PZ"
@@ -23,40 +19,13 @@ var applicationKey = "fd466555-559c-447e-95a0-4cc5ffbf303c"
 let stripe_test_key = "pk_test_9edrI9MoXrXoYp591KT93gxW"
 let dpwd = "ooewiuroiweyuruwehrgwehfgdsjhf"
 
-
-var createdPhone = ""
-let Shadow_Gray: CGFloat = 120.0 / 255.0
-let space = "   "
 var testEmailed = ""
-var placeName = ""
-var pickUp_add_Name = ""
-var trip_key_request = ""
-var backgroundMode = false
+var stripeID = ""
+
+let Shadow_Gray: CGFloat = 120.0 / 255.0
 typealias DownloadComplete = () -> ()
 
-var userUID = ""
-var stripeID = ""
-var userType = ""
-var placeID1 = ""
-var placeID2 = ""
 
-
-var isSelected = false
-
-var basePrice = ""
-var finalPrice = ""
-var finalDistance = ""
-
-var defaultCardID = ""
-var chargedCardID = ""
-var chargedlast4Digit = ""
-var chargedCardBrand = ""
-
-
-
-var cardID = ""
-var cardBrand = ""
-var cardLast4Digits = ""
 
 var ratio_width = 414
 var ratio_height = 896
@@ -64,19 +33,6 @@ var ratio_height = 896
 
 let BColor = UIColor(red: 226, green: 221, blue: 0, alpha: 1)
 
-
-var defaultBrand = ""
-var defaultcardLast4Digits = ""
-
-
-
-var isCancelShow = false
-
-var pickUpLocation = CLLocationCoordinate2D()
-var DestinationLocation = CLLocationCoordinate2D()
-
-var pickUpAddress = ""
-var destinationAddress = ""
 
 
 let diskConfig = DiskConfig(name: "Floppy")
@@ -89,32 +45,6 @@ let storage = try! Storage(
 
 
 
-
-
-var isShippingDone = false
-var isCarRegistrationDone = false
-var DriverLicsCheck = false
-var LicsPlate = false
-var photoOfCar = false
-var socialSecurity = false
-var faceID = false
-
-
-var socialSecurityNum: String?
-var LicPlateImg: UIImage?
-var DriverLicImg: UIImage?
-var CarRegistImg: UIImage?
-var Car1Photo: UIImage?
-var Car2Photo: UIImage?
-var faceIDPhoto: UIImage?
-
-var Selectedadd1Txt = ""
-var Selectedadd2Txt = ""
-var SelectedCityTxt = ""
-var SelectedStateTxt = ""
-var SelectedzipcodeTxt = ""
-var DriverLicsFinal = ""
-var StateLicsFinal = ""
 
 
 func resizeImage(image: UIImage, targetSize: CGSize) -> UIImage {
@@ -257,4 +187,15 @@ extension Date {
     func addedBy(minutes:Int) -> Date {
         return Calendar.current.date(byAdding: .minute, value: minutes, to: self)!
     }
+}
+
+
+func applyShadowOnView(_ view:UIView) {
+
+    view.layer.cornerRadius = 8
+    view.layer.shadowColor = UIColor.lightGray.cgColor
+    view.layer.shadowOpacity = 1
+    view.layer.shadowOffset = CGSize.zero
+    view.layer.shadowRadius = 3
+
 }

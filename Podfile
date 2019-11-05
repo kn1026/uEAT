@@ -35,6 +35,7 @@ target 'uEAT' do
     pod 'FireStore'
     pod 'Firebase/Core'
     pod 'Firebase/Firestore'
+    pod "ESTabBarController-swift"
 
 
   use_frameworks!

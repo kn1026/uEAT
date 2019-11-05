@@ -11,7 +11,7 @@ import UIKit
 class Intro2VC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     
     
-    
+    var itemList = [String]()
     
     @IBOutlet weak var collectionView: UICollectionView!
     var cuisineList = [Cuisine_model]()
@@ -86,12 +86,35 @@ class Intro2VC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
             
         }
         
+        let item = cuisineList[indexPath.row]
+        itemList.append(item.name)
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         
         let cell = collectionView.cellForItem(at: indexPath as IndexPath)
         cell!.layer.borderColor = UIColor.clear.cgColor
+        
+        let item = cuisineList[indexPath.row]
+        
+        
+        var count = 0
+        for x in itemList {
+ 
+            if let name = item.name {
+                
+                if x == name {
+                    
+                    itemList.remove(at: count)
+                    
+                }
+                
+            }
+            
+            count += 1
+            
+        }
         
     }
     
@@ -144,7 +167,33 @@ class Intro2VC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
     
     @IBAction func NextBtnPressed(_ sender: Any) {
         
-        self.performSegue(withIdentifier: "moveToIntro3VC", sender: nil)
+        
+        if itemList.isEmpty == true {
+            
+            self.showErrorAlert("Opss !", msg: "Please choose at least one cuisine as your favorite")
+            
+        } else {
+            
+            self.performSegue(withIdentifier: "moveToIntro3VC", sender: nil)
+            
+        }
+         
+        
+        
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        
+        
+        if segue.identifier == "moveToIntro3VC"{
+            if let destination = segue.destination as? Intro3VC {
+                
+                destination.itemList = itemList
+                
+            }
+        }
+        
         
     }
 }

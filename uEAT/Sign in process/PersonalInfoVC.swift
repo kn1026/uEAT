@@ -266,7 +266,7 @@ class PersonalInfoVC: UIViewController, UITextFieldDelegate, ZSWTappableLabelTap
 
                 let userUID = Auth.auth().currentUser?.uid
 
-                let user = Register_User(
+                let user = Register_User (
                     name: self.FullNameTxt.text!,
                     gender: self.GenderTxt.text!,
                     campus: self.uniName!,
@@ -287,8 +287,7 @@ class PersonalInfoVC: UIViewController, UITextFieldDelegate, ZSWTappableLabelTap
                         
                     } else {
                         
-                        
-                        
+
                         guard let fcmToken = Messaging.messaging().fcmToken else { return }
                             
                         DataService.instance.checkEmailUserRef.child(testEmailed).setValue(["Timestamp": ServerValue.timestamp()])
@@ -311,6 +310,8 @@ class PersonalInfoVC: UIViewController, UITextFieldDelegate, ZSWTappableLabelTap
                         }
                             
                         SwiftLoader.hide()
+                        
+                        
                         self.performSegue(withIdentifier: "moveToIntroVC", sender: nil)
                         
                     }

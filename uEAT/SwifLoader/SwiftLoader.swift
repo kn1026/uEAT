@@ -222,9 +222,7 @@ public class SwiftLoader: UIView {
         self.cancelButton.addTarget(self, action: #selector(self.cancelBtnPressed), for: .touchUpInside)
         self.addSubview(cancelButton)
         
-        isCancelShow = true
-        
-        
+
     }
     
     
@@ -233,8 +231,7 @@ public class SwiftLoader: UIView {
         NotificationCenter.default.removeObserver(self, name: (NSNotification.Name(rawValue: "DisableCancel")), object: nil)
         NotificationCenter.default.post(name: (NSNotification.Name(rawValue: "cancelRide")), object: nil)
         cancelButton.removeFromSuperview()
-        isCancelShow = false
-        
+       
         
     }
     
@@ -244,9 +241,7 @@ public class SwiftLoader: UIView {
         NotificationCenter.default.removeObserver(self, name: (NSNotification.Name(rawValue: "DisableCancel")), object: nil)
 
         cancelButton.removeFromSuperview()
-        
-        isCancelShow = false
-        
+
         
     }
     

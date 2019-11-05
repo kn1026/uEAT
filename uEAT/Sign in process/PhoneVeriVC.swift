@@ -572,15 +572,34 @@ class PhoneVeriVC: UIViewController, UITextFieldDelegate {
                                         // Add objects to the cache
                                         try? storage.setObject(userDict, forKey: key)
  
- 
+                                        
                                         
                                         SwiftLoader.hide()
-                                        self.performSegue(withIdentifier: "moveToIntroVC2", sender: nil)
                                         
+                                        DataService.instance.mainFireStoreRef.collection("Cuisine_preference").whereField("userUID", isEqualTo: uid!).getDocuments { (snap, err) in
                                         
+                                        if err != nil {
+                                            
+                                            self.showErrorAlert("Opss !", msg: (err!.localizedDescription))
+                                            
+                                            return
+                                            
+                                        }
+                                            
+                                            if snap?.isEmpty == true {
+                                                
+                                                self.performSegue(withIdentifier: "moveToIntroVC2", sender: nil)
+                                                
+                                            } else {
+                                                
+                                                self.performSegue(withIdentifier: "moveToHomeVC", sender: nil)
+                                                
+                                            }
+                                                 
+                                            
+                                        }
                                         
-                                        
-                                        
+  
                                     }
                                     
                                     
@@ -589,207 +608,7 @@ class PhoneVeriVC: UIViewController, UITextFieldDelegate {
                         }
                         
                     }
-                             
-                             /*
-                     if let postDict = snapData.value as? Dictionary<String, AnyObject> {
-                                 
-                                 
-                                 if let email = postDict["Email"] as? String {
-                                     
-                                     Auth.auth().signIn(withEmail: email, password: dpwd, completion: { (users, error) in
-                                         
-                                         
-                                         if error != nil {
-                                             
-                                             
-                                             self.showErrorAlert("Oops !!!", msg: error!.localizedDescription)
-                                             
-                                             return
-                                         }
-                                         
-                                     
-                                         
-                                         userUID = (users?.user.uid)!
-                                         
-                                         DataService.instance.mainDataBaseRef.child("User").child(userUID).observeSingleEvent(of: .value, with: { (snap) in
-                                             
-                                             
-                                             if snap.exists() {
-                                                 
-                                                 if let postDicts = snap.value as? Dictionary<String, AnyObject> {
-                                                     
-                                                     
-                                                     var stripe_cus = ""
-                                                     var emails = ""
-                                                     
-                                                     var user_name = ""
-                                                     var phone = ""
-                                                     var birthday = ""
-                                                     
-                                                     
-                                                     if let emailed = postDicts["email"] as? String {
-                                                         
-                                                         emails = emailed
-                                                         
-                                                     }
-                                                     
-                                                     if let stripe_cused = postDicts["stripe_cus"] as? String {
-                                                         
-                                                         stripe_cus = stripe_cused
-                                                         
-                                                     }
-                                                     
-                                                     
-                                                     
-                                                     if let user_named = postDicts["user_name"] as? String {
-                                                         
-                                                         user_name = user_named
-                                                         
-                                                     }
-                                                     
-                                                     if let phoned = postDicts["phone"] as? String {
-                                                         
-                                                         phone = phoned
-                                                         
-                                                     }
-                                                     
-                                                     if let birthdays = postDicts["birthday"] as? String {
-                                                         
-                                                         birthday = birthdays
-                                                         
-                                                     }
-                                                     
-                                                     if let campus = postDicts["campus"] as? String {
-                                                         
-                                                         
-                                                         try? InformationStorage?.setObject(campus, forKey: "campus")
-                                                         
-                                                     }
-                                                     
-                                                     if let avatarUrl = postDicts["avatarUrl"] as? String {
-                                                         
-                                                         
-                                                         if avatarUrl != "nil" {
-                                                             
-                                                             try? InformationStorage?.setObject(avatarUrl, forKey: "avatarUrl")
-                                                             
-                                                             Alamofire.request(avatarUrl).responseImage { response in
-                                                                 
-                                                                 if let image = response.result.value {
-                                                                     
-                                                                     
-                                                                     
-                                                                     let wrapper = ImageWrapper(image: image)
-                                                                     try? InformationStorage?.setObject(wrapper, forKey: "avatarImg")
-                                                                     try? InformationStorage?.setObject(avatarUrl, forKey: "avatarUrl")
-                                                                     try? InformationStorage?.setObject(phone, forKey: "phone")
-                                                                     try? InformationStorage?.setObject(stripe_cus, forKey: "stripe_cus")
-                                                                     try? InformationStorage?.setObject(emails, forKey: "email")
-                                                                     try? InformationStorage?.setObject(user_name, forKey: "user_name")
-                                                                     try? InformationStorage?.setObject(birthday, forKey: "birthday")
-                                                                     
-                                                                     
-                                                                     SwiftLoader.hide()
-                                                                     
-                                                                     let userDefaults = UserDefaults.standard
-                                                                     
-                                                                     
-                                                                     if userDefaults.bool(forKey: "hasRunIntro") == false {
-                                                                         
-                                                                         
-                                                                         // Run code here for the first launch
-                                                                         self.performSegue(withIdentifier: "moveToIntroVC2", sender: nil)
-                                                                         
-                                                                         
-                                                                     } else {
-                                                                         
-                                                                         
-                                                                         self.performSegue(withIdentifier: "moveToMapVC1", sender: nil)
-                                                                         
-                                                                         
-                                                                     }
-                                                                     
-                                                                 }
-                                                                 
-                                                                 
-                                                             }
-                                                         } else {
-                                                             
-                                                             
-                                                             
-                                                             try? InformationStorage?.setObject(phone, forKey: "phone")
-                                                             try? InformationStorage?.setObject(stripe_cus, forKey: "stripe_cus")
-                                                             try? InformationStorage?.setObject(emails, forKey: "email")
-                                                             try? InformationStorage?.setObject(user_name, forKey: "user_name")
-                                                             try? InformationStorage?.setObject(birthday, forKey: "birthday")
-                                                             
-                                                             
-                                                             SwiftLoader.hide()
-                                                             
-                                                             
-                                                             let userDefaults = UserDefaults.standard
-                                                             
-                                                             
-                                                             if userDefaults.bool(forKey: "hasRunIntro") == false {
-                                                                 
-                                                                 
-                                                                 // Run code here for the first launch
-                                                                 self.performSegue(withIdentifier: "moveToIntroVC2", sender: nil)
-                                                                 
-                                                                 
-                                                             } else {
-                                                                 
-                                                                 
-                                                                 self.performSegue(withIdentifier: "moveToMapVC1", sender: nil)
-                                                                 
-                                                                 
-                                                             }
-                                                             
-                                                             
-                                                         }
-                                                         
-                                                         
-                                                         
-                                                     }
-                                                     
-                                                     
-                                                     
-                                                     
-                                                     
-                                                     
-                                                     
-                                                     
-                                                     
-                                                 }
-                                                 
-                                             } else {
-                                                 
-                                                 print(error?.localizedDescription as Any)
-                                                 self.showErrorAlert("Oops !!!", msg: "Error Occured, Can't find data")
-                                                 
-                                                 return
-                                                 
-                                                 
-                                             }
-                                             
-                                             
-                                             
-                                         })
-                                         
-                                         
-                                         
-                                     })
-                                     
-                                     
-                                 }
-                                 
-                                 
-                             }
-                             
-                             
-                             */
-                             
-                             
+   
                              
                          } else {
                              

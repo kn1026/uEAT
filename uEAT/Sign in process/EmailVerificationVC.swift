@@ -42,8 +42,7 @@ class EmailVerificationVC: UIViewController {
         Auth.auth().currentUser?.reload(completion: { (err) in
             if err == nil{
                 
-                userUID = (Auth.auth().currentUser?.uid)!
-                
+            
                 
                 if Auth.auth().currentUser?.isEmailVerified != true {
                     

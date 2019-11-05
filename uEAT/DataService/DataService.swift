@@ -41,6 +41,10 @@ class DataService {
     var checkEmailUserRef: DatabaseReference {
         return mainRealTimeDataBaseRef.child("Email")
     }
+    
+    var checkDefaultUserRef: DatabaseReference {
+        return mainRealTimeDataBaseRef.child("Default_card")
+    }
 
     let connectedRef = Database.database().reference(withPath: ".info/connected")
     
