@@ -1194,17 +1194,17 @@
             <objects>
                 <viewController modalPresentationStyle="fullScreen" id="1x0-d7-Sps" customClass="HomeVC" customModule="uEAT" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="dzQ-V2-K8x">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HomeView" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mXc-6Q-5Tb">
-                                <rect key="frame" x="146.5" y="323.5" width="82" height="20.5"/>
+                                <rect key="frame" x="146.5" y="313.5" width="82" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="pl6-m8-8Sc">
-                                <rect key="frame" x="8" y="118" width="359" height="495"/>
+                                <rect key="frame" x="8" y="118" width="359" height="475"/>
                                 <color key="backgroundColor" red="0.94913083310000002" green="0.95262747999999997" blue="0.96304458380000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="C8Q-6N-izh">
                                     <size key="itemSize" width="50" height="50"/>
@@ -1621,6 +1621,7 @@
                             <constraint firstItem="k8j-Tq-sYT" firstAttribute="leading" secondItem="woM-3N-8yu" secondAttribute="leadingMargin" constant="20" id="wN7-Rw-cSB"/>
                             <constraint firstItem="2l3-4e-fWx" firstAttribute="leading" secondItem="woM-3N-8yu" secondAttribute="leadingMargin" constant="20" id="whh-LJ-6Ej"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="2ya-bd-6np"/>
                     </view>
                     <navigationItem key="navigationItem" id="EcL-0d-zRd"/>
                 </viewController>
@@ -1879,10 +1880,12 @@
                             <constraint firstItem="Fty-tE-qKQ" firstAttribute="leading" secondItem="RIE-8F-dig" secondAttribute="leadingMargin" constant="23" id="kRF-7e-ydG"/>
                             <constraint firstItem="Q32-hF-WCq" firstAttribute="leading" secondItem="RIE-8F-dig" secondAttribute="leadingMargin" id="vD5-vx-BOz"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="jMm-Iy-pkl"/>
                     </view>
                     <navigationItem key="navigationItem" id="3ae-gA-Du1"/>
                     <connections>
                         <outlet property="tableView" destination="Q32-hF-WCq" id="NLJ-w4-HrA"/>
+                        <segue destination="xXQ-2C-0Lq" kind="show" identifier="MoveToAddCardVC" id="hy5-hd-vhv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2Z4-ap-JlB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1892,17 +1895,18 @@
         <!--View Controller-->
         <scene sceneID="kS7-jE-6z5">
             <objects>
-                <viewController id="xXQ-2C-0Lq" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="fullScreen" id="xXQ-2C-0Lq" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Lfk-iD-x8q">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="dmU-ip-dxu"/>
                     </view>
+                    <navigationItem key="navigationItem" id="RlW-AC-orf"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="10V-HY-FrI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5702" y="3197"/>
+            <point key="canvasLocation" x="5770" y="3197"/>
         </scene>
         <!--Home PageVC-->
         <scene sceneID="Qg3-YB-bkH">

@@ -12,16 +12,18 @@ import Stripe
 import Alamofire
 import MGSwipeTableCell
 import Firebase
+import SquareInAppPaymentsSDK
 
-class PaymentVC: UIViewController, UITableViewDelegate, UITableViewDataSource, MGSwipeTableCellDelegate {
+class PaymentVC: UIViewController, UITableViewDelegate, UITableViewDataSource, MGSwipeTableCellDelegate, STPAddCardViewControllerDelegate {
 
+    var theme = STPTheme.default()
     @IBOutlet weak var tableView: UITableView!
     var defaultID = ""
     
     let SupportedPaymentNetworks = [PKPaymentNetwork.visa, PKPaymentNetwork.masterCard, PKPaymentNetwork.amex, PKPaymentNetwork.discover]
     
     var paymentArr = [PaymentModel]()
-    //var listCard = [[PaymentModel]]()
+    let themeViewController = ThemeViewController()
 
     
     override func viewDidLoad() {
@@ -182,14 +184,7 @@ class PaymentVC: UIViewController, UITableViewDelegate, UITableViewDataSource, M
             
             if let cell = tableView.dequeueReusableCell(withIdentifier: "PaymentCell") as? PaymentCell {
                 
-                if indexPath.row > 0 {
-                    
-                    let lineFrame = CGRect(x:20, y:0, width: Double(self.view.frame.width) - 42, height: 1)
-                    let line = UIView(frame: lineFrame)
-                    line.backgroundColor = UIColor.lightGray
-                    cell.addSubview(line)
-                    
-                }
+                
                 //cell.delegate = self
                 cell.configureCell(payment)
                 
@@ -223,12 +218,101 @@ class PaymentVC: UIViewController, UITableViewDelegate, UITableViewDataSource, M
     
     @objc func addCardBtnPressed() {
         
-        print("Pressed")
         //NotificationCenter.default.addObserver(self, selector: #selector(PaymentVC.refreshPayment), name: (NSNotification.Name(rawValue: "refreshPayment")), object: nil)
-        //self.performSegue(withIdentifier: "moveTochoosePaymentVC", sender: nil)
+       let config = STPPaymentConfiguration()
+       config.requiredBillingAddressFields = .zip
+       config.publishableKey = Stripe_key
+       let viewController = STPAddCardViewController(configuration: config, theme: theme)
+       viewController.delegate = self
+       let navigationController = UINavigationController(rootViewController: viewController)
+       navigationController.navigationBar.stp_theme = theme
+       present(navigationController, animated: true, completion: nil)
         
         
     }
+    
+    func addCardViewControllerDidCancel(_ addCardViewController: STPAddCardViewController) {
+        
+        dismiss(animated: true, completion: nil)
+    }
+
+    func addCardViewController(_ addCardViewController: STPAddCardViewController, didCreatePaymentMethod paymentMethod: STPPaymentMethod, completion: @escaping STPErrorBlock) {
+        
+        dismiss(animated: true, completion: nil)
+        
+        swiftLoader()
+        
+        let payment = paymentMethod
+        
+        //var card: STPCardParams = STPCardParams()
+        
+        let token = payment.stripeId
+        
+        if let uid = Auth.auth().currentUser?.uid, uid != "" {
+                   
+                // Fetch object from the cache
+                storage.async.object(forKey: uid) { result in
+                switch result {
+                                    
+                    case .value(let user):
+                        
+                        self.update_card(stripe_uid: user.stripe_cus, token: token)
+                                    
+                    case .error( _):
+                        
+                        break
+                    
+                }
+            }
+            
+        }
+        
+    }
+    
+    func update_card(stripe_uid: String, token: String) {
+        
+        let url = MainAPIClient.shared.baseURLString
+        let urlss = URL(string: url!)?.appendingPathComponent("update_methodcard")
+        
+        Alamofire.request(urlss!, method: .post, parameters: [
+            
+            "cus_id": stripe_uid,
+            "source": token
+            
+            ])
+            
+            .validate(statusCode: 200..<500)
+            .responseJSON { responseJSON in
+                
+                switch responseJSON.result {
+                    
+                case .success( _):
+                    
+                    
+                //DataService.instance.mainRealTimeDataBaseRef.child("fingerPrint").child(userUID).child(fingerprint).setValue(["Timestamp": ServerValue.timestamp()])
+                SwiftLoader.hide()
+            
+                    
+                    
+                case .failure(let errors):
+                    
+                    SwiftLoader.hide()
+                    print(errors.localizedDescription)
+                    self.showErrorAlert("Oopps !!!", msg: "Invalid card, please re-type or use another card")
+                    
+                    
+                }
+                
+                
+                
+        }
+        
+        
+    }
+    
+    
+    
+    
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
@@ -337,3 +421,5 @@ class PaymentVC: UIViewController, UITableViewDelegate, UITableViewDataSource, M
     }
     
 }
+
+

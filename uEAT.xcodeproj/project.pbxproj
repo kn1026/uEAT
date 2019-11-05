@@ -29,6 +29,12 @@
 		6A0EC78C2371656100E70DEA /* PaymentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0EC78B2371656000E70DEA /* PaymentModel.swift */; };
 		6A0EC7902371EF1200E70DEA /* PaymentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0EC78F2371EF1200E70DEA /* PaymentCell.swift */; };
 		6A0EC7932371FAE200E70DEA /* addNewPaymentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0EC7922371FAE100E70DEA /* addNewPaymentCell.swift */; };
+		6A15EAA523721DCC006A93D7 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A15EAA423721DCC006A93D7 /* Color.swift */; };
+		6A15EAA723721EB9006A93D7 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A15EAA623721EB9006A93D7 /* Constants.swift */; };
+		6A15EAAC23721FC6006A93D7 /* HalfSheetPresentationControllerHeightProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A15EAAB23721FC6006A93D7 /* HalfSheetPresentationControllerHeightProtocol.swift */; };
+		6A15EAAE23722005006A93D7 /* extension-UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A15EAAD23722004006A93D7 /* extension-UIView.swift */; };
+		6A15EAB023722581006A93D7 /* ThemeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A15EAAF23722581006A93D7 /* ThemeViewController.swift */; };
+		6A15EAB2237225A4006A93D7 /* CardFieldViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A15EAB1237225A3006A93D7 /* CardFieldViewController.swift */; };
 		6A1B8B842364FA6100E22CD9 /* Register_User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1B8B832364FA6100E22CD9 /* Register_User.swift */; };
 		6A1B8B872367D45100E22CD9 /* IntroVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1B8B862367D45100E22CD9 /* IntroVC.swift */; };
 		6A1B8B8A2367F47600E22CD9 /* user.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1B8B892367F47600E22CD9 /* user.swift */; };
@@ -97,7 +103,7 @@
 		6A0EC76C236EB5E700E70DEA /* HomePageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageVC.swift; sourceTree = "<group>"; };
 		6A0EC76F236ECBF100E70DEA /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeVC.swift; path = "../New Group1/HomeVC.swift"; sourceTree = "<group>"; };
 		6A0EC771236ECC0100E70DEA /* ChatVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatVC.swift; sourceTree = "<group>"; };
-		6A0EC773236ECC1900E70DEA /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProfileVC.swift; path = "../New Group/ProfileVC.swift"; sourceTree = "<group>"; };
+		6A0EC773236ECC1900E70DEA /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
 		6A0EC775236ECC3900E70DEA /* SubcribeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SubcribeVC.swift; path = "../New Group3/SubcribeVC.swift"; sourceTree = "<group>"; };
 		6A0EC778236FA0F800E70DEA /* order_cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = order_cell.swift; sourceTree = "<group>"; };
 		6A0EC77B236FA76600E70DEA /* Recent_order_model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recent_order_model.swift; sourceTree = "<group>"; };
@@ -108,6 +114,12 @@
 		6A0EC78D237169C100E70DEA /* uEAT.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = uEAT.entitlements; sourceTree = "<group>"; };
 		6A0EC78F2371EF1200E70DEA /* PaymentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentCell.swift; sourceTree = "<group>"; };
 		6A0EC7922371FAE100E70DEA /* addNewPaymentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addNewPaymentCell.swift; sourceTree = "<group>"; };
+		6A15EAA423721DCC006A93D7 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		6A15EAA623721EB9006A93D7 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		6A15EAAB23721FC6006A93D7 /* HalfSheetPresentationControllerHeightProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HalfSheetPresentationControllerHeightProtocol.swift; sourceTree = "<group>"; };
+		6A15EAAD23722004006A93D7 /* extension-UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "extension-UIView.swift"; sourceTree = "<group>"; };
+		6A15EAAF23722581006A93D7 /* ThemeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeViewController.swift; sourceTree = "<group>"; };
+		6A15EAB1237225A3006A93D7 /* CardFieldViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardFieldViewController.swift; sourceTree = "<group>"; };
 		6A1B8B832364FA6100E22CD9 /* Register_User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Register_User.swift; sourceTree = "<group>"; };
 		6A1B8B862367D45100E22CD9 /* IntroVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroVC.swift; sourceTree = "<group>"; };
 		6A1B8B892367F47600E22CD9 /* user.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = user.swift; sourceTree = "<group>"; };
@@ -248,16 +260,16 @@
 			children = (
 				6A0EC77E2371221600E70DEA /* ProfileCell.swift */,
 			);
-			path = ProfileCell;
+			name = ProfileCell;
+			path = "../New Group/ProfileCell";
 			sourceTree = "<group>";
 		};
 		6A0EC780237152A200E70DEA /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				6A15EAB323722F99006A93D7 /* Profile */,
 				6A0EC7872371573800E70DEA /* Payment */,
 				6A0EC7842371542A00E70DEA /* Notification */,
-				6A0EC77D237121F200E70DEA /* ProfileCell */,
-				6A0EC773236ECC1900E70DEA /* ProfileVC.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -331,6 +343,26 @@
 			path = AddNewPaymentCell;
 			sourceTree = "<group>";
 		};
+		6A15EAA823721F9E006A93D7 /* Animations */ = {
+			isa = PBXGroup;
+			children = (
+				6A15EAAF23722581006A93D7 /* ThemeViewController.swift */,
+				6A15EAB1237225A3006A93D7 /* CardFieldViewController.swift */,
+				6A15EAAD23722004006A93D7 /* extension-UIView.swift */,
+				6A15EAAB23721FC6006A93D7 /* HalfSheetPresentationControllerHeightProtocol.swift */,
+			);
+			path = Animations;
+			sourceTree = "<group>";
+		};
+		6A15EAB323722F99006A93D7 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				6A0EC773236ECC1900E70DEA /* ProfileVC.swift */,
+				6A0EC77D237121F200E70DEA /* ProfileCell */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
 		6A1B8B822364FA4700E22CD9 /* User_model */ = {
 			isa = PBXGroup;
 			children = (
@@ -399,6 +431,7 @@
 				6A1F6E5A235E0B6A00EE750B /* avatarImgRendered.swift */,
 				6A016D6E235EB5C60065D0D5 /* RoundedLabel.swift */,
 				6AA397CD23602F1100D482D7 /* CustomLabel.swift */,
+				6A15EAA423721DCC006A93D7 /* Color.swift */,
 			);
 			path = ModView;
 			sourceTree = "<group>";
@@ -415,6 +448,7 @@
 			isa = PBXGroup;
 			children = (
 				6A1F6E74235E0BCD00EE750B /* Constant.swift */,
+				6A15EAA623721EB9006A93D7 /* Constants.swift */,
 			);
 			path = Constant;
 			sourceTree = "<group>";
@@ -453,6 +487,7 @@
 		6A4BC7C8235A7565006332DD /* uEAT */ = {
 			isa = PBXGroup;
 			children = (
+				6A15EAA823721F9E006A93D7 /* Animations */,
 				6A0EC78D237169C100E70DEA /* uEAT.entitlements */,
 				6A775C06236CD51D007366C2 /* HomePage */,
 				6A079B1E23690D3000B533CA /* Utils */,
@@ -548,8 +583,8 @@
 				6A4BC7C2235A7565006332DD /* Sources */,
 				6A4BC7C3235A7565006332DD /* Frameworks */,
 				6A4BC7C4235A7565006332DD /* Resources */,
-				741615D9B10CF66885AFEEC0 /* [CP] Embed Pods Frameworks */,
-				E25034FD619C17A5EC24CC6B /* [CP] Copy Pods Resources */,
+				C753A29CFDE46C4403000BCD /* [CP] Embed Pods Frameworks */,
+				56315745E386312F8F58FAC0 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -587,8 +622,8 @@
 				6A4BC7E3235A7567006332DD /* Sources */,
 				6A4BC7E4235A7567006332DD /* Frameworks */,
 				6A4BC7E5235A7567006332DD /* Resources */,
-				6DF51C28E3FC1B3661D9D2A3 /* [CP] Embed Pods Frameworks */,
-				AD6295C3D57438A7F211DE4A /* [CP] Copy Pods Resources */,
+				513BA4BC089E234D5E9A676D /* [CP] Embed Pods Frameworks */,
+				BDC458D80BF06E97168EF08F /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -694,7 +729,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		6DF51C28E3FC1B3661D9D2A3 /* [CP] Embed Pods Frameworks */ = {
+		513BA4BC089E234D5E9A676D /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -711,24 +746,24 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-uEAT-uEATUITests/Pods-uEAT-uEATUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		741615D9B10CF66885AFEEC0 /* [CP] Embed Pods Frameworks */ = {
+		56315745E386312F8F58FAC0 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-uEAT/Pods-uEAT-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-uEAT/Pods-uEAT-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			name = "[CP] Embed Pods Frameworks";
+			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-uEAT/Pods-uEAT-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-uEAT/Pods-uEAT-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-uEAT/Pods-uEAT-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-uEAT/Pods-uEAT-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		AD6295C3D57438A7F211DE4A /* [CP] Copy Pods Resources */ = {
+		BDC458D80BF06E97168EF08F /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -767,6 +802,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		C753A29CFDE46C4403000BCD /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-uEAT/Pods-uEAT-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-uEAT/Pods-uEAT-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-uEAT/Pods-uEAT-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		CD5AB62B7E5EF4D35BDDD7BD /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -789,23 +841,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		E25034FD619C17A5EC24CC6B /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-uEAT/Pods-uEAT-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-uEAT/Pods-uEAT-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-uEAT/Pods-uEAT-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -815,9 +850,11 @@
 			files = (
 				6A1F6E6B235E0B8D00EE750B /* modTxtField.swift in Sources */,
 				6A1F6E6D235E0B9200EE750B /* ProfileView.swift in Sources */,
+				6A15EAB023722581006A93D7 /* ThemeViewController.swift in Sources */,
 				6A1B8B842364FA6100E22CD9 /* Register_User.swift in Sources */,
 				6AA397C72360210B00D482D7 /* CampusModel.swift in Sources */,
 				6A016D6F235EB5C60065D0D5 /* RoundedLabel.swift in Sources */,
+				6A15EAA523721DCC006A93D7 /* Color.swift in Sources */,
 				6A1B8B8A2367F47600E22CD9 /* user.swift in Sources */,
 				6A1B8B872367D45100E22CD9 /* IntroVC.swift in Sources */,
 				6A0EC7932371FAE200E70DEA /* addNewPaymentCell.swift in Sources */,
@@ -826,12 +863,14 @@
 				6A1F6E75235E0BCE00EE750B /* Constant.swift in Sources */,
 				6A0EC7902371EF1200E70DEA /* PaymentCell.swift in Sources */,
 				6AA397CE23602F1100D482D7 /* CustomLabel.swift in Sources */,
+				6A15EAAC23721FC6006A93D7 /* HalfSheetPresentationControllerHeightProtocol.swift in Sources */,
 				6A0EC772236ECC0100E70DEA /* ChatVC.swift in Sources */,
 				6A079B22236A50AB00B533CA /* Intro2VC.swift in Sources */,
 				6A86C0EE23616F91006B2007 /* PersonalInfoVC.swift in Sources */,
 				6A0EC76D236EB5E700E70DEA /* HomePageVC.swift in Sources */,
 				6AA397D02360388100D482D7 /* EmailVerificationVC.swift in Sources */,
 				6A0EC7862371544500E70DEA /* NotificationVC.swift in Sources */,
+				6A15EAAE23722005006A93D7 /* extension-UIView.swift in Sources */,
 				6A0EC7892371575400E70DEA /* PaymentVC.swift in Sources */,
 				6A079B25236A6A8A00B533CA /* Cuisine_model.swift in Sources */,
 				6A1F6E72235E0BAA00EE750B /* SwiftLoader.swift in Sources */,
@@ -850,6 +889,7 @@
 				6A1F6E65235E0B8100EE750B /* fancyBtn.swift in Sources */,
 				6A1F6E6F235E0B9600EE750B /* windowInfo.swift in Sources */,
 				6A0EC779236FA0F800E70DEA /* order_cell.swift in Sources */,
+				6A15EAB2237225A4006A93D7 /* CardFieldViewController.swift in Sources */,
 				6AA397C42360194A00D482D7 /* CampusVC.swift in Sources */,
 				6A079B28236A910800B533CA /* cuisineCell.swift in Sources */,
 				6A079B2A236AA60800B533CA /* Intro3VC.swift in Sources */,
@@ -858,6 +898,7 @@
 				6A1F6E67235E0B8600EE750B /* modifiedChooseCarView.swift in Sources */,
 				6A1F6E61235E0B7900EE750B /* CommentTxtView.swift in Sources */,
 				6A1F6E5B235E0B6A00EE750B /* avatarImgRendered.swift in Sources */,
+				6A15EAA723721EB9006A93D7 /* Constants.swift in Sources */,
 				6A079B2023690D4F00B533CA /* MainAPIClient.swift in Sources */,
 				6AA397CC236028AB00D482D7 /* EmailVC.swift in Sources */,
 			);

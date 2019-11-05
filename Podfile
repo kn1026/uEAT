@@ -36,6 +36,7 @@ target 'uEAT' do
     pod 'Firebase/Core'
     pod 'Firebase/Firestore'
     pod "ESTabBarController-swift"
+    pod "SquareInAppPaymentsSDK"
 
 
   use_frameworks!

@@ -96,33 +96,6 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     }
     
     
-    
-    
-    /*
-    func create_incomming_order(data: Dictionary<String, Any>) {
-        
-        
-        let db = DataService.instance.mainFireStoreRef.collection("Processing_orders")
-        
-        db.addDocument(data: data) { err in
-            
-            if let err = err {
-                
-                self.showErrorAlert("Opss !", msg: err.localizedDescription)
-                
-            } else {
-                
-                
-                //self.performSegue(withIdentifier: "moveToHomeVC2", sender: nil)
-                
-                
-            }
-        }
-        
-        
-    }
- */
-    
     // func show error alert
     
     func showErrorAlert(_ title: String, msg: String) {

@@ -11,7 +11,7 @@ import GooglePlaces
 import Stripe
 import Firebase
 import UserNotifications
-
+import SquareInAppPaymentsSDK
 
 
 @UIApplicationMain
@@ -25,7 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        
+        SQIPInAppPaymentsSDK.squareApplicationID = Constants.Square.APPLICATION_ID
         STPPaymentConfiguration.shared().publishableKey = Stripe_key
         
         
