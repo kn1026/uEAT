@@ -22,8 +22,8 @@ class borderAvatarView: UIImageView {
         
         layer.cornerRadius = self.frame.height / 2
         clipsToBounds = true
-        layer.borderWidth = 5
-        layer.borderColor = UIColor.yellow.cgColor
+        
+       // layer.borderColor = UIColor.yellow.cgColor
         
         
     }

@@ -12,7 +12,7 @@ import Stripe
 import Alamofire
 import MGSwipeTableCell
 import Firebase
-import SquareInAppPaymentsSDK
+
 
 class PaymentVC: UIViewController, UITableViewDelegate, UITableViewDataSource, MGSwipeTableCellDelegate {
 
@@ -489,19 +489,7 @@ class PaymentVC: UIViewController, UITableViewDelegate, UITableViewDataSource, M
                                     
                                     let PaymentData = PaymentModel(postKey: x["id"] as! String, PaymentModel: paymentInfo)
                                     
-                                    let id = x["id"] as? String
-                                    
-                                    if id == self.defaultID {
-                                        
-                                        
-                                        self.paymentArr.insert(PaymentData, at: 0)
-                                        
-                                        
-                                    } else {
-                                        
-                                        self.paymentArr.append(PaymentData)
-                                        
-                                    }
+                                    self.paymentArr.append(PaymentData)
 
                                     
                                     self.tableView.reloadData()

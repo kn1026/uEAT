@@ -140,7 +140,7 @@ class addCardVC: UIViewController, STPPaymentCardTextFieldDelegate {
                  
                     case .success(let json):
                  
-                        SwiftLoader.hide()
+                     
                         if let dict = json as? [String: AnyObject] {
                         
                             

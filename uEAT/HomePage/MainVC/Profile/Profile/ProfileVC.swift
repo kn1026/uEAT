@@ -7,11 +7,19 @@
 //
 
 import UIKit
+import Firebase
+import MobileCoreServices
+import AVKit
+import AVFoundation
 
 
-class ProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UINavigationControllerDelegate {
     
+    @IBOutlet weak var profileImg: borderAvatarView!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var NameLbl: UILabel!
+    @IBOutlet weak var PhoneLbl: UILabel!
+    @IBOutlet weak var avatarImg: UIButton!
     
     var feature = ["Notifications", "My Order", "Payment", "Security", "Voucher", "Profile Info", "Help & Support"]
 
@@ -21,6 +29,85 @@ class ProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         // Do any additional setup after loading the view.
         tableView.delegate = self
         tableView.dataSource = self
+        
+        storage.async.object(forKey: Auth.auth().currentUser!.uid) { result in
+             switch result {
+                 
+             case .value(let user):
+                
+                
+                
+                DispatchQueue.main.async { // Make sure you're on the main thread here
+                    
+                    self.NameLbl.text = user.FullName
+                    self.PhoneLbl.text = user.Phone
+                    
+                }
+
+                
+                    
+             case .error( _):
+                 
+                 
+                 SwiftLoader.hide()
+                 self.showErrorAlert("Oopps !!!", msg: "Cache Error, please log out and login again")
+                 
+          }
+             
+        }
+        
+        if profileImg.image != nil {
+            
+            avatarImg.isHidden = true
+   
+            
+        } else {
+            
+            
+            avatarImg.isHidden = false
+           
+            
+        }
+        
+        
+        
+    }
+    
+    // func show error alert
+    
+    func showErrorAlert(_ title: String, msg: String) {
+        
+        let alert = UIAlertController(title: title, message: msg, preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alert.addAction(action)
+        
+        
+        present(alert, animated: true, completion: nil)
+        
+    }
+    
+    func swiftLoader() {
+        
+        var config : SwiftLoader.Config = SwiftLoader.Config()
+        config.size = 170
+        
+        config.backgroundColor = UIColor.clear
+        config.spinnerColor = UIColor.white
+        config.titleTextColor = UIColor.white
+        
+        
+        config.spinnerLineWidth = 3.0
+        config.foregroundColor = UIColor.black
+        config.foregroundAlpha = 0.7
+        
+        
+        SwiftLoader.setConfig(config: config)
+        
+        
+        SwiftLoader.show(title: "", animated: true)
+        
+        
+        
         
         
         
@@ -96,5 +183,101 @@ class ProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     
+    @IBAction func UploadImg(_ sender: Any) {
+        
+        let sheet = UIAlertController(title: "Upload our social security number card", message: "", preferredStyle: .actionSheet)
+        
+        
+        let camera = UIAlertAction(title: "Take a new photo", style: .default) { (alert) in
+            
+            self.camera()
+            
+        }
+        
+        let album = UIAlertAction(title: "Upload from album", style: .default) { (alert) in
+            
+            self.album()
+            
+        }
+        
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (alert) in
+            
+        }
+        
+        
+        sheet.addAction(camera)
+        sheet.addAction(album)
+        sheet.addAction(cancel)
+        self.present(sheet, animated: true, completion: nil)
+        
+    }
+    
+    func album() {
+        
+        self.getMediaFrom(kUTTypeImage as String)
+        
+        
+    }
+    
+    func camera() {
+        
+        
+        
+        self.getMediaCamera(kUTTypeImage as String)
+        
+    }
+    
+    // get media
+    
+    func getMediaFrom(_ type: String) {
+        let mediaPicker = UIImagePickerController()
+        mediaPicker.delegate = self
+        mediaPicker.allowsEditing = true
+        mediaPicker.mediaTypes = [type as String]
+        self.present(mediaPicker, animated: true, completion: nil)
+    }
+    
+    func getMediaCamera(_ type: String) {
+        
+        
+        let mediaPicker = UIImagePickerController()
+        mediaPicker.delegate = self
+        mediaPicker.allowsEditing = true
+        mediaPicker.mediaTypes = [type as String] //UIImagePickerController.availableMediaTypes(for: .camera)!
+        mediaPicker.sourceType = .camera
+        self.present(mediaPicker, animated: true, completion: nil)
+        
+    }
+    
+    func getImage(image: UIImage) {
+        
+        profileImg.isHidden = false
+        avatarImg.isHidden = true
+        
+        profileImg.image = image
+       
 
+    }
+    
+}
+
+
+extension ProfileVC: UIImagePickerControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        
+        if let editedImage = info[.editedImage] as? UIImage {
+            getImage(image: editedImage)
+        } else if let originalImage =
+            info[.originalImage] as? UIImage {
+            getImage(image: originalImage)
+        }
+        
+        view.endEditing(true)
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+
+    
 }
