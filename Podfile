@@ -4,7 +4,6 @@
 target 'uEAT' do
   # Comment the next line if you don't want to use dynamic frameworks
 	
-
     pod 'Stripe'
     pod ‘Firebase’
     pod 'Fabric'
@@ -20,23 +19,20 @@ target 'uEAT' do
     pod 'AlamofireImage'
     pod 'GeoFire'
     pod 'SinchVerification-Swift'
-    #pod 'KDCircularProgress'
-    #pod 'IGRPhotoTweaks'
-    #pod 'Pulsator'
     pod 'Cache'
-    #pod 'JDropDownAlert'
     pod 'SwiftyJSON'
     pod 'CardIO'
     pod 'MGSwipeTableCell'
     pod "ZSWTappableLabel", "~> 2.0"
     pod "ZSWTaggedString/Swift", "~> 4.0"
     pod "SquareInAppPaymentsSDK"
-    #pod 'SCLAlertView'
     pod 'FireStore'
     pod 'Firebase/Core'
     pod 'Firebase/Firestore'
     pod "ESTabBarController-swift"
     pod "SquareInAppPaymentsSDK"
+    pod 'AMTabView'
+    
 
 
   use_frameworks!

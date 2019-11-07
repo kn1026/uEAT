@@ -14,16 +14,19 @@ import MGSwipeTableCell
 import Firebase
 import SquareInAppPaymentsSDK
 
-class PaymentVC: UIViewController, UITableViewDelegate, UITableViewDataSource, MGSwipeTableCellDelegate, STPAddCardViewControllerDelegate {
+class PaymentVC: UIViewController, UITableViewDelegate, UITableViewDataSource, MGSwipeTableCellDelegate {
 
     var theme = STPTheme.default()
     @IBOutlet weak var tableView: UITableView!
+    
     var defaultID = ""
     
     let SupportedPaymentNetworks = [PKPaymentNetwork.visa, PKPaymentNetwork.masterCard, PKPaymentNetwork.amex, PKPaymentNetwork.discover]
     
     var paymentArr = [PaymentModel]()
     let themeViewController = ThemeViewController()
+    
+    var stripeIDs = ""
 
     
     override func viewDidLoad() {
@@ -31,10 +34,41 @@ class PaymentVC: UIViewController, UITableViewDelegate, UITableViewDataSource, M
 
         // Do any additional setup after loading the view.
         
-       
+       tableView.delegate = self
+       tableView.dataSource = self
         
-        tableView.delegate = self
-        tableView.dataSource = self
+       loadPayment()
+       loadStripe()
+        
+        
+        
+    }
+    
+    func loadStripe() {
+        
+        storage.async.object(forKey: Auth.auth().currentUser!.uid) { result in
+            switch result {
+                
+            case .value(let user):
+
+                self.stripeIDs = user.stripe_cus
+                   
+            case .error( _):
+                
+                
+                SwiftLoader.hide()
+                self.showErrorAlert("Oopps !!!", msg: "Cache Error, please log out and login again")
+                
+         }
+            
+       }
+        
+        
+    }
+    
+    func loadPayment() {
+         
+        paymentArr.removeAll()
         
         if let uid = Auth.auth().currentUser?.uid {
             
@@ -43,16 +77,12 @@ class PaymentVC: UIViewController, UITableViewDelegate, UITableViewDataSource, M
                  
                  case .value(let user):
                     
-                    self.checkDefault {
+                    self.RetrieveCard(cus_id: user.stripe_cus) {
                         
-                        self.RetrieveCard(cus_id: user.stripe_cus) {
-                            
-                            self.loadApplePay()
-                            
-                        }
+                        self.loadApplePay()
                         
                     }
-                    
+                
                  
                  case .error( _):
                     
@@ -63,55 +93,9 @@ class PaymentVC: UIViewController, UITableViewDelegate, UITableViewDataSource, M
             
         }
         
-        
-        
-        
     }
     
-    func checkDefault(completed: @escaping DownloadComplete) {
-        
-        if let uid = Auth.auth().currentUser?.uid {
-            
-            DataService.instance.checkDefaultUserRef.child(uid).observeSingleEvent(of: .value, with: { (snapData) in
-                
-                if snapData.exists() {
-                    
-                    if let dict = snapData.value as? Dictionary<String, Any> {
-                        
-                        if let defaultIDs = dict["defaultID"] as? String {
-                            
-                            self.defaultID = defaultIDs
-                            
-                        } else {
-                            
-                            self.defaultID = ""
-                            
-                        }
-                        
-                        completed()
-                        
-                    }
-                    
-                } else {
-                    
-                    self.defaultID = ""
-                    completed()
-                    
-                    
-                    
-                }
-                
-                
-                
-            })
-            
-        }
-        
-        
-        
-    }
-    
-    
+
     // func show error alert
     
     func showErrorAlert(_ title: String, msg: String) {
@@ -131,21 +115,12 @@ class PaymentVC: UIViewController, UITableViewDelegate, UITableViewDataSource, M
     func loadApplePay () {
         
         
-        // load apple pay
-        if PKPaymentAuthorizationViewController.canMakePayments(usingNetworks: self.SupportedPaymentNetworks) == true {
-                   
-            let paymentInfo: Dictionary<String, AnyObject> = ["Brand": "Apple_pay" as AnyObject]
-            let PaymentData = PaymentModel(postKey: "Apple_pay", PaymentModel: paymentInfo)
-            self.paymentArr.append(PaymentData)
-            self.tableView.reloadData()
-                   
-        } else {
-                   
-            print("Not supported")
-                   
-        }
-
+        let paymentInfo: Dictionary<String, AnyObject> = ["Brand": "Apple_pay" as AnyObject]
         
+        let PaymentData = PaymentModel(postKey: "Apple_pay", PaymentModel: paymentInfo)
+        
+        self.paymentArr.append(PaymentData)
+        self.tableView.reloadData()
         
         
     }
@@ -164,7 +139,7 @@ class PaymentVC: UIViewController, UITableViewDelegate, UITableViewDataSource, M
     func numberOfSections(in tableView: UITableView) -> Int {
         
     
-        return paymentArr.count
+        return 1
         
     }
     
@@ -185,7 +160,7 @@ class PaymentVC: UIViewController, UITableViewDelegate, UITableViewDataSource, M
             if let cell = tableView.dequeueReusableCell(withIdentifier: "PaymentCell") as? PaymentCell {
                 
                 
-                //cell.delegate = self
+                cell.delegate = self
                 cell.configureCell(payment)
                 
                 return cell
@@ -216,68 +191,232 @@ class PaymentVC: UIViewController, UITableViewDelegate, UITableViewDataSource, M
         
     }
     
-    @objc func addCardBtnPressed() {
+    func swipeTableCell(_ cell: MGSwipeTableCell, canSwipe direction: MGSwipeDirection) -> Bool {
+        return true;
+    }
+    
+    // Fetch object from the cache
+    
+    func swipeTableCell(_ cell: MGSwipeTableCell, swipeButtonsFor direction: MGSwipeDirection, swipeSettings: MGSwipeSettings, expansionSettings: MGSwipeExpansionSettings) -> [UIView]? {
         
-        //NotificationCenter.default.addObserver(self, selector: #selector(PaymentVC.refreshPayment), name: (NSNotification.Name(rawValue: "refreshPayment")), object: nil)
-       let config = STPPaymentConfiguration()
-       config.requiredBillingAddressFields = .zip
-       config.publishableKey = Stripe_key
-       let viewController = STPAddCardViewController(configuration: config, theme: theme)
-       viewController.delegate = self
-       let navigationController = UINavigationController(rootViewController: viewController)
-       navigationController.navigationBar.stp_theme = theme
-       present(navigationController, animated: true, completion: nil)
+
         
+        let color = UIColor(red: 249/255, green: 252/255, blue: 254/255, alpha: 1.0)
+        
+        swipeSettings.transition = MGSwipeTransition.border;
+        expansionSettings.buttonIndex = 0
+        let padding = 25
+        if direction == MGSwipeDirection.rightToLeft {
+            expansionSettings.fillOnTrigger = false;
+            expansionSettings.threshold = 1.1
+            
+
+            let RemoveResize = resizeImage(image: UIImage(named: "remove")!, targetSize: CGSize(width: 25.0, height: 25.0))
+            let defaultResize = resizeImage(image: UIImage(named: "default")!, targetSize: CGSize(width: 25.0, height: 25.0))
+        
+            
+            
+            let remove = MGSwipeButton(title: "", icon: RemoveResize, backgroundColor: color, padding: padding,  callback: { (cell) -> Bool in
+                
+                
+                
+                
+                self.deleteAtIndexPath(self.tableView.indexPath(for: cell)!, stripe_id: self.stripeIDs)
+                
+                return false; //don't autohide to improve delete animation
+                
+                
+            });
+            
+            
+            
+            let defaults = MGSwipeButton(title: "", icon: defaultResize, backgroundColor: color, padding: padding, callback: { (cell) -> Bool in
+                
+              
+                self.defaultAtIndexPath(self.tableView.indexPath(for: cell)!, stripe_id: self.stripeIDs)
+                
+                return false; //autohide
+                
+            });
+            
+            return [defaults, remove]
+        } else {
+            
+            return nil
+        }
+           
         
     }
     
-    func addCardViewControllerDidCancel(_ addCardViewController: STPAddCardViewController) {
+    
+    func deleteAtIndexPath(_ path: IndexPath, stripe_id: String) {
+           
+        let card = paymentArr[path.row]
         
-        dismiss(animated: true, completion: nil)
-    }
-
-    func addCardViewController(_ addCardViewController: STPAddCardViewController, didCreatePaymentMethod paymentMethod: STPPaymentMethod, completion: @escaping STPErrorBlock) {
-        
-        dismiss(animated: true, completion: nil)
-        
-        swiftLoader()
-        
-        let payment = paymentMethod
-        
-        //var card: STPCardParams = STPCardParams()
-        
-        let token = payment.stripeId
-        
-        if let uid = Auth.auth().currentUser?.uid, uid != "" {
-                   
-                // Fetch object from the cache
-                storage.async.object(forKey: uid) { result in
-                switch result {
-                                    
-                    case .value(let user):
-                        
-                        self.update_card(stripe_uid: user.stripe_cus, token: token)
-                                    
-                    case .error( _):
-                        
-                        break
+        if card.Brand != "Apple_pay" {
+            
+            swiftLoader()
+            
+            let url = MainAPIClient.shared.baseURLString
+            let urls = URL(string: url!)?.appendingPathComponent("delete_card")
+            
+            
+            Alamofire.request(urls!, method: .post, parameters: [
+                
+                "Card_Id": card.Id!,
+                "cus_id": stripe_id,
+                
+                ])
+                
+                .validate(statusCode: 200..<500)
+                .responseJSON { responseJSON in
                     
-                }
+                    switch responseJSON.result {
+                        
+                    case .success( _):
+                        
+                        SwiftLoader.hide()
+                        let fingerPrint = card.Fingerprint
+                        DataService.instance.mainRealTimeDataBaseRef.child("fingerPrint").child(Auth.auth().currentUser!.uid).child(fingerPrint!).removeValue()
+                        self.paymentArr.remove(at: (path as NSIndexPath).row)
+                        self.tableView.deleteRows(at: [path], with: .left)
+                        
+                        DataService.instance.mainRealTimeDataBaseRef.child("Default_Card").child(Auth.auth().currentUser!.uid).child(card.Id).observeSingleEvent(of: .value, with: { (snap) in
+                               
+                                   if snap.exists() {
+                                    
+                                        if self.paymentArr.isEmpty != true {
+                                            
+                                            let next = self.paymentArr[0]
+                                            
+                                            DataService.instance.mainRealTimeDataBaseRef.child("Default_Card").child(Auth.auth().currentUser!.uid).removeValue()
+                                            DataService.instance.mainRealTimeDataBaseRef.child("Default_Card").child(Auth.auth().currentUser!.uid).child(next.Id).setValue(["Timestamp": ServerValue.timestamp()])
+                                    
+                                                self.tableView.reloadData()
+                                                                    
+                                        }
+                                    
+                                  }
+                            
+                        })
+
+                      
+                    case .failure(let error):
+                        SwiftLoader.hide()
+                        self.showErrorAlert("Oops !!!", msg: error.localizedDescription)
+                        
+                    }
+                                   
             }
+            
+        } else {
+            
+            SwiftLoader.hide()
+            self.showErrorAlert("Oops !!!", msg: "Cannot remove Apple pay")
+            
             
         }
         
     }
     
-    func update_card(stripe_uid: String, token: String) {
+     func defaultAtIndexPath(_ path: IndexPath, stripe_id: String) {
+   
+        let card = paymentArr[path.row]
+        
+        if card.Brand != "Apple_pay" {
+            
+            DataService.instance.mainRealTimeDataBaseRef.child("Default_Card").child(Auth.auth().currentUser!.uid).child(card.Id).observeSingleEvent(of: .value, with: { (snap) in
+            
+                if snap.exists() {
+                    
+                     self.showErrorAlert("Oops !!!", msg: "This is already your default card ")
+                    
+                } else {
+                    
+                    self.swiftLoader()
+                    
+                    let url = MainAPIClient.shared.baseURLString
+                    let urls = URL(string: url!)?.appendingPathComponent("set_default")
+                    
+                    Alamofire.request(urls!, method: .post, parameters: [
+                        
+                        "Card_Id": card.Id!,
+                        "cus_id": stripe_id,
+                        
+                        ])
+                        
+                        .validate(statusCode: 200..<500)
+                        .responseJSON { responseJSON in
+                            
+                            switch responseJSON.result {
+                                
+                            case .success( _):
+                                
+                                
+                                SwiftLoader.hide()
+                                DataService.instance.mainRealTimeDataBaseRef.child("Default_Card").child(Auth.auth().currentUser!.uid).removeValue()
+                            DataService.instance.mainRealTimeDataBaseRef.child("Default_Card").child(Auth.auth().currentUser!.uid).child(card.Id).setValue(["Timestamp": ServerValue.timestamp()])
+                                
+                                //card.Id
+                                self.paymentArr.remove(at: (path as NSIndexPath).row)
+                                self.paymentArr.insert(card, at: 0)
+                                self.tableView.reloadData()
+                                
+                                
+                                
+                            case .failure(let error):
+                                
+                                SwiftLoader.hide()
+                                self.showErrorAlert("Oops !", msg: error.localizedDescription)
+                                
+                                
+                            }
+                            
+                    }
+                    
+                }
+                
+            })
+            
+        } else {
+            
+            SwiftLoader.hide()
+            self.showErrorAlert("Oops !", msg: "Cannot default Apple pay")
+            
+            
+        }
+        
+        
+        
+
+        
+        
+        
+    }
+    
+    @objc func addCardBtnPressed() {
+        
+        //sendSmsNoti(Phone: "+16036179650", text: "You order is ready to pickup")
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(PaymentVC.refreshPayment), name: (NSNotification.Name(rawValue: "refreshPayment")), object: nil)
+        
+  
+       self.performSegue(withIdentifier: "MoveToAddCardVC", sender: nil)
+ 
+        
+    }
+    
+    
+    func sendSmsNoti(Phone: String, text: String) {
         
         let url = MainAPIClient.shared.baseURLString
-        let urlss = URL(string: url!)?.appendingPathComponent("update_methodcard")
+        let urls = URL(string: url!)?.appendingPathComponent("sms_noti")
         
-        Alamofire.request(urlss!, method: .post, parameters: [
+        Alamofire.request(urls!, method: .post, parameters: [
             
-            "cus_id": stripe_uid,
-            "source": token
+            "phone": Phone,
+            "body": text
+            
             
             ])
             
@@ -286,29 +425,29 @@ class PaymentVC: UIViewController, UITableViewDelegate, UITableViewDataSource, M
                 
                 switch responseJSON.result {
                     
-                case .success( _):
                     
+                case .success(let json):
                     
-                //DataService.instance.mainRealTimeDataBaseRef.child("fingerPrint").child(userUID).child(fingerprint).setValue(["Timestamp": ServerValue.timestamp()])
-                SwiftLoader.hide()
-            
+                    print( json)
                     
+                case .failure(let err):
                     
-                case .failure(let errors):
-                    
-                    SwiftLoader.hide()
-                    print(errors.localizedDescription)
-                    self.showErrorAlert("Oopps !!!", msg: "Invalid card, please re-type or use another card")
-                    
-                    
+                    print(err)
                 }
-                
-                
                 
         }
         
+    }
+    
+    @objc func refreshPayment() {
+        
+        NotificationCenter.default.removeObserver(self, name: (NSNotification.Name(rawValue: "refreshPayment")), object: nil)
+        
+        loadPayment()
+        
         
     }
+
     
     
     

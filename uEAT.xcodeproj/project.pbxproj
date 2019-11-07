@@ -35,6 +35,7 @@
 		6A15EAAE23722005006A93D7 /* extension-UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A15EAAD23722004006A93D7 /* extension-UIView.swift */; };
 		6A15EAB023722581006A93D7 /* ThemeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A15EAAF23722581006A93D7 /* ThemeViewController.swift */; };
 		6A15EAB2237225A4006A93D7 /* CardFieldViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A15EAB1237225A3006A93D7 /* CardFieldViewController.swift */; };
+		6A15EAB6237290D1006A93D7 /* addCardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A15EAB5237290D1006A93D7 /* addCardVC.swift */; };
 		6A1B8B842364FA6100E22CD9 /* Register_User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1B8B832364FA6100E22CD9 /* Register_User.swift */; };
 		6A1B8B872367D45100E22CD9 /* IntroVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1B8B862367D45100E22CD9 /* IntroVC.swift */; };
 		6A1B8B8A2367F47600E22CD9 /* user.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1B8B892367F47600E22CD9 /* user.swift */; };
@@ -120,6 +121,7 @@
 		6A15EAAD23722004006A93D7 /* extension-UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "extension-UIView.swift"; sourceTree = "<group>"; };
 		6A15EAAF23722581006A93D7 /* ThemeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeViewController.swift; sourceTree = "<group>"; };
 		6A15EAB1237225A3006A93D7 /* CardFieldViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardFieldViewController.swift; sourceTree = "<group>"; };
+		6A15EAB5237290D1006A93D7 /* addCardVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addCardVC.swift; sourceTree = "<group>"; };
 		6A1B8B832364FA6100E22CD9 /* Register_User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Register_User.swift; sourceTree = "<group>"; };
 		6A1B8B862367D45100E22CD9 /* IntroVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroVC.swift; sourceTree = "<group>"; };
 		6A1B8B892367F47600E22CD9 /* user.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = user.swift; sourceTree = "<group>"; };
@@ -311,6 +313,7 @@
 		6A0EC7872371573800E70DEA /* Payment */ = {
 			isa = PBXGroup;
 			children = (
+				6A15EAB4237290B2006A93D7 /* addCardVC */,
 				6A0EC7912371FAC900E70DEA /* AddNewPaymentCell */,
 				6A0EC78E2371EEF500E70DEA /* Payment Cell */,
 				6A0EC78A2371654F00E70DEA /* PaymentModel */,
@@ -361,6 +364,14 @@
 				6A0EC77D237121F200E70DEA /* ProfileCell */,
 			);
 			path = Profile;
+			sourceTree = "<group>";
+		};
+		6A15EAB4237290B2006A93D7 /* addCardVC */ = {
+			isa = PBXGroup;
+			children = (
+				6A15EAB5237290D1006A93D7 /* addCardVC.swift */,
+			);
+			path = addCardVC;
 			sourceTree = "<group>";
 		};
 		6A1B8B822364FA4700E22CD9 /* User_model */ = {
@@ -583,8 +594,8 @@
 				6A4BC7C2235A7565006332DD /* Sources */,
 				6A4BC7C3235A7565006332DD /* Frameworks */,
 				6A4BC7C4235A7565006332DD /* Resources */,
-				C753A29CFDE46C4403000BCD /* [CP] Embed Pods Frameworks */,
-				56315745E386312F8F58FAC0 /* [CP] Copy Pods Resources */,
+				6648798BDAB1C959E3D65131 /* [CP] Embed Pods Frameworks */,
+				4A72D0229C4450572E65BD19 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -622,8 +633,8 @@
 				6A4BC7E3235A7567006332DD /* Sources */,
 				6A4BC7E4235A7567006332DD /* Frameworks */,
 				6A4BC7E5235A7567006332DD /* Resources */,
-				513BA4BC089E234D5E9A676D /* [CP] Embed Pods Frameworks */,
-				BDC458D80BF06E97168EF08F /* [CP] Copy Pods Resources */,
+				7C1AA351C0405818ADA08C4B /* [CP] Embed Pods Frameworks */,
+				4AF2B025ADA47A27E835E6D7 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -729,24 +740,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		513BA4BC089E234D5E9A676D /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-uEAT-uEATUITests/Pods-uEAT-uEATUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-uEAT-uEATUITests/Pods-uEAT-uEATUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-uEAT-uEATUITests/Pods-uEAT-uEATUITests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		56315745E386312F8F58FAC0 /* [CP] Copy Pods Resources */ = {
+		4A72D0229C4450572E65BD19 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -763,7 +757,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-uEAT/Pods-uEAT-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		BDC458D80BF06E97168EF08F /* [CP] Copy Pods Resources */ = {
+		4AF2B025ADA47A27E835E6D7 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -778,6 +772,40 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-uEAT-uEATUITests/Pods-uEAT-uEATUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6648798BDAB1C959E3D65131 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-uEAT/Pods-uEAT-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-uEAT/Pods-uEAT-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-uEAT/Pods-uEAT-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7C1AA351C0405818ADA08C4B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-uEAT-uEATUITests/Pods-uEAT-uEATUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-uEAT-uEATUITests/Pods-uEAT-uEATUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-uEAT-uEATUITests/Pods-uEAT-uEATUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		BEE449315BD8A57FA40187CD /* [CP] Check Pods Manifest.lock */ = {
@@ -800,23 +828,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C753A29CFDE46C4403000BCD /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-uEAT/Pods-uEAT-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-uEAT/Pods-uEAT-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-uEAT/Pods-uEAT-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		CD5AB62B7E5EF4D35BDDD7BD /* [CP] Check Pods Manifest.lock */ = {
@@ -860,6 +871,7 @@
 				6A0EC7932371FAE200E70DEA /* addNewPaymentCell.swift in Sources */,
 				6A1F6E5D235E0B7100EE750B /* borderAvatarView.swift in Sources */,
 				6AA397CA2360217D00D482D7 /* DataService.swift in Sources */,
+				6A15EAB6237290D1006A93D7 /* addCardVC.swift in Sources */,
 				6A1F6E75235E0BCE00EE750B /* Constant.swift in Sources */,
 				6A0EC7902371EF1200E70DEA /* PaymentCell.swift in Sources */,
 				6AA397CE23602F1100D482D7 /* CustomLabel.swift in Sources */,

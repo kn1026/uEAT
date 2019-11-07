@@ -2,6 +2,7 @@ PODS:
   - Alamofire (4.9.1)
   - AlamofireImage (3.6.0):
     - Alamofire (~> 4.9)
+  - AMTabView (0.1.0)
   - BoringSSL (10.0.6):
     - BoringSSL/Implementation (= 10.0.6)
     - BoringSSL/Interface (= 10.0.6)
@@ -176,6 +177,7 @@ PODS:
 DEPENDENCIES:
   - Alamofire
   - AlamofireImage
+  - AMTabView
   - Cache
   - CardIO
   - Crashlytics
@@ -203,6 +205,7 @@ SPEC REPOS:
   trunk:
     - Alamofire
     - AlamofireImage
+    - AMTabView
     - BoringSSL
     - Cache
     - CardIO
@@ -246,6 +249,7 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
   AlamofireImage: be9963c6582d68b39e89191f64c82a7d7bf40fdd
+  AMTabView: 911d0112967e7107c0a4654c8064a31556cc47f2
   BoringSSL: e10f92a27043805c01071fe815a5cd98ae8212e7
   Cache: 807c5d86d01a177f06ede9865add3aea269bbfd4
   CardIO: 56983b39b62f495fc6dae9ad7cf875143df06443
@@ -286,6 +290,6 @@ SPEC CHECKSUMS:
   ZSWTaggedString: 1a6aab3143188634c1e5dfe9383ce754c1fb5fe2
   ZSWTappableLabel: cff84c0a55e30f2141f7dac24e5903302a7e35ec
 
-PODFILE CHECKSUM: b8634840751cbb5ad9d40e49e381bd29dc9042e3
+PODFILE CHECKSUM: 8dfbdbc2ebd9d3c36117a1a4370963fae420ac59
 
 COCOAPODS: 1.8.4

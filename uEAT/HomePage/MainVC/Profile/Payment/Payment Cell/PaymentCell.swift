@@ -7,8 +7,10 @@
 //
 
 import UIKit
+import MGSwipeTableCell
+import Firebase
 
-class PaymentCell: UITableViewCell {
+class PaymentCell: MGSwipeTableCell {
     
     
     @IBOutlet var card_view: UIView!
@@ -42,7 +44,29 @@ class PaymentCell: UITableViewCell {
     func configureCell(_ Information: PaymentModel) {
            
            
-           self.info = Information
+        self.info = Information
+        
+        if self.info.Id != "" {
+            
+            DataService.instance.mainRealTimeDataBaseRef.child("Default_Card").child(Auth.auth().currentUser!.uid).child(self.info.Id).observeSingleEvent(of: .value, with: { (snap) in
+            
+                if snap.exists() {
+                    
+                    self.Primary_Card.text = "Primary card"
+                    
+                } else {
+                    
+                    self.Primary_Card.text = ""
+                    
+                }
+                
+                
+            })
+            
+        }
+        
+        
+        
     
            
            if info.Brand == "Apple_pay" {
@@ -50,7 +74,15 @@ class PaymentCell: UITableViewCell {
             card_view.isHidden = true
             apple_view.isHidden = false
                
-           }
+           } else {
+            
+            last4Digits.text = self.info.Last4
+            brand.image = UIImage(named: "\(self.info.Brand!)")
+            
+            card_view.isHidden = false
+            apple_view.isHidden = true
+        
+        }
         
     }
 

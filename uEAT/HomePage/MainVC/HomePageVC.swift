@@ -11,7 +11,7 @@ import Firebase
 
 class HomePageVC: UITabBarController {
 
-    //@IBOutlet weak var tabBar: UITabBar!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()

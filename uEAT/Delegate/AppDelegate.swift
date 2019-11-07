@@ -17,7 +17,7 @@ import SquareInAppPaymentsSDK
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    private let baseURLString: String = "https://obscure-cliffs-52108.herokuapp.com/"
+    private let baseURLString: String = "https://obscure-harbor-40524.herokuapp.com/"
     private let appleMerchantIdentifier: String = "merchant.campusConnectPay"
     private let publishableKey: String = Stripe_key
 
