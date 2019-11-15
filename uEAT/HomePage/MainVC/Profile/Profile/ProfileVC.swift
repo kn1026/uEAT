@@ -11,9 +11,9 @@ import Firebase
 import MobileCoreServices
 import AVKit
 import AVFoundation
+import CoreLocation
 
-
-class ProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UINavigationControllerDelegate {
+class ProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UINavigationControllerDelegate  {
     
     @IBOutlet weak var profileImg: borderAvatarView!
     @IBOutlet weak var tableView: UITableView!
@@ -22,6 +22,11 @@ class ProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSource, U
     @IBOutlet weak var avatarImg: UIButton!
     
     var feature = ["Notifications", "My Order", "Payment", "Security", "Voucher", "Profile Info", "Help & Support"]
+    
+    var url = ""
+    
+    let locationManager = CLLocationManager()
+    var authorizationStatus = CLLocationManager.authorizationStatus()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,22 +35,38 @@ class ProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSource, U
         tableView.delegate = self
         tableView.dataSource = self
         
+        
         storage.async.object(forKey: Auth.auth().currentUser!.uid) { result in
              switch result {
-                 
+                                            
              case .value(let user):
                 
                 
+                imageStorage.async.object(forKey: "avatarUrl") { result in
+                    if case .value(let image) = result {
+                        
+                        DispatchQueue.main.async { // Make sure you're on the main thread here
+                            
+                            
+                            self.profileImg.image = image
+                            
+                            
+                        }
+                        
+                    }
+                }
                 
+ 
                 DispatchQueue.main.async { // Make sure you're on the main thread here
+                    
+                    
                     
                     self.NameLbl.text = user.FullName
                     self.PhoneLbl.text = user.Phone
                     
                 }
 
-                
-                    
+                        
              case .error( _):
                  
                  
@@ -70,18 +91,19 @@ class ProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSource, U
         }
         
         
-        
     }
+    
+    
     
     // func show error alert
     
     func showErrorAlert(_ title: String, msg: String) {
-        
+                                                                                                                                           
         let alert = UIAlertController(title: title, message: msg, preferredStyle: .alert)
         let action = UIAlertAction(title: "OK", style: .default, handler: nil)
         alert.addAction(action)
         
-        
+                                                                                       
         present(alert, animated: true, completion: nil)
         
     }
@@ -106,10 +128,7 @@ class ProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSource, U
         
         SwiftLoader.show(title: "", animated: true)
         
-        
-        
-        
-        
+                                                                                                                                      
         
     }
     
@@ -178,6 +197,10 @@ class ProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSource, U
             
             self.performSegue(withIdentifier: "moveToPaymentVC", sender: nil)
             
+            
+        } else if item == "Security" {
+            
+            self.performSegue(withIdentifier: "moveToSecurityVC", sender: nil)
             
         }
     }
@@ -250,14 +273,122 @@ class ProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSource, U
     }
     
     func getImage(image: UIImage) {
-        
-        profileImg.isHidden = false
-        avatarImg.isHidden = true
-        
-        profileImg.image = image
+
+        uploadImg(image: image) {
+            
+            self.CacheItem(image: image)
+            
+        }
        
 
     }
+    
+    
+    func uploadImg(image: UIImage, completed: @escaping DownloadComplete) {
+        
+        
+        swiftLoader()
+        
+        self.swiftLoader()
+        let metaData = StorageMetadata()
+        let imageUID = UUID().uuidString
+        metaData.contentType = "image/jpeg"
+        var imgData = Data()
+        imgData = image.jpegData(compressionQuality: 1.0)!
+        
+        
+        
+        DataService.instance.AvatarStorageRef.child(imageUID).putData(imgData, metadata: metaData) { (meta, err) in
+            
+            if err != nil {
+                
+                SwiftLoader.hide()
+                self.showErrorAlert("Oopss !!!", msg: "Error while saving your image, please try again")
+                print(err?.localizedDescription as Any)
+                
+            } else {
+                
+                DataService.instance.AvatarStorageRef.child(imageUID).downloadURL(completion: { (url, err) in
+                    
+                    
+                    guard let Url = url?.absoluteString else { return }
+                    
+                    let downUrl = Url as String
+                    let downloadUrl = downUrl as NSString
+                    let downloadedUrl = downloadUrl as String
+                    
+                   // SwiftLoader.hide()
+                    
+                    DataService.instance.mainFireStoreRef.collection("Users").whereField("userUID", isEqualTo: Auth.auth().currentUser?.uid as Any).getDocuments { (snap, err) in
+                    
+                    
+                        if err != nil {
+                        
+                            self.showErrorAlert("Opss !", msg: err.debugDescription)
+      
+                        } else {
+                            if snap?.isEmpty != true {
+                                
+                                for dict in (snap?.documents)! {
+                                    
+                                    let id = dict.documentID
+                                DataService.instance.mainFireStoreRef.collection("Users").document(id).updateData(["avatarUrl": downloadedUrl])
+                                    
+                                    
+                                    self.profileImg.isHidden = false
+                                    self.profileImg.image = image
+                                    
+                                    
+                                    completed()
+                                    SwiftLoader.hide()
+                                    break
+                                                      
+                                    
+                                }
+                                
+                            } else {
+                                
+                                self.showErrorAlert("Opss !", msg: "Can't find user")
+                                
+                            }
+                        }
+                        
+                    }
+                    
+                    
+                    
+                })
+                
+                
+                
+                
+                
+            }
+            
+            
+        }
+        
+        
+        
+        
+    }
+    
+    func CacheItem(image: UIImage) {
+        
+        
+        
+        dataStorage.async.removeAll(completion: { (result) in
+            if case .value = result {
+                print("Cache cleaned")
+            }
+        })
+        
+        
+        try? imageStorage.setObject(image, forKey: "avatarUrl")
+        
+    }
+    
+
     
 }
 

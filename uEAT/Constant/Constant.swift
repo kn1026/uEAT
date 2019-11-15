@@ -44,6 +44,16 @@ let storage = try! Storage(
 )
 
 
+let disksConfig = DiskConfig(name: "Mix")
+
+let dataStorage = try! Storage(
+  diskConfig: disksConfig,
+  memoryConfig: MemoryConfig(),
+  transformer: TransformerFactory.forData()
+)
+
+
+let imageStorage = dataStorage.transformImage()
 
 
 

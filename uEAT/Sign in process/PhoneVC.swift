@@ -140,6 +140,7 @@ class PhoneVC: UIViewController, UITextFieldDelegate {
         self.dismiss(animated: true, completion: nil)
         
     }
+    
     @IBAction func nextBtnPressed(_ sender: Any) {
         
         
@@ -197,7 +198,9 @@ class PhoneVC: UIViewController, UITextFieldDelegate {
               
           } else {
               
-              self.showErrorAlert("Ops!!!", msg: "Please enter your phone number")
+            
+            SwiftLoader.hide()
+            self.showErrorAlert("Ops!!!", msg: "Please enter your phone number")
               
           }
         

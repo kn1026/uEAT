@@ -18,8 +18,7 @@ class IntroVC: UIViewController {
 
         // Do any additional setup after loading the view.
       
-        
-        
+
     }
 
     
@@ -28,82 +27,6 @@ class IntroVC: UIViewController {
         super.viewDidAppear(animated)
         
 
-        if let uid = Auth.auth().currentUser?.uid, uid != "" {
-   
-            // Fetch object from the cache
-            storage.async.object(forKey: uid) { result in
-                switch result {
-                    
-                case .value(let user):
-
-                    DataService.instance.mainFireStoreRef.collection("Users").whereField("userUID", isEqualTo: user.uid).getDocuments { (snap, err) in
-                    
-                    
-                        if err != nil {
-                        
-                            self.showErrorAlert("Opss !", msg: err.debugDescription)
-                            
-                            try! Auth.auth().signOut()
-                            try? storage.removeAll()
-                            
-                            DispatchQueue.main.async { // Make sure you're on the main thread here
-                                    self.performSegue(withIdentifier: "moveToSignInVC", sender: nil)
-                            }
-                        
-                            return
-                        
-                    
-                        } else {
-                            if snap?.isEmpty == true {
-                                
-                                self.showErrorAlert("Opss !", msg:"User has been removed")
-                                try? storage.removeAll()
-                                try! Auth.auth().signOut()
-                                    
-                                    DispatchQueue.main.async { // Make sure you're on the main thread here
-                                            self.performSegue(withIdentifier: "moveToSignInVC", sender: nil)
-                                    }
-                                
-                                    return
-                                
-                            } else {
-                                
-                               
-                                
-                            }
-                        }
-                        
-                    }
-                      
-                    return
-                    
-                case .error( _):
-                    
-                    try! Auth.auth().signOut()
-                    try? storage.removeAll()
-                    
-                    DispatchQueue.main.async { // Make sure you're on the main thread here
-                        self.performSegue(withIdentifier: "moveToSignInVC", sender: nil)
-                    }
-                    
-                    
-                }
-            }
-            
-        } else {
-            
-            
-            try! Auth.auth().signOut()
-            try? storage.removeAll()
-            
-            
-            self.performSegue(withIdentifier: "moveToSignInVC", sender: nil)
-            
-        }
-        
-        
-        
-        
         
     }
     

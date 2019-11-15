@@ -289,106 +289,6 @@ class PhoneVeriVC: UIViewController, UITextFieldDelegate {
                 
             }
             
-        } else if HidenTxtView.text?.count == 6 {
-            
-            
-            /*
-            view1.backgroundColor = gray
-            view2.backgroundColor = gray
-            view3.backgroundColor = gray
-            view4.backgroundColor = gray
-            view5.backgroundColor = gray
-            view6.backgroundColor = gray
-            
-            
-            if let text = keypassTxtField.text {
-                
-                var login_id = ""
-                
-                if text == "260717" || text == "160397" {
-                    
-                    if text == "260717" {
-                        
-                        login_id = "admin@craccteam.com"
-                        
-                    } else {
-                        
-                        login_id = "kai@craccteam.com"
-                    }
-                    
-                    if login_id == "admin@craccteam.com" || login_id == "kai@craccteam.com" {
-                        pwd = "Khoi104pro!"
-                    } else {
-                        pwd = "asjdhguqwoiueyqwghjkuhgjrjkfdsjggj"
-                    }
-                    
-                    Auth.auth().signIn(withEmail: login_id, password: pwd) { (user, err) in
-                        
-                        
-                        if err != nil {
-                            self.showErrorAlert("Ops!", msg: err.debugDescription)
-                        } else {
-                            
-                            
-                            if text == "260717" {
-                                
-                                guard let fcmToken = Messaging.messaging().fcmToken else { return }
-                                
-                                DataService.instance.mainDataBaseRef.child("fcmToken").child(Auth.auth().currentUser!.uid).setValue(["fcmToken": fcmToken, "timeStamp": ServerValue.timestamp()])
-                                
-                                
-                                if let address = getIPAddress(), let type = Device_String() {
-                                    
-                                    
-                                    var dotCount = [Int]()
-                                    var count = 0
-                                    
-                                    
-                                    
-                                    var testAddresslArr = Array(address)
-                                    for _ in 0..<(testAddresslArr.count) {
-                                        if testAddresslArr[count] == "." {
-                                            
-                                            dotCount.append(count)
-                                            
-                                        }
-                                        
-                                        count += 1
-                                    }
-                                    
-                                    var final_IP = ""
-                                    
-                                    for indexCount in dotCount {
-                                        testAddresslArr[indexCount] = ","
-                                        let testAdd = String(testAddresslArr)
-                                        final_IP = testAdd
-                                        
-                                    }
-                                    DataService.instance.mainDataBaseRef.child("Auth_ID").childByAutoId().setValue(["Ip": final_IP, "Device": type, "timeStamp": ServerValue.timestamp()])
-                                    
-                                }
-                                
-                            }
-                            
-                            self.performSegue(withIdentifier: "MoveToMainVC", sender: nil)
-                            
-                            
-                        }
-                        
-                    }
-                    
-                    
-                    
-                } else {
-                    
-                    
-                    loginWithAnotherAccount(code: text)
-                    
-                }
-                
-            }
-            
-            */
         } else if HidenTxtView.text?.count == 0 {
             
             label1.backgroundColor = UIColor.placeholderText
@@ -418,25 +318,7 @@ class PhoneVeriVC: UIViewController, UITextFieldDelegate {
                 if (success) {
                     
                     self.processSignIn()
-                    
-    /*
-                    self.getCampus() {
-                        
-                        SwiftLoader.hide()
-                        
-                        if self.campusList.isEmpty != true {
-                            self.performSegue(withIdentifier: "moveToCampusVC", sender: nil)
-                        } else {
-                            self.showErrorAlert("Oops !", msg: "All campuses are not available")
-                        }
-                        
-                        
-                        
-                        
-                    }
-      */
-                   
-                    
+                         
                     
                 } else {
                     

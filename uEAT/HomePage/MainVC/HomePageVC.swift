@@ -21,7 +21,22 @@ class HomePageVC: UITabBarController {
         tabBar.barTintColor = .white
         tabBar.isTranslucent = false
         
+        //check_condition()
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        
         check_condition()
+    }
+    
+    func generate_menu() {
+        
+       // let data = ["Name": "Bameee", "Menu_id": "qwertyuiosdfghjk", "Open_hours": ServerValue.timestamp(), "Closed Hours": ServerValue.timestamp(), ""]
+        
+        
         
     }
 
@@ -46,8 +61,14 @@ class HomePageVC: UITabBarController {
                                  self.showErrorAlert("Opss !", msg: err.debugDescription)
                                  
                                  try! Auth.auth().signOut()
+                                dataStorage.async.removeAll(completion: { (result) in
+                                           if case .value = result {
+                                               print("Cache cleaned")
+                                           }
+                                       })
                                  try? storage.removeAll()
                                  
+                                
                                  DispatchQueue.main.async { // Make sure you're on the main thread here
                                          self.performSegue(withIdentifier: "moveToSignInVC", sender: nil)
                                  }
@@ -60,6 +81,11 @@ class HomePageVC: UITabBarController {
                                      
                                      self.showErrorAlert("Opss !", msg:"User has been removed")
                                      try? storage.removeAll()
+                                    dataStorage.async.removeAll(completion: { (result) in
+                                               if case .value = result {
+                                                   print("Cache cleaned")
+                                               }
+                                           })
                                      try! Auth.auth().signOut()
                                          
                                          DispatchQueue.main.async { // Make sure you're on the main thread here
@@ -79,6 +105,11 @@ class HomePageVC: UITabBarController {
                                         self.showErrorAlert("Opss !", msg: (err!.localizedDescription))
                                         
                                         try? storage.removeAll()
+                                        dataStorage.async.removeAll(completion: { (result) in
+                                                   if case .value = result {
+                                                       print("Cache cleaned")
+                                                   }
+                                               })
                                         try! Auth.auth().signOut()
                                         
                                         DispatchQueue.main.async { // Make sure you're on the main thread here
@@ -94,6 +125,11 @@ class HomePageVC: UITabBarController {
                                             
                                             
                                             try? storage.removeAll()
+                                            dataStorage.async.removeAll(completion: { (result) in
+                                                       if case .value = result {
+                                                           print("Cache cleaned")
+                                                       }
+                                                   })
                                             try! Auth.auth().signOut()
                                             
                                             DispatchQueue.main.async { // Make sure you're on the main thread here
@@ -121,6 +157,11 @@ class HomePageVC: UITabBarController {
                      case .error( _):
                          
                          try! Auth.auth().signOut()
+                         dataStorage.async.removeAll(completion: { (result) in
+                                    if case .value = result {
+                                        print("Cache cleaned")
+                                    }
+                                })
                          try? storage.removeAll()
                          
                          DispatchQueue.main.async { // Make sure you're on the main thread here
@@ -135,6 +176,11 @@ class HomePageVC: UITabBarController {
                  
                  
                  try! Auth.auth().signOut()
+            dataStorage.async.removeAll(completion: { (result) in
+                       if case .value = result {
+                           print("Cache cleaned")
+                       }
+                   })
                  try? storage.removeAll()
                  
             

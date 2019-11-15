@@ -276,10 +276,13 @@ class PersonalInfoVC: UIViewController, UITextFieldDelegate, ZSWTappableLabelTap
                     userUID: userUID!,
                     stripeID: stripeID
                 )
-
+                
+                
+                var ref: DocumentReference? = nil
+                
                 let db = DataService.instance.mainFireStoreRef.collection("Users")
                 
-                db.addDocument(data: user.dictionary) { err in
+                ref = db.addDocument(data: user.dictionary) { err in
                     
                     if let err = err {
                         
@@ -287,15 +290,20 @@ class PersonalInfoVC: UIViewController, UITextFieldDelegate, ZSWTappableLabelTap
                         
                     } else {
                         
-
+                        let id = ref!.documentID
+                        
                         guard let fcmToken = Messaging.messaging().fcmToken else { return }
+                        var token = [String]()
+                        token.append(fcmToken)
+                        let data = ["Fcm_token": token] as [String : Any]
                             
                         DataService.instance.checkEmailUserRef.child(testEmailed).setValue(["Timestamp": ServerValue.timestamp()])
                         DataService.instance.checkPhoneUserRef.child(self.phoneNumber!).setValue(["Timestamp": ServerValue.timestamp(), "Email": self.email!])
-                        DataService.instance.mainRealTimeDataBaseRef.child("User").child(userUID!).setValue(["Timestamp": ServerValue.timestamp(), "UID": userUID as Any])   
-                        DataService.instance.mainRealTimeDataBaseRef.child("fcmtoken").child(userUID!).child(fcmToken).setValue(1)
-                            
-                            
+                        DataService.instance.mainRealTimeDataBaseRef.child("User").child(userUID!).setValue(["Timestamp": ServerValue.timestamp(), "UID": userUID as Any])
+
+                        
+                        DataService.instance.mainFireStoreRef.collection("Users").document(id).updateData(data)         
+                
                         let userDict = User(uid: userUID!, Phone: self.phoneNumber!, FullName: self.FullNameTxt.text!, Campus: self.campus!, Birthday: self.birthdayTxt.text!, gender: self.GenderTxt.text!, stripe_cus: stripeID, email: self.email!)
                         
                         let key = "\(userDict.uid)"

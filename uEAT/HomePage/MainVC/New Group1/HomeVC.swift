@@ -8,18 +8,22 @@
 
 import UIKit
 import Firebase
+import CoreLocation
 
 
-class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate,UICollectionViewDelegateFlowLayout {
+class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate,UICollectionViewDelegateFlowLayout, CLLocationManagerDelegate {
 
+    @IBOutlet weak var LocationView: UIView!
     @IBOutlet weak var recentCollectionView: UICollectionView!
     @IBOutlet weak var collectionView: UICollectionView!
     
     @IBOutlet weak var RecentOrderHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var searchBar: ModifiedSearchBar!
+    @IBOutlet weak var LocationViewBarHeight: NSLayoutConstraint!
     
     var order_list = [Recent_order_model]()
     let searchBarColor = UIColor(red: 247/255, green: 248/255, blue: 250/255, alpha: 1.0)
+    
+    let locationManager = CLLocationManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +38,9 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         collectionView.delegate = self
         collectionView.dataSource = self
         
+        self.locationManager.delegate = self
+        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        
         
        
         
@@ -43,7 +50,26 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         super.viewDidAppear(animated)
     
         load_recent_order()
+        configureLocationService()
 
+    }
+    
+    func configureLocationService() {
+        
+        
+        let authorizationStatus = CLLocationManager.authorizationStatus()
+        
+        if authorizationStatus == .authorizedWhenInUse || authorizationStatus == .authorizedAlways {
+            self.LocationViewBarHeight.constant = 0
+            self.LocationView.isHidden = true
+            
+        } else {
+             self.LocationViewBarHeight.constant = 70
+            self.LocationView.isHidden = false
+        }
+        
+        
+        
     }
 
     func load_recent_order() {
@@ -92,7 +118,32 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         }
         
         
+    }
+    
+    
+    @IBAction func LocationRequestBtnPressed(_ sender: Any) {
         
+        locationManager.requestWhenInUseAuthorization()
+        
+        
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        // get my location with zoom 30
+        if status == .authorizedAlways || status == .authorizedWhenInUse {
+            
+            print("Granted")
+            self.LocationViewBarHeight.constant = 0
+            self.LocationView.isHidden = true
+            
+        } else {
+            
+            print("Not determined")
+            self.LocationViewBarHeight.constant = 70
+            self.LocationView.isHidden = false
+            
+        }
+  
         
     }
     

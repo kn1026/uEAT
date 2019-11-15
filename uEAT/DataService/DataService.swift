@@ -57,4 +57,8 @@ class DataService {
         return mainStorageRef.child("Cuisine")
     }
     
+    var AvatarStorageRef: StorageReference {
+        return mainStorageRef.child("Avatar")
+    }
+    
 }
