@@ -1,0 +1,1 @@
+../../../CardIO/CardIO/CardIODetectionMode 3.h

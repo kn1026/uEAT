@@ -10,6 +10,7 @@
 #endif
 #endif
 
+#import "Header 3.h"
 #import "Header.h"
 
 FOUNDATION_EXPORT double FireStoreVersionNumber;

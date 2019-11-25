@@ -10,6 +10,7 @@
 #endif
 #endif
 
+#import "ZSWTappableLabel 3.h"
 #import "ZSWTappableLabel.h"
 
 FOUNDATION_EXPORT double ZSWTappableLabelVersionNumber;

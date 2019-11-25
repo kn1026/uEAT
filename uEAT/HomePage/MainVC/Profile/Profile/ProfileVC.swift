@@ -208,7 +208,7 @@ class ProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSource, U
     
     @IBAction func UploadImg(_ sender: Any) {
         
-        let sheet = UIAlertController(title: "Upload our social security number card", message: "", preferredStyle: .actionSheet)
+        let sheet = UIAlertController(title: "Upload your photo", message: "", preferredStyle: .actionSheet)
         
         
         let camera = UIAlertAction(title: "Take a new photo", style: .default) { (alert) in

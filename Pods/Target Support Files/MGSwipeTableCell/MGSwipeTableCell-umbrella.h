@@ -10,7 +10,9 @@
 #endif
 #endif
 
+#import "MGSwipeButton 4.h"
 #import "MGSwipeButton.h"
+#import "MGSwipeTableCell 4.h"
 #import "MGSwipeTableCell.h"
 
 FOUNDATION_EXPORT double MGSwipeTableCellVersionNumber;

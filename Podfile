@@ -4,6 +4,7 @@
 target 'uEAT' do
   # Comment the next line if you don't want to use dynamic frameworks
 	
+    
     pod 'Stripe'
     pod ‘Firebase’
     pod 'Fabric'
@@ -13,6 +14,7 @@ target 'uEAT' do
     pod ‘Firebase/Database’
     pod ‘Firebase/Storage’
     pod 'Firebase/Messaging'
+    pod 'GoogleMaps'
     pod 'GooglePlaces'
     #pod 'SwiftOCR'
     pod 'Alamofire'
@@ -25,14 +27,9 @@ target 'uEAT' do
     pod 'MGSwipeTableCell'
     pod "ZSWTappableLabel", "~> 2.0"
     pod "ZSWTaggedString/Swift", "~> 4.0"
-    pod "SquareInAppPaymentsSDK"
     pod 'FireStore'
     pod 'Firebase/Core'
     pod 'Firebase/Firestore'
-    pod "ESTabBarController-swift"
-    pod "SquareInAppPaymentsSDK"
-    pod 'AMTabView'
-    
 
 
   use_frameworks!
