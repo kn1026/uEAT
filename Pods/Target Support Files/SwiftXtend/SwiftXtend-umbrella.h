@@ -10,7 +10,6 @@
 #endif
 #endif
 
-#import "SwiftXtend 4.h"
 #import "SwiftXtend.h"
 
 FOUNDATION_EXPORT double SwiftXtendVersionNumber;
