@@ -19,6 +19,8 @@ import SafariServices
 
 class PersonalInfoVC: UIViewController, UITextFieldDelegate, ZSWTappableLabelTapDelegate {
     
+    
+    
     @IBOutlet weak var termOfUseLbl: ZSWTappableLabel!
     @IBOutlet weak var FoodTxt: UITextField!
     @IBOutlet weak var GenderTxt: UITextField!
@@ -32,6 +34,7 @@ class PersonalInfoVC: UIViewController, UITextFieldDelegate, ZSWTappableLabelTap
     var email: String?
     var campus: String?
     var uniName: String?
+    
     
     static let URLAttributeName = NSAttributedString.Key(rawValue: "URL")
     

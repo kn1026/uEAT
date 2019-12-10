@@ -24,6 +24,7 @@ class ProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSource, U
     var feature = ["Notifications", "My Order", "Payment", "Security", "Voucher", "Profile Info", "Help & Support"]
     
     var url = ""
+    var avaUrl = ""
     
     let locationManager = CLLocationManager()
     var authorizationStatus = CLLocationManager.authorizationStatus()
@@ -50,7 +51,7 @@ class ProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSource, U
                             
                             self.profileImg.image = image
                             
-                            
+                           
                         }
                         
                     }
@@ -72,8 +73,9 @@ class ProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSource, U
                  
                  SwiftLoader.hide()
                  self.showErrorAlert("Oopps !!!", msg: "Cache Error, please log out and login again")
+                
                  
-          }
+            }
              
         }
         
@@ -276,7 +278,7 @@ class ProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSource, U
 
         uploadImg(image: image) {
             
-            self.CacheItem(image: image)
+            self.CacheItem(image: image, url: self.avaUrl)
             
         }
        
@@ -316,6 +318,7 @@ class ProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSource, U
                     let downUrl = Url as String
                     let downloadUrl = downUrl as NSString
                     let downloadedUrl = downloadUrl as String
+                    self.avaUrl = downloadedUrl
                     
                    // SwiftLoader.hide()
                     
@@ -373,18 +376,15 @@ class ProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSource, U
         
     }
     
-    func CacheItem(image: UIImage) {
-        
-        
-        
+    func CacheItem(image: UIImage, url: String) {
+         
         dataStorage.async.removeAll(completion: { (result) in
             if case .value = result {
                 print("Cache cleaned")
             }
         })
         
-        
-        try? imageStorage.setObject(image, forKey: "avatarUrl")
+        try? imageStorage.setObject(image, forKey: url)
         
     }
     

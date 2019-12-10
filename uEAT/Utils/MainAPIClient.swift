@@ -14,9 +14,6 @@ class MainAPIClient: NSObject, STPCustomerEphemeralKeyProvider {
     
     static let shared = MainAPIClient()
     
-    
-
-    
     var baseURLString:String? = nil
     var baseURL: URL {
         
@@ -30,6 +27,10 @@ class MainAPIClient: NSObject, STPCustomerEphemeralKeyProvider {
         }
         
     }
+    
+    
+    
+    
     
     
     

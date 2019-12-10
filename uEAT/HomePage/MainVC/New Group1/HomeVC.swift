@@ -9,21 +9,30 @@
 import UIKit
 import Firebase
 import CoreLocation
+import GeoFire
 
 
 class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate,UICollectionViewDelegateFlowLayout, CLLocationManagerDelegate {
 
     @IBOutlet weak var LocationView: UIView!
     @IBOutlet weak var recentCollectionView: UICollectionView!
-    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var HomecollectionView: UICollectionView!
     
+    var item: ItemModel!
+    
+
     @IBOutlet weak var RecentOrderHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var LocationViewBarHeight: NSLayoutConstraint!
+    
+    var menu = [ItemModel]()
     
     var order_list = [Recent_order_model]()
     let searchBarColor = UIColor(red: 247/255, green: 248/255, blue: 250/255, alpha: 1.0)
     
     let locationManager = CLLocationManager()
+    var restaurant_key = [String]()
+    var final_restaurant = [String]()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,15 +44,18 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         recentCollectionView.dataSource = self
         
         
-        collectionView.delegate = self
-        collectionView.dataSource = self
+        HomecollectionView.delegate = self
+        HomecollectionView.dataSource = self
         
         self.locationManager.delegate = self
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
         
-        
+        if let layout = HomecollectionView?.collectionViewLayout as? PinterestLayout {
+          layout.delegate = self
+        }
+        HomecollectionView?.contentInset = UIEdgeInsets(top: 23, left: 16, bottom: 10, right: 16)
        
-        
+        getNearByRestaurant()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -51,7 +63,142 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     
         load_recent_order()
         configureLocationService()
+        
 
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        
+        if segue.identifier == "moveToDetailVC1"{
+            if let destination = segue.destination as? itemDetail
+            {
+                
+                destination.item = self.item
+               
+                
+            }
+        }
+        
+        
+    }
+    
+    
+    func getNearByRestaurant() {
+        
+        guard let coordinate = locationManager.location?.coordinate else { return }
+        
+        
+        let url = DataService.instance.mainRealTimeDataBaseRef.child("Restaurant_coordinator")
+        let geofireRef = url
+        let geoFire = GeoFire(firebaseRef: geofireRef)
+        let loc = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+        let query = geoFire.query(at: loc, withRadius: 20)
+            
+        restaurant_key.removeAll()
+        
+        self.getRestaurantRadius(query: query)
+        
+
+        
+    }
+    
+    
+    func getRestaurantRadius(query: GFCircleQuery) {
+    
+        query.observe(.keyEntered, with: { (key: String!, location: CLLocation!) in
+            
+            if let key = key {
+                
+                self.restaurant_key.append(key)
+                
+            }
+            
+           
+        })
+        
+        query.observeReady {
+            
+
+            query.removeAllObservers()
+            
+            if self.restaurant_key.isEmpty != true {
+                for i in self.restaurant_key {
+                    self.verifyRestaurant(id: i) {
+                        
+                        
+                        self.loadMenu()
+                        
+                    }
+                }
+            }
+
+            
+        }
+        
+        
+    
+    }
+    
+    func verifyRestaurant(id: String, completed: @escaping DownloadComplete) {
+        
+        DataService.instance.mainFireStoreRef.collection("Restaurant_check_list").whereField("Restaurant_id", isEqualTo: id).whereField("Menu", isEqualTo: true).getDocuments { (snapCheck, err) in
+            
+            if err != nil {
+            
+                SwiftLoader.hide()
+                self.showErrorAlert("Opss !", msg: err!.localizedDescription)
+                print(err?.localizedDescription as Any)
+                return
+            
+            }
+            
+            if snapCheck?.isEmpty == true {
+                
+                
+                
+            } else {
+                
+                
+                self.final_restaurant.append(id)
+                
+            }
+            
+            completed()
+            
+            
+        }
+        
+    }
+    
+    func loadMenu() {
+        
+        for i in self.final_restaurant {
+            
+            DataService.instance.mainFireStoreRef.collection("Menu").whereField("restaurant_id", isEqualTo: i).getDocuments { (snap, err) in
+            
+            if err != nil {
+                
+                self.showErrorAlert("Opss !", msg: err!.localizedDescription)
+                return
+                
+            }
+            
+            for item in snap!.documents {
+                
+                let dict = ItemModel(postKey: item.documentID, Item_model: item.data())
+                self.menu.append(dict)
+                
+                
+                }
+                
+                self.HomecollectionView.reloadData()
+                
+            }
+            
+        }
+        
+        
     }
     
     func configureLocationService() {
@@ -62,6 +209,8 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         if authorizationStatus == .authorizedWhenInUse || authorizationStatus == .authorizedAlways {
             self.LocationViewBarHeight.constant = 0
             self.LocationView.isHidden = true
+            
+            
             
         } else {
              self.LocationViewBarHeight.constant = 70
@@ -170,7 +319,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         if collectionView == recentCollectionView {
             return order_list.count
         } else {
-            return 0
+            return menu.count
         }
            
     }
@@ -192,20 +341,33 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                 
             } else {
                 
-                return UICollectionViewCell()
+                return order_cell()
                 
             }
             
         } else {
             
+            let item = menu[indexPath.row]
+            if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ItemCell", for: indexPath) as? ItemCell {
+                
+                cell.configureCell(item)
+                
+                return cell
+                
+            } else {
+                
+                return ItemCell()
+                
+            }
             
-            return UICollectionViewCell()
+            
         }
            
           
 
     }
     
+
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
@@ -213,13 +375,18 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
             
             return CGSize(width: self.recentCollectionView.frame.width - 20, height: 63)
             
+        } else {
+            
+            let itemSize = (collectionView.frame.width - (collectionView.contentInset.left + collectionView.contentInset.right + 10)) / 2
+            return CGSize(width: itemSize, height: itemSize)
+            
         }
         
-        return CGSize(width: 300, height: 63)
-        
     }
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        if collectionView == recentCollectionView {
+            return 10.0
+        }
         return 10.0
     }
 
@@ -230,23 +397,31 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        if collectionView == recentCollectionView {
-            
-            let item = order_list[indexPath.item]
-            print(item.Order_id, item.Restaurant_name)
+        if collectionView == HomecollectionView {
+            item = menu[indexPath.row]
+            self.performSegue(withIdentifier: "moveToDetailVC1", sender: nil)
             
         }
-        
-       
-        
-        
     }
+    
 
     @IBAction func searchBtnPressed(_ sender: Any) {
         
-        self.performSegue(withIdentifier: "moveToSearchVC", sender: nil)
+       // self.performSegue(withIdentifier: "moveToSearchVC", sender: nil)
         
     }
     
 }
-
+extension HomeVC: PinterestLayoutDelegate {
+  func collectionView(
+    _ collectionView: UICollectionView,
+    heightForPhotoAtIndexPath indexPath:IndexPath) -> CGFloat {
+    
+    if collectionView == HomecollectionView {
+        return 500.0
+    } else {
+        return 0.0
+    }
+    
+  }
+}
