@@ -47,16 +47,18 @@ class itemDetail: UIViewController {
                 } else {
                     
                     
-                    Alamofire.request(self.item.url).responseImage { response in
+                    AF.request(self.item.url).responseImage { response in
                         
-                        if let image = response.result.value {
-                            
-                            
-                            self.ImgView.image = image
-                            try? imageStorage.setObject(image, forKey: self.item.url)
-                            
-                            
+                        
+                        switch response.result {
+                        case let .success(value):
+                            self.ImgView.image = value
+                            try? imageStorage.setObject(value, forKey: self.item.url)
+                        case let .failure(error):
+                            print(error)
                         }
+                        
+
                         
                         
                     }

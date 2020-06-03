@@ -261,7 +261,7 @@ class PaymentVC: UIViewController, UITableViewDelegate, UITableViewDataSource, M
             let urls = URL(string: url!)?.appendingPathComponent("delete_card")
             
             
-            Alamofire.request(urls!, method: .post, parameters: [
+            AF.request(urls!, method: .post, parameters: [
                 
                 "Card_Id": card.Id!,
                 "cus_id": stripe_id,
@@ -338,7 +338,7 @@ class PaymentVC: UIViewController, UITableViewDelegate, UITableViewDataSource, M
                     let url = MainAPIClient.shared.baseURLString
                     let urls = URL(string: url!)?.appendingPathComponent("set_default")
                     
-                    Alamofire.request(urls!, method: .post, parameters: [
+                    AF.request(urls!, method: .post, parameters: [
                         
                         "Card_Id": card.Id!,
                         "cus_id": stripe_id,
@@ -388,10 +388,6 @@ class PaymentVC: UIViewController, UITableViewDelegate, UITableViewDataSource, M
         
         
         
-
-        
-        
-        
     }
     
     @objc func addCardBtnPressed() {
@@ -412,7 +408,7 @@ class PaymentVC: UIViewController, UITableViewDelegate, UITableViewDataSource, M
         let url = MainAPIClient.shared.baseURLString
         let urls = URL(string: url!)?.appendingPathComponent("sms_noti")
         
-        Alamofire.request(urls!, method: .post, parameters: [
+        AF.request(urls!, method: .post, parameters: [
             
             "phone": Phone,
             "body": text
@@ -464,7 +460,7 @@ class PaymentVC: UIViewController, UITableViewDelegate, UITableViewDataSource, M
         let url = MainAPIClient.shared.baseURLString
         let urls = URL(string: url!)?.appendingPathComponent("customers_card")
 
-        Alamofire.request(urls!, method: .post, parameters: [
+        AF.request(urls!, method: .post, parameters: [
             
             "cus_id": cus_id
             

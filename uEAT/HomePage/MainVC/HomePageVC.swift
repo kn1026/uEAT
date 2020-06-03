@@ -28,8 +28,11 @@ class HomePageVC: UITabBarController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+    
         
         check_condition()
+        
+        
     }
     
     func generate_menu() {
@@ -139,7 +142,7 @@ class HomePageVC: UITabBarController {
                                         } else {
                                             
                                             
-                                            //self.showErrorAlert("Opss !!!", msg: "Done")
+                            
                                             
                                         }
                                              
@@ -176,7 +179,8 @@ class HomePageVC: UITabBarController {
                  
                  
                  try! Auth.auth().signOut()
-            dataStorage.async.removeAll(completion: { (result) in
+                    
+                    dataStorage.async.removeAll(completion: { (result) in
                        if case .value = result {
                            print("Cache cleaned")
                        }

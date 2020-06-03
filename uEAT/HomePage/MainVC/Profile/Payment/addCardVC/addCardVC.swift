@@ -124,7 +124,7 @@ class addCardVC: UIViewController, STPPaymentCardTextFieldDelegate {
                 let url = MainAPIClient.shared.baseURLString
                 let urls = URL(string: url!)?.appendingPathComponent("retrieve_token")
                 
-                 Alamofire.request(urls!, method: .post, parameters: [
+                 AF.request(urls!, method: .post, parameters: [
                  
                     "number": card.number!,
                     "exp_month": card.expMonth,
@@ -180,7 +180,7 @@ class addCardVC: UIViewController, STPPaymentCardTextFieldDelegate {
                                                                 
                                                                 let urlss = URL(string: url!)?.appendingPathComponent("card")
                                                                 
-                                                                Alamofire.request(urlss!, method: .post, parameters: [
+                                                                AF.request(urlss!, method: .post, parameters: [
                                                                     
                                                                     "cus_id": stripeIDed,
                                                                     "source": self.ids

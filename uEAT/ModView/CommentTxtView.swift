@@ -14,7 +14,7 @@ class CommentTxtView: UITextView {
         super.awakeFromNib()
         
         
-        layer.borderColor = UIColor.groupTableViewBackground.cgColor
+        layer.borderColor = UIColor.groupTableViewBackground.cgColor 
         layer.borderWidth = 1.0
         layer.cornerRadius = self.frame.width / 35
         

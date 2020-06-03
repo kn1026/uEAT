@@ -208,7 +208,7 @@ class PersonalInfoVC: UIViewController, UITextFieldDelegate, ZSWTappableLabelTap
         let urls = URL(string: url!)?.appendingPathComponent("customers")
         
         
-        Alamofire.request(urls!, method: .post, parameters: [
+        AF.request(urls!, method: .post, parameters: [
             
             
             "email": self.email!

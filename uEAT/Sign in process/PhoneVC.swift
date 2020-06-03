@@ -157,9 +157,9 @@ class PhoneVC: UIViewController, UITextFieldDelegate {
                 self.swiftLoader()
                 var finalPhone = ""
                 
-                if converted == "9454686613" {
+                if converted == "0879565629" {
                     
-                    finalPhone = "+63\(converted)"
+                    finalPhone = "+84879565629"
                     
                 } else {
                     
