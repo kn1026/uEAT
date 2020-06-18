@@ -10,7 +10,7 @@ import Foundation
 import Cache
 import UIKit
 import CoreLocation
-
+import SwiftEntryKit
 
 let googleMap_Key = "AIzaSyAAYuBDXTubo_qcayPX6og_MrWq9-iM_KE"
 let googlePlace_key = "AIzaSyAAYuBDXTubo_qcayPX6og_MrWq9-iM_KE"
@@ -21,6 +21,18 @@ let dpwd = "ooewiuroiweyuruwehrgwehfgdsjhf"
 
 var testEmailed = ""
 var stripeID = ""
+
+var defaultCardID = ""
+var chargedCardID = ""
+var chargedlast4Digit = ""
+var chargedCardBrand = ""
+
+var cardID = ""
+var cardBrand = ""
+var cardLast4Digits = ""
+
+var defaultBrand = ""
+var defaultcardLast4Digits = ""
 
 let Shadow_Gray: CGFloat = 120.0 / 255.0
 typealias DownloadComplete = () -> ()
@@ -208,4 +220,33 @@ func applyShadowOnView(_ view:UIView) {
     view.layer.shadowOffset = CGSize.zero
     view.layer.shadowRadius = 3
 
+    
+    
 }
+
+func loadAlertAnimation(title: String, desc: String) {
+    
+    let image = UIImage(named: "uEAT_logo")
+    let resizeImg = resizeImage(image: image!, targetSize: CGSize(width: 30.0, height: 30.0))
+    let ekImage = EKProperty.ImageContent(image: resizeImg)
+    
+    // Generate top floating entry and set some properties
+    var attributes = EKAttributes.topToast
+    attributes.popBehavior = .animated(animation: .init(translate: .init(duration: 0.3), scale: .init(from: 1, to: 0.7, duration: 0.7)))
+    attributes.entryBackground = .color(color: .dimmedDarkBackground)
+    attributes.shadow = .active(with: .init(color: .black, opacity: 0.5, radius: 10, offset: .zero))
+    attributes.statusBar = .dark
+    attributes.scroll = .enabled(swipeable: true, pullbackAnimation: .jolt)
+    attributes.positionConstraints.maxSize = .init(width: .constant(value: UIScreen.main.minEdge), height: .intrinsic)
+    
+
+    let title = EKProperty.LabelContent(text: title, style: .init(font: UIFont.systemFont(ofSize: 20, weight: UIFont.Weight.bold), color: EKColor.white))
+    let description = EKProperty.LabelContent(text: desc, style: .init(font: UIFont.systemFont(ofSize: 15, weight: UIFont.Weight.medium), color: EKColor.white))
+    let simpleMessage = EKSimpleMessage(image: ekImage, title: title, description: description)
+    let notificationMessage = EKNotificationMessage(simpleMessage: simpleMessage)
+
+    let contentView = EKNotificationMessageView(with: notificationMessage)
+    SwiftEntryKit.display(entry: contentView, using: attributes)
+    
+}
+

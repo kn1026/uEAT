@@ -8,7 +8,6 @@ target 'uEAT' do
     pod ‘Firebase’
     pod 'Fabric'
     pod 'Crashlytics'
-    #pod 'SidebarOverlay'
     pod ‘Firebase/Auth’
     pod ‘Firebase/Database’
     pod ‘Firebase/Storage’
@@ -29,8 +28,10 @@ target 'uEAT' do
     pod 'FireStore'
     pod 'Firebase/Core'
     pod 'Firebase/Firestore'
-
-
+    pod 'SwiftEntryKit', '1.2.3'
+    pod 'NVActivityIndicatorView/AppExtension'
+    pod 'JSQMessagesViewController'
+    
   use_frameworks!
 
   # Pods for uEAT

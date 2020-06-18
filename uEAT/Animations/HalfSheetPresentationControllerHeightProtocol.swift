@@ -75,7 +75,8 @@ extension HalfSheetPresentationController {
 
     private func makePaddingView() -> UIView {
         let view = UIView()
-        view.backgroundColor = Color.popupBackground
+   
+        view.backgroundColor = UIColor.systemBackground
 
         return view
     }

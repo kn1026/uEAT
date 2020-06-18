@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import GeoFire
 
 class HomePageVC: UITabBarController {
 
@@ -142,6 +143,7 @@ class HomePageVC: UITabBarController {
                                         } else {
                                             
                                             
+                                            
                             
                                             
                                         }
@@ -195,6 +197,8 @@ class HomePageVC: UITabBarController {
                  
                  
              }
+        
+        
              
         
         

@@ -136,6 +136,7 @@ class ItemModel {
     init(postKey: String, Item_model: Dictionary<String, Any>) {
         
     
+        
         if let name = Item_model["name"] as? String {
             self._name = name
             
@@ -156,7 +157,7 @@ class ItemModel {
             
         }
         
-        if let Restaurant_ID = Item_model["Restaurant_ID"] as? String {
+        if let Restaurant_ID = Item_model["restaurant_id"] as? String {
             self._Restaurant_ID = Restaurant_ID
             
         }
@@ -194,6 +195,8 @@ class ItemModel {
         
     }
     
+    
+   
     
     
     

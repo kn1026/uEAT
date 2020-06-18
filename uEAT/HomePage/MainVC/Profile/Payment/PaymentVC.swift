@@ -36,6 +36,7 @@ class PaymentVC: UIViewController, UITableViewDelegate, UITableViewDataSource, M
         
        tableView.delegate = self
        tableView.dataSource = self
+       tableView.allowsSelection = true
         
        loadPayment()
        loadStripe()
@@ -191,6 +192,25 @@ class PaymentVC: UIViewController, UITableViewDelegate, UITableViewDataSource, M
         
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let card = paymentArr[indexPath.row]
+        
+        
+        chargedCardID = card.Id
+        cardBrand = card.Brand
+        cardLast4Digits = card.Last4
+        
+        
+        
+        chargedlast4Digit = card.Last4
+        chargedCardBrand = card.Brand
+        
+        NotificationCenter.default.post(name: (NSNotification.Name(rawValue: "setPayment")), object: nil)
+        
+        
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     func swipeTableCell(_ cell: MGSwipeTableCell, canSwipe direction: MGSwipeDirection) -> Bool {
         return true;
     }
@@ -281,24 +301,45 @@ class PaymentVC: UIViewController, UITableViewDelegate, UITableViewDataSource, M
                         self.paymentArr.remove(at: (path as NSIndexPath).row)
                         self.tableView.deleteRows(at: [path], with: .left)
                         
-                        DataService.instance.mainRealTimeDataBaseRef.child("Default_Card").child(Auth.auth().currentUser!.uid).child(card.Id).observeSingleEvent(of: .value, with: { (snap) in
-                               
-                                   if snap.exists() {
-                                    
-                                        if self.paymentArr.isEmpty != true {
-                                            
-                                            let next = self.paymentArr[0]
-                                            
-                                            DataService.instance.mainRealTimeDataBaseRef.child("Default_Card").child(Auth.auth().currentUser!.uid).removeValue()
-                                            DataService.instance.mainRealTimeDataBaseRef.child("Default_Card").child(Auth.auth().currentUser!.uid).child(next.Id).setValue(["Timestamp": ServerValue.timestamp()])
-                                    
-                                                self.tableView.reloadData()
-                                                                    
-                                        }
-                                    
-                                  }
+                        if defaultCardID == card.Id {
                             
-                        })
+                        
+                            if self.paymentArr.isEmpty != true {
+                                
+                                let next = self.paymentArr[0]
+                                
+                       
+                                
+                                if next.Brand != "Apple_pay" {
+                                    
+                                    defaultCardID = next.Id
+                                    defaultcardLast4Digits = next.Last4
+                                    defaultBrand = next.Brand
+                                    
+                                    
+                                    
+                                } else {
+                                    
+                                    defaultCardID = ""
+                                    chargedCardID = ""
+                                    chargedlast4Digit = ""
+                                    chargedCardBrand = ""
+
+                                    cardID = ""
+                                    cardBrand = ""
+                                    cardLast4Digits = ""
+
+                                    defaultBrand = ""
+                                    defaultcardLast4Digits = ""
+                                    
+                                }
+                                
+                                
+                                
+                            }
+                            
+                         
+                        }
 
                       
                     case .failure(let error):
@@ -358,6 +399,11 @@ class PaymentVC: UIViewController, UITableViewDelegate, UITableViewDataSource, M
                             DataService.instance.mainRealTimeDataBaseRef.child("Default_Card").child(Auth.auth().currentUser!.uid).child(card.Id).setValue(["Timestamp": ServerValue.timestamp()])
                                 
                                 //card.Id
+                                
+                                defaultCardID = card.Id
+                                defaultcardLast4Digits = card.Last4
+                                defaultBrand = card.Brand
+                                
                                 self.paymentArr.remove(at: (path as NSIndexPath).row)
                                 self.paymentArr.insert(card, at: 0)
                                 self.tableView.reloadData()
@@ -535,11 +581,7 @@ class PaymentVC: UIViewController, UITableViewDelegate, UITableViewDataSource, M
         
         
         SwiftLoader.show(title: "", animated: true)
-        
-        
-        
-        
-        
+           
         
     }
     

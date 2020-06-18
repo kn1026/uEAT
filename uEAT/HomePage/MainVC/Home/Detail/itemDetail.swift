@@ -11,13 +11,19 @@ import Firebase
 import AlamofireImage
 import Alamofire
 
-class itemDetail: UIViewController {
+
+class itemDetail: UIViewController, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
 
     @IBOutlet weak var descriptionTxt: UILabel!
     @IBOutlet weak var titleTxt: UILabel!
     @IBOutlet weak var priceTxt: UILabel!
     @IBOutlet weak var ImgView: UIImageView!
     var item: ItemModel!
+    @IBOutlet weak var collectionView: UICollectionView!
+    var Add_on = [ItemModel]()
+    
+    @IBOutlet weak var quanlityLbl: UILabel!
+    var quanlity = 1
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,9 +31,11 @@ class itemDetail: UIViewController {
         // Do any additional setup after loading the view.
         
         titleTxt.text = item.name
-        priceTxt.text = "\(item.price!)"
-        descriptionTxt.text = item.description
+        priceTxt.text = "$\(item.price!)"
+        descriptionTxt.text = "Follow our Custom Collection View Layout Video Tutorial Series. There you can learn how to build amazing custom layouts inspired by popular iOS apps. You'll also dig into some advanced topics like creating interactive layouts and manipulating scroll behavior."
         
+        collectionView.delegate = self
+        collectionView.dataSource = self
         
         if item.url != "" {
             
@@ -39,7 +47,6 @@ class itemDetail: UIViewController {
                         
                         
                         self.ImgView.image = image
-                        
                         //try? imageStorage.setObject(image, forKey: url)
                         
                     }
@@ -58,9 +65,6 @@ class itemDetail: UIViewController {
                             print(error)
                         }
                         
-
-                        
-                        
                     }
                     
                 }
@@ -70,6 +74,93 @@ class itemDetail: UIViewController {
             
             
         }
+        
+        if item.Restaurant_ID != "" {
+            loadAddOne(id: item.Restaurant_ID)
+        } else {
+            print("Can't get restaurant id")
+        }
+        
+        
+        
+        
+    }
+    
+    
+    
+    
+    func DeleteExpiredCart(uid: String, completed: @escaping DownloadComplete) {
+         
+         let calendar = Calendar.current
+         let components = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: Date())
+         let start = calendar.date(from: components)!
+         let newDate = calendar.date(byAdding: .minute, value: -30, to: start)
+         
+
+    
+         DataService.instance.mainFireStoreRef.collection("Cart").whereField("userUID", isEqualTo: uid).whereField("timeStamp", isLessThanOrEqualTo: newDate!).getDocuments { (snaps, err) in
+         
+         if err != nil {
+             
+             self.showErrorAlert("Opss !", msg: err!.localizedDescription)
+             return
+             
+         }
+         
+             for item in snaps!.documents {
+                 
+                 
+                 DataService.instance.mainFireStoreRef.collection("Cart").document(item.documentID).delete() { err in
+                     if let err = err {
+                         print("Error removing document: \(err)")
+                     } else {
+                         print("Document successfully removed!")
+                     }
+                 }
+                 
+                 completed()
+                 
+             }
+             
+             completed()
+             
+             
+             
+             
+         }
+
+         
+         
+     }
+    
+    // load add-on
+    
+    
+    func loadAddOne(id: String) {
+        
+        
+        DataService.instance.mainFireStoreRef.collection("Menu").whereField("restaurant_id", isEqualTo: id).whereField("type", isEqualTo: "Add-on").getDocuments { (snap, err) in
+        
+        if err != nil {
+            
+            self.showErrorAlert("Opss !", msg: err!.localizedDescription)
+            return
+            
+        }
+        
+        for item in snap!.documents {
+            
+            let dict = ItemModel(postKey: item.documentID, Item_model: item.data())
+            self.Add_on.append(dict)
+                
+                
+            }
+            
+            self.collectionView.reloadData()
+            
+            
+        }
+        
         
     }
     
@@ -90,31 +181,86 @@ class itemDetail: UIViewController {
     }
     @IBAction func addToCartBtnPressed(_ sender: Any) {
         
-        swiftLoader()
         
-        let dict = ["name": item.name as Any, "description": item.description as Any, "price": item.price as Any, "url": item.url as Any, "category": item.category as Any, "type": item.type as Any, "restaurant_id": item.Restaurant_ID as Any, "timeStamp": FieldValue.serverTimestamp(), "userUID": Auth.auth().currentUser!.uid]
+        let uid = Auth.auth().currentUser?.uid
         
-        let db = DataService.instance.mainFireStoreRef.collection("Cart")
+        swiftLoader(title: "Adding to cart")
         
-        
-        
-        db.addDocument(data: dict) { err in
-          
-              if let err = err {
-                  
-                  SwiftLoader.hide()
-                  self.showErrorAlert("Opss !", msg: err.localizedDescription)
-                  
-              } else {
-                
-                SwiftLoader.hide()
-                self.dismiss(animated: true, completion: nil)
-                
+        DeleteExpiredCart(uid: uid!) {
             
+            DataService.instance.mainFireStoreRef.collection("Cart").whereField("userUID", isEqualTo: uid!).whereField("url", isEqualTo: self.item.url!).getDocuments { (snaps, err) in
+                       
+                       if err != nil {
+                           
+                           self.showErrorAlert("Opss !", msg: err!.localizedDescription)
+                           return
+                           
+                       }
+                if snaps?.isEmpty == true {
+                    
+                    let dict = ["name": self.item.name as Any, "description": self.item.description as Any, "price": self.item.price as Any, "url": self.item.url as Any, "category": self.item.category as Any, "type": self.item.type as Any, "restaurant_id": self.item.Restaurant_ID as Any, "timeStamp": FieldValue.serverTimestamp(), "userUID": Auth.auth().currentUser!.uid, "quanlity": self.quanlity]
+                    
+                    let db = DataService.instance.mainFireStoreRef.collection("Cart")
+                    
+                    
+                    
+                    db.addDocument(data: dict) { err in
+                      
+                          if let err = err {
+                              
+                              SwiftLoader.hide()
+                              self.showErrorAlert("Opss !", msg: err.localizedDescription)
+                              
+                          } else {
+                            
+                            SwiftLoader.hide()
+                            loadAlertAnimation(title: "Conratulation", desc: "You have added to cart succesfully")
+                            
+                            
+                        
+                        }
+                        
+                        
+                    }
+                    
+                } else {
+                    
+                    for item in snaps!.documents {
+                    
+                    if let count = item.data()["quanlity"] as? Int {
+                        
+                        
+                        
+                        let id = item.documentID
+                        
+  
+                        DataService.instance.mainFireStoreRef.collection("Cart").document(id).updateData(["quanlity": count+self.quanlity, "timeStamp": FieldValue.serverTimestamp()])
+                        
+                        
+                        SwiftLoader.hide()
+                        loadAlertAnimation(title: "Conratulation", desc: "You have added to cart succesfully")
+                            
+                    } else {
+                        print("Can't convert")
+                    }
+                    
+                    
+                }
+                       
+                           
+                            
+                    }
+                
+                
+                
             }
             
-            
         }
+        
+        
+        
+        
+        
         
 
         
@@ -134,7 +280,7 @@ class itemDetail: UIViewController {
         
     }
     
-    func swiftLoader() {
+    func swiftLoader(title: String) {
         
         
         var config : SwiftLoader.Config = SwiftLoader.Config()
@@ -154,4 +300,197 @@ class itemDetail: UIViewController {
         
                                                                                             
     }
+    
+    // collectionview
+    
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+              return 1
+          }
+          
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+              
+        return Add_on.count
+              
+    }
+          
+          
+       func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+           
+           
+           
+           let item = Add_on[indexPath.row]
+           
+           if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "addOnCell", for: indexPath) as? addOnCell {
+               
+               cell.configureCell(item)
+               
+               return cell
+               
+           } else {
+               
+               return order_cell()
+               
+           }
+              
+             
+
+       }
+       
+
+       
+       func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+           
+            return CGSize(width: 141.0, height: 76.0)
+           
+       }
+       
+       
+       func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+           
+           return 10.0
+       }
+
+       func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+           return 0
+
+       }
+       
+       func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+           
+        let item_addon = Add_on[indexPath.row]
+            
+        swiftLoader(title: "Adding to cart")
+        
+        let uid = Auth.auth().currentUser?.uid
+        
+        DeleteExpiredCart(uid: uid!) {
+            
+            
+            DataService.instance.mainFireStoreRef.collection("Cart").whereField("userUID", isEqualTo: uid!).whereField("url", isEqualTo: item_addon.url!).getDocuments { (snaps, err) in
+                   
+                   if err != nil {
+                       
+                       self.showErrorAlert("Opss !", msg: err!.localizedDescription)
+                       return
+                       
+                   }
+                
+                if snaps?.isEmpty == true {
+                    
+                    let dict = ["name": item_addon.name as Any, "description": item_addon.description as Any, "price": item_addon.price as Any, "url": item_addon.url as Any, "category": item_addon.category as Any, "type": item_addon.type as Any, "restaurant_id": item_addon.Restaurant_ID as Any, "timeStamp": FieldValue.serverTimestamp(), "userUID": Auth.auth().currentUser!.uid, "quanlity": 1]
+                    
+                    let db = DataService.instance.mainFireStoreRef.collection("Cart")
+                    
+                    
+                    
+                    db.addDocument(data: dict) { err in
+                      
+                          if let err = err {
+                              
+                              SwiftLoader.hide()
+                              self.showErrorAlert("Opss !", msg: err.localizedDescription)
+                              
+                          } else {
+                            
+                            self.collectionView.deleteItems(at: [indexPath])
+                            self.Add_on.remove(at: indexPath.row)
+                            self.collectionView.reloadData()
+                            SwiftLoader.hide()
+                            loadAlertAnimation(title: "Conratulation", desc: "You have added to cart succesfully")
+                            
+                        
+                        }
+                        
+                        
+                    }
+                    
+                } else {
+                    
+                    
+                    for item in snaps!.documents {
+                            
+                            if let count = item.data()["quanlity"] as? Int {
+                                
+                                let id = item.documentID
+                                 DataService.instance.mainFireStoreRef.collection("Cart").document(id).updateData(["quanlity": count+1, "timeStamp": FieldValue.serverTimestamp()])
+                                
+                                self.collectionView.deleteItems(at: [indexPath])
+                                self.Add_on.remove(at: indexPath.row)
+                                self.collectionView.reloadData()
+                                SwiftLoader.hide()
+                                loadAlertAnimation(title: "Conratulation", desc: "You have added to cart succesfully")
+                                    
+                                    
+                                }
+                            
+                    }
+                    
+                }
+                   
+                       
+                           
+                        
+            
+            
+            
+            
+                       
+            }
+            
+            
+            
+        }
+        
+        
+            
+            
+        
+        
+            
+            
+        
+        
+        
+       }
+    @IBAction func plusBtn(_ sender: Any) {
+        
+        quanlity += 1
+        quanlityLbl.text = "\(quanlity)"
+        let price = item.price * Float(quanlity)
+        priceTxt.text = "$\(price)"
+        
+    }
+    
+    
+    @IBAction func MinusBtn(_ sender: Any) {
+        
+        if quanlity == 1 {
+            
+            quanlity = 1
+            quanlityLbl.text = "\(quanlity)"
+            
+            let price = item.price * Float(quanlity)
+            priceTxt.text = "$\(price)"
+            
+        } else {
+            
+            quanlity -= 1
+            quanlityLbl.text = "\(quanlity)"
+            
+            let price = item.price * Float(quanlity)
+            priceTxt.text = "$\(price)"
+            
+        }
+        
+    }
+    
+     // check duplication
+    
+    func checkDuplication(uid: String, url: String) {
+        
+        
+        
+    }
+    
 }

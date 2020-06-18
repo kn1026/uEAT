@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 import CoreLocation
 import GeoFire
+import Alamofire
 
 
 class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate,UICollectionViewDelegateFlowLayout, CLLocationManagerDelegate {
@@ -56,7 +57,11 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         HomecollectionView?.contentInset = UIEdgeInsets(top: 23, left: 16, bottom: 10, right: 16)
        
         getNearByRestaurant()
+        
+        
     }
+    
+
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -93,6 +98,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         let geofireRef = url
         let geoFire = GeoFire(firebaseRef: geofireRef)
         let loc = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+        print(loc)
         let query = geoFire.query(at: loc, withRadius: 20)
             
         restaurant_key.removeAll()
@@ -124,6 +130,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
             
             if self.restaurant_key.isEmpty != true {
                 for i in self.restaurant_key {
+                    print(i)
                     self.verifyRestaurant(id: i) {
                         
                         
@@ -131,6 +138,8 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                         
                     }
                 }
+            } else {
+                print("No nearby restaurant")
             }
 
             
@@ -186,10 +195,14 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
             
             for item in snap!.documents {
                 
-                let dict = ItemModel(postKey: item.documentID, Item_model: item.data())
-                self.menu.append(dict)
-                
-                
+                if let type = item.data()["type"] as? String, type != "Add-on" {
+                    let dict = ItemModel(postKey: item.documentID, Item_model: item.data())
+                    self.menu.append(dict)
+                    
+                    
+                    }
+                    
+                    
                 }
                 
                 self.HomecollectionView.reloadData()
@@ -234,6 +247,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                 if err != nil {
                     
                     self.RecentOrderHeightConstraint.constant = 0.0
+                    //print(err?.localizedDescription)
                     self.showErrorAlert("Opss !", msg: "Can't load your recent orders")
                     return
                     
@@ -254,10 +268,12 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                         let i = item.data()
                         let order = Recent_order_model(postKey: item.documentID, Order_model: i)
                         self.order_list.append(order)
-                        self.recentCollectionView.reloadData()
+                        
                         
                         
                     }
+                    
+                    self.recentCollectionView.reloadData()
       
                 }
             
@@ -377,12 +393,15 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
             
         } else {
             
-            let itemSize = (collectionView.frame.width - (collectionView.contentInset.left + collectionView.contentInset.right + 10)) / 2
+            let itemSize = (self.HomecollectionView.frame.width - (self.HomecollectionView.contentInset.left + self.HomecollectionView.contentInset.right + 10)) / 2
             return CGSize(width: itemSize, height: itemSize)
+            
             
         }
         
     }
+    
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         if collectionView == recentCollectionView {
             return 10.0
@@ -418,7 +437,14 @@ extension HomeVC: PinterestLayoutDelegate {
     heightForPhotoAtIndexPath indexPath:IndexPath) -> CGFloat {
     
     if collectionView == HomecollectionView {
-        return 500.0
+        
+        let randomInt = Int.random(in: 0..<2)
+        if randomInt == 0 {
+            return 250.0
+        } else {
+            return 300.0
+        }
+        
     } else {
         return 0.0
     }
