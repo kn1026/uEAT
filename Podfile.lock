@@ -167,6 +167,7 @@ PODS:
     - Result (~> 4.0)
   - Result (4.1.0)
   - SinchVerification-Swift (2.0.6)
+  - SkeletonView (1.8.7)
   - Stripe (19.3.0)
   - SwiftEntryKit (1.2.3):
     - QuickLayout (= 3.0.0)
@@ -204,6 +205,7 @@ DEPENDENCIES:
   - MGSwipeTableCell
   - NVActivityIndicatorView/AppExtension
   - SinchVerification-Swift
+  - SkeletonView
   - Stripe
   - SwiftEntryKit (= 1.2.3)
   - SwiftyJSON
@@ -250,6 +252,7 @@ SPEC REPOS:
     - ReactiveSwift
     - Result
     - SinchVerification-Swift
+    - SkeletonView
     - Stripe
     - SwiftEntryKit
     - SwiftXtend
@@ -296,6 +299,7 @@ SPEC CHECKSUMS:
   ReactiveSwift: a2bb9ace428a109e9c0209615645d9d286c8c433
   Result: bd966fac789cc6c1563440b348ab2598cc24d5c7
   SinchVerification-Swift: 6188011479120d3e6ff13fa646189b10194e308e
+  SkeletonView: ba5370f41280b2f0a76918bb143c1294232bb4f4
   Stripe: dd5bfdd5f1daed4f9ddbfb47e9449ec302f9f708
   SwiftEntryKit: 340713c2e4a6662c5149629990bf1088bf5f0389
   SwiftXtend: 12539d07f953ee1ce6b9653b51f681909a21e913
@@ -303,6 +307,6 @@ SPEC CHECKSUMS:
   ZSWTaggedString: 1a6aab3143188634c1e5dfe9383ce754c1fb5fe2
   ZSWTappableLabel: cff84c0a55e30f2141f7dac24e5903302a7e35ec
 
-PODFILE CHECKSUM: 2a0945eb1778ab275739b5bed176bf9182836a7b
+PODFILE CHECKSUM: 37d674d645ae7f0c73cc0597b7960c5d7e134514
 
 COCOAPODS: 1.8.4

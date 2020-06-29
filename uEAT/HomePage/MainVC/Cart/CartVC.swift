@@ -43,7 +43,9 @@ class CartVC: UIViewController, UITableViewDataSource, UITableViewDelegate, MGSw
         super.viewDidAppear(animated)
         
         
-        prepareDelExpCart()
+        
+        checkRestaurantOpen(uid: Auth.auth().currentUser!.uid)
+        
         
         if let uid = Auth.auth().currentUser?.uid, uid != "" {
         
@@ -150,6 +152,99 @@ class CartVC: UIViewController, UITableViewDataSource, UITableViewDelegate, MGSw
     }
     
     
+    func checkRestaurantOpen(uid: String) {
+        
+         DataService.instance.mainFireStoreRef.collection("Cart").whereField("userUID", isEqualTo: uid).getDocuments { (snaps, err) in
+            
+            var firstRun = false
+            
+            if err != nil {
+                       
+                       self.showErrorAlert("Opss !", msg: err!.localizedDescription)
+                       return
+                       
+                   }
+                       if snaps?.isEmpty == true {
+                        
+                        //self.prepareDelExpCart()
+                        
+                       } else {
+                        
+                           
+                           for item in snaps!.documents {
+                               
+                            if let restaurant_id = item.data()["restaurant_id"] as? String {
+                                
+                                 DataService.instance.mainFireStoreRef.collection("Restaurant").whereField("Restaurant_id", isEqualTo: restaurant_id).getDocuments { (snaps, err) in
+                                    
+                                    for items in snaps!.documents {
+                                        
+   
+                                        if let openStatus = items.data()["Open"] as? Bool {
+                                            
+                                            if openStatus ==  true {
+                                                
+                                                if firstRun == false {
+                                                    self.prepareDelExpCart()
+                                                    firstRun = true
+                                                }
+                                                
+                                                
+                                            } else {
+                                                
+                                        
+                                                DataService.instance.mainFireStoreRef.collection("Cart").document(item.documentID).delete() { err in
+                                                    if let err = err {
+                                                        print("Error removing document: \(err)")
+                                                    } else {
+                                                        print("Document successfully removed!")
+                                                    }
+                                                }
+                                                
+                                                self.cartArr.removeAll()
+                                                self.caculateSummary()
+                                                self.tableView.reloadData()
+                                                
+                                            }
+                                            
+                                            
+                                        } else {
+                                            
+                                            DataService.instance.mainFireStoreRef.collection("Cart").document(item.documentID).delete() { err in
+                                                if let err = err {
+                                                    print("Error removing document: \(err)")
+                                                } else {
+                                                    print("Document successfully removed!")
+                                                }
+                                            }
+                                           
+                                            self.cartArr.removeAll()
+                                            self.caculateSummary()
+                                            self.tableView.reloadData()
+                                            
+                                        }
+             
+                                        
+                                    }
+                                    
+                                    
+                                    
+                                }
+                               
+     
+                           }
+                            
+ 
+                       }
+                   
+                       
+                   }
+    
+        }
+        
+    }
+    
+    
     
     func DeleteExpiredCart(uid: String, completed: @escaping DownloadComplete) {
         
@@ -182,9 +277,11 @@ class CartVC: UIViewController, UITableViewDataSource, UITableViewDelegate, MGSw
                         }
                     }
                     
-                    completed()
+                    
                     
                 }
+                
+                completed()
                 
             }
         
@@ -231,7 +328,20 @@ class CartVC: UIViewController, UITableViewDataSource, UITableViewDelegate, MGSw
     func numberOfSections(in tableView: UITableView) -> Int {
         
     
-        return 1
+        
+        if cartArr.isEmpty != true {
+            
+            tableView.restore()
+            return 1
+            
+        } else {
+            
+            tableView.setEmptyMessage("Loading cart !!!")
+            return 1
+            
+        }
+
+        
         
     }
     
@@ -251,7 +361,9 @@ class CartVC: UIViewController, UITableViewDataSource, UITableViewDelegate, MGSw
                    
         if let cell = tableView.dequeueReusableCell(withIdentifier: "CartCell") as? CartCell {
             
-
+            if cartArr.isEmpty != false {
+                cell.hideAnimation()
+            }
             
            cell.delegate = self
             
@@ -368,6 +480,7 @@ class CartVC: UIViewController, UITableViewDataSource, UITableViewDelegate, MGSw
         
         
         var subtotal: Float!
+        var stripeFee: Float!
         var Application: Float!
         var Tax: Float!
         var total: Float!
@@ -376,6 +489,7 @@ class CartVC: UIViewController, UITableViewDataSource, UITableViewDelegate, MGSw
         Application = 0.0
         Tax = 0.0
         total = 0.0
+        stripeFee = 0.0
         
         for i in cartArr {
             
@@ -384,18 +498,31 @@ class CartVC: UIViewController, UITableViewDataSource, UITableViewDelegate, MGSw
             subtotal += price
             
         }
-        
-        Application = subtotal * 5 / 100
-        Tax = subtotal * 9 / 100
-        total = subtotal + Application + Tax
-        
+        if subtotal != 0.0 {
+            
+            stripeFee = subtotal * 2.9 / 100 + 0.30
+            Application = subtotal * 5 / 100 + stripeFee
+            Tax = subtotal * 9 / 100
+            total = subtotal + Application + Tax
+            
+   
+            
+        } else {
+            
+            stripeFee = subtotal * 2.9 / 100 + 0.0
+            Application = subtotal * 5 / 100 + stripeFee
+            Tax = subtotal * 9 / 100
+            total = subtotal + Application + Tax
+            
+
+            
+        }
+
         
         SubtotalPrice.text = "$\(String(format:"%.2f", subtotal!))"
         ApplicationFee.text = "$\(String(format:"%.2f", Application!))"
         TaxFee.text = "$\(String(format:"%.2f", Tax!))"
         TotalFee.text = "$\(String(format:"%.2f", total!))"
-        
-        
         
         subtotalF = subtotal
         

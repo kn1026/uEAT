@@ -14,19 +14,41 @@ class ItemCell: UICollectionViewCell {
     
     
     @IBOutlet var img: UIImageView!
+    @IBOutlet var nameLbl: UILabel!
     
+    var info: RestaurantModel!
     
-    var info: ItemModel!
-    
-    func configureCell(_ Information: ItemModel) {
+    func configureCell(_ Information: RestaurantModel) {
         self.info = Information
         
         
+        if info.Restaurant_status != "Ready" {
+            
+            nameLbl.text = "\(info.Restaurant_name!) - Upcoming"
+            
+        } else {
+            
+            
+            if info.Restaurant_Open_status == true {
+                    
+            
+                    nameLbl.text = info.Restaurant_name!
+                    
+            } else {
+                
+                nameLbl.text = "\(info.Restaurant_name!) - Closed"
+                
+            }
+            
+            
+        }
         
-        if info.url != "" {
+        
+        
+        if info.Restaurant_url != "" {
             
             
-            imageStorage.async.object(forKey: info.url) { result in
+            imageStorage.async.object(forKey: info.Restaurant_url) { result in
                 if case .value(let image) = result {
                     
                     DispatchQueue.main.async { // Make sure you're on the main thread here
@@ -41,13 +63,13 @@ class ItemCell: UICollectionViewCell {
                 } else {
                     
                     
-                    AF.request(self.info.url).responseImage { response in
+                    AF.request(self.info.Restaurant_url).responseImage { response in
                         
                         
                         switch response.result {
                         case let .success(value):
                             self.img.image = value
-                            try? imageStorage.setObject(value, forKey: self.info.url)
+                            try? imageStorage.setObject(value, forKey: self.info.Restaurant_url)
                         case let .failure(error):
                             print(error)
                         }

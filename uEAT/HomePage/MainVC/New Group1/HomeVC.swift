@@ -14,18 +14,24 @@ import Alamofire
 
 
 class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate,UICollectionViewDelegateFlowLayout, CLLocationManagerDelegate {
+    
+    var check_order_id = ""
+    var check_restaurant_name = ""
+    var check_status = ""
+    var res_id = ""
+
 
     @IBOutlet weak var LocationView: UIView!
     @IBOutlet weak var recentCollectionView: UICollectionView!
     @IBOutlet weak var HomecollectionView: UICollectionView!
     
-    var item: ItemModel!
+    
     
 
     @IBOutlet weak var RecentOrderHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var LocationViewBarHeight: NSLayoutConstraint!
     
-    var menu = [ItemModel]()
+    var restaurant_list = [RestaurantModel]()
     
     var order_list = [Recent_order_model]()
     let searchBarColor = UIColor(red: 247/255, green: 248/255, blue: 250/255, alpha: 1.0)
@@ -34,6 +40,8 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     var restaurant_key = [String]()
     var final_restaurant = [String]()
     
+    
+    private var pullControl = UIRefreshControl()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,6 +67,23 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         getNearByRestaurant()
         
         
+        //pullControl.backgroundColor = UIColor.darkGray
+        pullControl.tintColor = UIColor.black
+        pullControl.addTarget(self, action: #selector(refreshListData(_:)), for: .valueChanged)
+        if #available(iOS 10.0, *) {
+            HomecollectionView.refreshControl = pullControl
+        } else {
+            HomecollectionView.addSubview(pullControl)
+        }
+        
+    }
+    
+    @objc private func refreshListData(_ sender: Any) {
+       // self.pullControl.endRefreshing() // You can stop after API Call
+        // Call API
+        
+        getNearByRestaurant()
+        
     }
     
 
@@ -75,12 +100,19 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         
-        if segue.identifier == "moveToDetailVC1"{
-            if let destination = segue.destination as? itemDetail
+        if segue.identifier == "moveToMenuVC"{
+            if let destination = segue.destination as? MenuVC
             {
                 
-                destination.item = self.item
+                destination.res_id = self.res_id
                
+                
+            }
+        } else if segue.identifier == "moveToStatusVC2"{
+            if let destination = segue.destination as? OrderStatusVC
+            {
+                
+                destination.status_order_id = self.check_order_id
                 
             }
         }
@@ -98,7 +130,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         let geofireRef = url
         let geoFire = GeoFire(firebaseRef: geofireRef)
         let loc = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
-        print(loc)
+       
         let query = geoFire.query(at: loc, withRadius: 20)
             
         restaurant_key.removeAll()
@@ -125,18 +157,16 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         
         query.observeReady {
             
-
+            
             query.removeAllObservers()
             
+      
+            self.restaurant_list.removeAll()
             if self.restaurant_key.isEmpty != true {
                 for i in self.restaurant_key {
-                    print(i)
-                    self.verifyRestaurant(id: i) {
-                        
-                        
-                        self.loadMenu()
-                        
-                    }
+                    
+                    self.loadRestaurant(id: i)
+                    
                 }
             } else {
                 print("No nearby restaurant")
@@ -149,9 +179,10 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     
     }
     
-    func verifyRestaurant(id: String, completed: @escaping DownloadComplete) {
+    func loadRestaurant(id: String) {
         
-        DataService.instance.mainFireStoreRef.collection("Restaurant_check_list").whereField("Restaurant_id", isEqualTo: id).whereField("Menu", isEqualTo: true).getDocuments { (snapCheck, err) in
+        
+        DataService.instance.mainFireStoreRef.collection("Restaurant").whereField("Restaurant_id", isEqualTo: id).getDocuments { (snapCheck, err) in
             
             if err != nil {
             
@@ -161,58 +192,49 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                 return
             
             }
+    
+            for item in snapCheck!.documents {
             
-            if snapCheck?.isEmpty == true {
-                
-                
-                
-            } else {
-                
-                
-                self.final_restaurant.append(id)
+            
+                    let dict = RestaurantModel(postKey: item.documentID, Restaurant_model: item.data())
+                    
+                    if let open = item.data()["Open"] as? Bool {
+                        
+                        if open ==  true {
+                            
+                            self.restaurant_list.insert(dict, at: 0)
+                            
+                        } else {
+                            
+                            self.restaurant_list.append(dict)
+                            
+                        }
+                        
+                        
+                    } else {
+                        
+                        self.restaurant_list.append(dict)
+                        
+                    }
+                    
+                    self.HomecollectionView.reloadData()
+                    
+                    
+                    if self.pullControl.isRefreshing == true {
+                        self.pullControl.endRefreshing()
+                    }
+
                 
             }
             
-            completed()
+            
+            
             
             
         }
         
     }
     
-    func loadMenu() {
-        
-        for i in self.final_restaurant {
-            
-            DataService.instance.mainFireStoreRef.collection("Menu").whereField("restaurant_id", isEqualTo: i).getDocuments { (snap, err) in
-            
-            if err != nil {
-                
-                self.showErrorAlert("Opss !", msg: err!.localizedDescription)
-                return
-                
-            }
-            
-            for item in snap!.documents {
-                
-                if let type = item.data()["type"] as? String, type != "Add-on" {
-                    let dict = ItemModel(postKey: item.documentID, Item_model: item.data())
-                    self.menu.append(dict)
-                    
-                    
-                    }
-                    
-                    
-                }
-                
-                self.HomecollectionView.reloadData()
-                
-            }
-            
-        }
-        
-        
-    }
     
     func configureLocationService() {
         
@@ -235,9 +257,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     }
 
     func load_recent_order() {
-        
-        
-        self.order_list.removeAll()
+    
         
         if let uid = Auth.auth().currentUser?.uid
         
@@ -261,13 +281,22 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                     
                     self.RecentOrderHeightConstraint.constant = 63.0
                     
-        
+                    self.order_list.removeAll()
+                    
                     for item in snap!.documents {
                         
+                        if let status = item.data()["Status"] as? String {
+                            
+                            if status != "Completed" {
+                                
+                                let i = item.data()
+                                let order = Recent_order_model(postKey: item.documentID, Order_model: i)
+                                self.order_list.append(order)
+                                
+                            }
+                            
+                        }
                         
-                        let i = item.data()
-                        let order = Recent_order_model(postKey: item.documentID, Order_model: i)
-                        self.order_list.append(order)
                         
                         
                         
@@ -327,7 +356,11 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-           return 1
+        
+        
+            return 1
+        
+            
        }
        
        func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -335,7 +368,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         if collectionView == recentCollectionView {
             return order_list.count
         } else {
-            return menu.count
+            return restaurant_list.count
         }
            
     }
@@ -363,7 +396,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
             
         } else {
             
-            let item = menu[indexPath.row]
+            let item = restaurant_list[indexPath.row]
             if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ItemCell", for: indexPath) as? ItemCell {
                 
                 cell.configureCell(item)
@@ -417,18 +450,39 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         if collectionView == HomecollectionView {
-            item = menu[indexPath.row]
-            self.performSegue(withIdentifier: "moveToDetailVC1", sender: nil)
+            let item = restaurant_list[indexPath.row]
+            
+            if item.Restaurant_Open_status == true,  item.Restaurant_status == "Ready" {
+                
+                
+                res_id = item.Restaurant_id
+                self.performSegue(withIdentifier: "moveToMenuVC", sender: nil)
+                
+            } else {
+                
+                self.showErrorAlert("Oops !", msg: "The restaurant has closed or temporarily not available")
+                
+            }
+            
+            
+           
+            
+        } else {
+            
+            let item = order_list[indexPath.row]
+            
+
+            
+            check_order_id = item.Order_id
+            check_restaurant_name = item.Restaurant_name
+            check_status = item.Status
+            
+           self.performSegue(withIdentifier: "moveToStatusVC2", sender: nil)
             
         }
     }
     
 
-    @IBAction func searchBtnPressed(_ sender: Any) {
-        
-       // self.performSegue(withIdentifier: "moveToSearchVC", sender: nil)
-        
-    }
     
 }
 extension HomeVC: PinterestLayoutDelegate {

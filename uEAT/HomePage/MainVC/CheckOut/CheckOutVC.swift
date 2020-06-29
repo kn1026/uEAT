@@ -10,6 +10,8 @@ import UIKit
 import Alamofire
 import Firebase
 import SwiftEntryKit
+import PassKit
+import Stripe
 
 class CheckOutVC: UIViewController, UITextViewDelegate {
 
@@ -85,7 +87,7 @@ class CheckOutVC: UIViewController, UITextViewDelegate {
     
     func loadPrice() {
         if let sub = subtotal {
-            
+             
             var new: Float!
             new = 0.0
             
@@ -104,14 +106,16 @@ class CheckOutVC: UIViewController, UITextViewDelegate {
             var Application: Float!
             var Tax: Float!
             var total: Float!
+            var stripeFee: Float!
             
             
             Application = 0.0
             Tax = 0.0
             total = 0.0
+            stripeFee = 0.0
             
-            
-            Application = new * 5 / 100
+            stripeFee = subtotal * 2.9 / 100 + 0.30
+            Application = subtotal * 5 / 100 + stripeFee
             Tax = new * 9 / 100
             total = new + Application + Tax
             
@@ -569,56 +573,75 @@ class CheckOutVC: UIViewController, UITextViewDelegate {
             
         } else {
             
-            
-            
-            
-            
-            if chargedCardID == "" {
+            if chargedCardBrand != "Apple_pay" {
                 
-                SwiftLoader.hide()
+                if chargedCardID == "" {
+                    
+                    SwiftLoader.hide()
 
-                NotificationCenter.default.addObserver(self, selector: #selector(CheckOutVC.setPayment), name: (NSNotification.Name(rawValue: "setPayment")), object: nil)
-                self.performSegue(withIdentifier: "moveToSelectPaymentVC", sender: nil)
-                
-                return
+                    NotificationCenter.default.addObserver(self, selector: #selector(CheckOutVC.setPayment), name: (NSNotification.Name(rawValue: "setPayment")), object: nil)
+                    self.performSegue(withIdentifier: "moveToSelectPaymentVC", sender: nil)
+                    
+                    return
+                    
+                }
                 
             }
             
+     
             if let txt = TotalLbl.text {
-                
-                
                 
                 if orderArr.isEmpty != true {
                     
                     swiftLoader(title: "Payment processing")
                     print("Start processing payment")
                     
+                    let currentDateTime = Date()
+                    
+                    // initialize the date formatter and set the style
+                    let formatter = DateFormatter()
+                    formatter.timeStyle = .medium
+                    formatter.dateStyle = .long
+                    
+                    // get the date time String from the date object
+                    let result = formatter.string(from: currentDateTime)
+                    let description = "Authorize payment for food ordering from uEAT at \(result)"
+    
                     let price = String(txt.dropFirst())
                     
                     let new = price.toDouble()! * 100
                     
-                    makePayment(captured: true, price: new) {
+                  
+                    if chargedCardBrand == "Apple_pay" {
                         
-                        print("Payment completed")
-                        self.swiftLoader(title: "Placing order")
-                        self.totalItem = self.orderArr.count
-                        self.placingOrder() {
-                            
-                            self.swiftLoader(title: "Cleaning")
-                            
-                            self.take_hold_clean() {
-                                
-                                self.swiftLoader(title: "Finalizing order")
-                                self.createChatRoom()
-                                
-                                
-                            }
-                            
-                            
-                        }
+                        SwiftLoader.hide()
+                        self.makeApple_pay(text: description)
+                        
+                    } else {
+                        
+                        makePayment(captured: false, price: new, message: description) {
+                               
+                               print("Payment completed")
+                               self.swiftLoader(title: "Placing order")
+                               self.totalItem = self.orderArr.count
+                               self.placingOrder() {
+                                   
+                        
+                                   
+                                   self.take_hold_clean() {
+                          
+                                       self.createChatRoom()
+                                       
+                                       
+                                   }
+                                   
+                                   
+                               }
+                               
+                           }
                         
                     }
-                    
+
                     
                     
                 } else {
@@ -711,6 +734,7 @@ class CheckOutVC: UIViewController, UITextViewDelegate {
                                         
                                         
                                         let db = DataService.instance.mainFireStoreRef.collection("Processing_orders")
+                                        DataService.instance.mainRealTimeDataBaseRef.child("Upcomming_order").child(i.Restaurant_ID!).setValue(["timeStamp": ServerValue.timestamp()])
                                          
                                         db.addDocument(data: processing_orders) { err in
                                           
@@ -758,15 +782,15 @@ class CheckOutVC: UIViewController, UITextViewDelegate {
                             specialRequest = "None"
                             
                         }
-                        
-                        self.capturedKey = "capturedKey"
+     
                         
                         
                         self.restaurant_key = i.Restaurant_ID
                         self.order_id = String(Order_id)
+
                         
                         
-                        let  orders_detail = ["Order_id": Order_id as Any, "Restaurant_id": i.Restaurant_ID as Any, "Order_time": FieldValue.serverTimestamp(), "name": i.name as Any, "price": i.price as Any, "url": i.url as Any, "restaurant_id": i.Restaurant_ID as Any, "userUID": Auth.auth().currentUser!.uid, "quanlity": i.quanlity as Any, "special_Request": specialRequest as Any, "Captured_key": self.capturedKey]
+                        let  orders_detail = ["Order_id": Order_id as Any, "Order_time": FieldValue.serverTimestamp(), "name": i.name as Any, "price": i.price as Any, "url": i.url as Any, "restaurant_id": i.Restaurant_ID as Any, "userUID": Auth.auth().currentUser!.uid, "quanlity": i.quanlity as Any, "special_Request": specialRequest as Any, "Captured_key": self.capturedKey]
                         
                         
                         let db = DataService.instance.mainFireStoreRef.collection("Orders_detail")
@@ -812,10 +836,10 @@ class CheckOutVC: UIViewController, UITextViewDelegate {
     
     func createChatRoom() {
         
-        
+        let open = "Open"
         var ref: DocumentReference? = nil
         
-        let chatInformation: Dictionary<String, AnyObject> = ["order_id":  self.order_id as AnyObject, "timeStamp": FieldValue.serverTimestamp() , "Restaurant_ID": restaurant_key as AnyObject, "userUID": Auth.auth().currentUser!.uid as AnyObject]
+        let chatInformation: Dictionary<String, AnyObject> = ["order_id": self.order_id as AnyObject, "timeStamp": FieldValue.serverTimestamp() , "Restaurant_ID": restaurant_key as AnyObject, "userUID": Auth.auth().currentUser!.uid as AnyObject, "Status": open as AnyObject]
         
         
         
@@ -865,7 +889,7 @@ class CheckOutVC: UIViewController, UITextViewDelegate {
     
     // payment processing
     
-    func makePayment(captured: Bool, price: Double, completed: @escaping DownloadComplete) {
+    func makePayment(captured: Bool, price: Double, message: String, completed: @escaping DownloadComplete) {
         
         //chargedCardID
         
@@ -875,17 +899,6 @@ class CheckOutVC: UIViewController, UITextViewDelegate {
         
         self.capturedKey = ""
         
-        
-        let currentDateTime = Date()
-        
-        // initialize the date formatter and set the style
-        let formatter = DateFormatter()
-        formatter.timeStyle = .medium
-        formatter.dateStyle = .long
-        
-        // get the date time String from the date object
-        let result = formatter.string(from: currentDateTime)
-        let description = "Authorize payment for food ordering from uEAT at \(result)"
         
         if let uid = Auth.auth().currentUser?.uid, uid != "" {
         
@@ -903,8 +916,8 @@ class CheckOutVC: UIViewController, UITextViewDelegate {
                             "cus_id": stripe_id,
                             "amount": price,
                             "source": chargedCardID,
-                            "captured": true,
-                            "description": description,
+                            "captured": captured,
+                            "description": message,
                             "receipt_email": email,
                             
                             
@@ -1070,6 +1083,94 @@ class CheckOutVC: UIViewController, UITextViewDelegate {
         
         
     }
+    
+    func makeApple_pay(text: String) {
+        
+        
+        SwiftLoader.hide()
+        
+        let request = PKPaymentRequest()
+        request.merchantIdentifier = STPPaymentConfiguration.shared().appleMerchantIdentifier!
+        request.supportedNetworks = [.visa, .amex, .masterCard, .discover]
+        request.merchantCapabilities = .capability3DS
+        request.countryCode = "US"
+        request.currencyCode = "USD"
+        request.paymentSummaryItems = calculateSummaryItemsFromSwag(text: text)
+        let applePayController = PKPaymentAuthorizationViewController(paymentRequest: request)
+        applePayController?.delegate = self
+        if applePayController != nil {
+            
+            self.present(applePayController!, animated: true, completion: nil)
+            
+        } else {
+            
+            //print("Nil")
+            
+        }
+        
+        
+        
+        
+    }
+    
+    
+    func calculateSummaryItemsFromSwag(text: String) -> [PKPaymentSummaryItem] {
+        var summaryItems = [PKPaymentSummaryItem]()
+        var p = TotalLbl.text
+        p = String(p!.dropFirst())
+        let price = NSDecimalNumber(string: p)
+        
+        summaryItems.append(PKPaymentSummaryItem(label: text, amount: price))
+        return summaryItems
+    }
+    
+    
+    func makeDictForApplePay(json: Any, completed: @escaping DownloadComplete) {
+        
+        
+        if let dict = json as? [String: AnyObject] {
+            
+            
+            if let outcome = dict["outcome"] as? Dictionary<String, AnyObject> {
+                
+                
+                if let risk_level = outcome["risk_level"] as? String, let type = outcome["type"] as? String {
+                    
+                    if risk_level == "high" || risk_level == "elevated" || risk_level == "highest" || type == "issuer_declined" || type == "blocked"
+                        || type == "invalid"
+                        
+                    {
+                        
+                        
+                        if let reason = outcome["reason"] as? String {
+                            
+                            SwiftLoader.hide()
+                            self.capturedKey = ""
+                            self.showErrorAlert("Oops !!!", msg: "This card is flagged by our system as fraudulent, please contact us and the payment will be released immediately - \(reason)")
+                            
+                            return
+                            
+                        }
+                        
+                        return
+                    }
+                    
+                    if let captureID = dict["id"] as? String {
+                        
+                        self.capturedKey = captureID
+                        
+                        completed()
+                        
+                    }
+                    
+                }
+                
+            }
+            
+        }
+        
+        
+    }
 
     
     
@@ -1079,4 +1180,137 @@ extension String {
     func toDouble() -> Double? {
         return NumberFormatter().number(from: self)?.doubleValue
     }
+}
+
+extension CheckOutVC: PKPaymentAuthorizationViewControllerDelegate {
+    
+    func paymentAuthorizationViewController(_ controller: PKPaymentAuthorizationViewController, didAuthorizePayment payment: PKPayment, completion: @escaping (PKPaymentAuthorizationStatus) -> Void) {
+        
+        
+        STPAPIClient.shared().createToken(with: payment) { (token, err) in
+            
+            if (err != nil) {
+                self.showErrorAlert("Oops !!!", msg: "This card cannot be used !!!")
+                completion(PKPaymentAuthorizationStatus.failure)
+                return
+            }
+            
+            var description = ""
+            
+            let url = MainAPIClient.shared.baseURLString
+            let urls = URL(string: url!)?.appendingPathComponent("pre_authorization_apple_pay")
+            
+            let currentDateTime = Date()
+            
+            // initialize the date formatter and set the style
+            let formatter = DateFormatter()
+            formatter.timeStyle = .medium
+            formatter.dateStyle = .long
+            
+            // get the date time String from the date object
+            let result = formatter.string(from: currentDateTime)
+            
+            
+            let txt = self.TotalLbl.text
+            let price = String(txt!.dropFirst())
+           
+            let new = price.toDouble()! * 100
+            
+            description = "Authorize payment for request ride from Campus Connect at \(result)"
+            
+            self.capturedKey = ""
+            
+            storage.async.object(forKey: Auth.auth().currentUser!.uid) { result in
+                switch result {
+                
+                    case .value(let user):
+                    
+                        AF.request(urls!, method: .post, parameters: [
+                            
+                            
+                            
+                            "cus_id": stripeID,
+                            "amount": new,
+                            "token": token!,
+                            "captured": false,
+                            "description": description,
+                            "receipt_email": user.email,
+                            
+                            
+                            ])
+                            
+                            .validate(statusCode: 200..<500)
+                            .responseJSON { responseJSON in
+                                
+                                switch responseJSON.result {
+                                    
+                                case .success(let json):
+                                    
+                                    completion(PKPaymentAuthorizationStatus.success)
+                                    
+                                       
+                                    self.swiftLoader(title: "Payment Processing")
+                                    
+                                    self.makeDictForApplePay(json: json) {
+                                        
+                                         
+                                        self.swiftLoader(title: "Placing order")
+                                        self.totalItem = self.orderArr.count
+                                        self.placingOrder() {
+                        
+                                            self.take_hold_clean() {
+                                          
+                                                self.createChatRoom()
+                                                       
+                                                       
+                                            }
+                                                   
+                                                   
+                                        }
+                                      
+                                        
+                                    }
+                                    
+                                    
+                                    
+                                    
+                                case .failure( _):
+                                    
+                                    
+                                    completion(PKPaymentAuthorizationStatus.failure)
+                                    return
+                                    
+                                }
+                                
+                                
+                        }
+
+                    
+                    case .error(let err):
+                    
+                        print(err.localizedDescription)
+                    
+                }
+                
+                
+            
+
+            
+        }
+
+        
+    }
+        
+        
+    }
+    
+    func paymentAuthorizationViewControllerDidFinish(_ controller: PKPaymentAuthorizationViewController) {
+        
+        controller.dismiss(animated: true, completion: nil)
+        
+        
+    }
+    
+    
+    
 }

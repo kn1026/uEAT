@@ -250,3 +250,6 @@ func loadAlertAnimation(title: String, desc: String) {
     
 }
 
+var keysend = ""
+var frNotiUID = ""
+var frNotiType = ""

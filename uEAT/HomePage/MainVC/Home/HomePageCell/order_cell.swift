@@ -34,7 +34,7 @@ class order_cell: UICollectionViewCell {
             self.Image.image = UIImage(named: "80")
             self.Message.text = "Your order is ready to pick up"
         } else {
-            self.Message.text = "Your order is being processed"
+           // self.Message.text = "Your order is being processed"
         }
         
         

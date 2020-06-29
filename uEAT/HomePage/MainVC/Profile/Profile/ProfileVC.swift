@@ -12,6 +12,8 @@ import MobileCoreServices
 import AVKit
 import AVFoundation
 import CoreLocation
+import Alamofire
+
 
 class ProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UINavigationControllerDelegate  {
     
@@ -21,7 +23,7 @@ class ProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSource, U
     @IBOutlet weak var PhoneLbl: UILabel!
     @IBOutlet weak var avatarImg: UIButton!
     
-    var feature = ["Notifications", "My Order", "Payment", "Security", "Voucher", "Profile Info", "Help & Support"]
+    var feature = ["Notifications", "Payment", "Security", "Voucher", "Profile Info", "Help & Support", "Log out"]
     
     var url = ""
     var avaUrl = ""
@@ -37,47 +39,7 @@ class ProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSource, U
         tableView.dataSource = self
         
         
-        storage.async.object(forKey: Auth.auth().currentUser!.uid) { result in
-             switch result {
-                                            
-             case .value(let user):
-                
-                
-                imageStorage.async.object(forKey: "avatarUrl") { result in
-                    if case .value(let image) = result {
-                        
-                        DispatchQueue.main.async { // Make sure you're on the main thread here
-                            
-                            
-                            self.profileImg.image = image
-                            
-                           
-                        }
-                        
-                    }
-                }
-                
- 
-                DispatchQueue.main.async { // Make sure you're on the main thread here
-                    
-                    
-                    
-                    self.NameLbl.text = user.FullName
-                    self.PhoneLbl.text = user.Phone
-                    
-                }
-
-                        
-             case .error( _):
-                 
-                 
-                 SwiftLoader.hide()
-                 self.showErrorAlert("Oopps !!!", msg: "Cache Error, please log out and login again")
-                
-                 
-            }
-             
-        }
+        
         
         if profileImg.image != nil {
             
@@ -94,7 +56,7 @@ class ProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSource, U
         
         
     }
-    
+
     
     
     // func show error alert
@@ -139,6 +101,114 @@ class ProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSource, U
         
         
         tableView.reloadData()
+        
+        storage.async.object(forKey: Auth.auth().currentUser!.uid) { result in
+                    switch result {
+                                                   
+                    case .value(let user):
+                       
+                       
+                       imageStorage.async.object(forKey: "avatarUrl") { result in
+                           if case .value(let image) = result {
+                               
+                               DispatchQueue.main.async { // Make sure you're on the main thread here
+                                   
+                                   
+                                   self.profileImg.image = image
+                                   
+                                  
+                               }
+                               
+                           }
+                       }
+                       
+        
+                       DispatchQueue.main.async { // Make sure you're on the main thread here
+                           
+                           
+                           
+                           self.NameLbl.text = user.FullName
+                           self.PhoneLbl.text = user.Phone
+                           
+                       }
+
+                               
+                    case .error( _):
+                        
+                        
+                        SwiftLoader.hide()
+                        self.showErrorAlert("Oopps !!!", msg: "Cache Error, please log out and login again")
+                       
+                        
+                   }
+                    
+               }
+        
+        
+        loadAvatar()
+        
+    }
+    
+    func loadAvatar() {
+        
+        DataService.instance.mainFireStoreRef.collection("Users").whereField("userUID", isEqualTo: Auth.auth().currentUser!.uid).getDocuments { (business, err) in
+        
+        
+            if err != nil {
+                   
+                   print(err!.localizedDescription)
+                   return
+                   
+            }
+            
+            
+            
+            for item in business!.documents {
+                
+                
+                if let avatarUrl = item.data()["avatarUrl"] as? String {
+                    
+                    imageStorage.async.object(forKey: avatarUrl) { result in
+                        if case .value(let image) = result {
+                            
+                            DispatchQueue.main.async { // Make sure you're on the main thread here
+                                
+                                
+                                self.profileImg.image = image
+                                
+                                //try? imageStorage.setObject(image, forKey: url)
+                                
+                            }
+                            
+                        } else {
+                            
+                            
+                            AF.request(avatarUrl).responseImage { response in
+                                
+                                switch response.result {
+                                case let .success(value):
+                                    self.profileImg.image = value
+                                    try? imageStorage.setObject(value, forKey: avatarUrl)
+                                case let .failure(error):
+                                    print(error)
+                                }
+                                
+                                
+                                
+                            }
+                            
+                        }
+                        
+                    }
+                    
+                }
+                
+            }
+            
+            
+            
+        }
+        
         
     }
     
@@ -203,6 +273,24 @@ class ProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSource, U
         } else if item == "Security" {
             
             self.performSegue(withIdentifier: "moveToSecurityVC", sender: nil)
+            
+            
+        }  else if item == "Profile Info" {
+            
+            self.performSegue(withIdentifier: "moveToProfileDetailVC", sender: nil)
+            
+            
+        } else if item == "Log out" {
+            
+            
+            try? imageStorage.removeAll()
+            try? Auth.auth().signOut()
+            self.performSegue(withIdentifier: "moveToSignIn3VC", sender: nil)
+            
+            
+            
+            
+            
             
         }
     }

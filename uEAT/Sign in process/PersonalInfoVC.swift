@@ -27,7 +27,7 @@ class PersonalInfoVC: UIViewController, UITextFieldDelegate, ZSWTappableLabelTap
     @IBOutlet weak var FullNameTxt: UITextField!
     
     @IBOutlet weak var birthdayTxt: UITextField!
-    var Gender = ["Male", "Female"]
+    var Gender = ["Male", "Female", "Other"]
     
     
     var phoneNumber: String?

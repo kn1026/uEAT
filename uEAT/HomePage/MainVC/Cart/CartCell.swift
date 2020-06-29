@@ -9,6 +9,7 @@
 import UIKit
 import MGSwipeTableCell
 import Alamofire
+import SkeletonView
 
 class CartCell: MGSwipeTableCell {
     
@@ -37,6 +38,14 @@ class CartCell: MGSwipeTableCell {
         self.plusBtnPressed.addTarget(self, action: #selector(PlusTapped(_:)), for: .touchUpInside)
         self.minusBtnPressed.addTarget(self, action: #selector(MinusTapped(_:)), for: .touchUpInside)
         
+       
+        
+    }
+    
+    func hideAnimation() {
+        
+        self.img.hideSkeleton()
+        self.name.hideSkeleton()
     }
     
     @IBAction func PlusTapped(_ sender: UIButton){

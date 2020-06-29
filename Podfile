@@ -31,6 +31,7 @@ target 'uEAT' do
     pod 'SwiftEntryKit', '1.2.3'
     pod 'NVActivityIndicatorView/AppExtension'
     pod 'JSQMessagesViewController'
+    pod 'SkeletonView'
     
   use_frameworks!
 
