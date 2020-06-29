@@ -264,6 +264,8 @@ class CheckOutVC: UIViewController, UITextViewDelegate {
         
         if err != nil {
             
+            
+            SwiftLoader.hide()
             self.showErrorAlert("Opss !", msg: err!.localizedDescription)
             return
             
@@ -287,7 +289,9 @@ class CheckOutVC: UIViewController, UITextViewDelegate {
                             
                         } else {
                             
-                            print("Error check out 0")
+                            SwiftLoader.hide()
+                            self.showErrorAlert("Opss !", msg: "Error check out 0")
+                            
                             
                         }
                        
@@ -312,7 +316,8 @@ class CheckOutVC: UIViewController, UITextViewDelegate {
                                 
                             } else {
                                 
-                                print("Error check out 1")
+                                SwiftLoader.hide()
+                                self.showErrorAlert("Opss !", msg: "Error check out 1")
                                 
                             }
                             
@@ -336,7 +341,9 @@ class CheckOutVC: UIViewController, UITextViewDelegate {
                                                 
                                             } else {
                                                 
-                                                print("Error check out 2")
+                                                
+                                                SwiftLoader.hide()
+                                                self.showErrorAlert("Opss !", msg: "Error check out 3")
                                                 
                                             }
                                            
@@ -354,7 +361,7 @@ class CheckOutVC: UIViewController, UITextViewDelegate {
                                     
                                 } else {
                                     
-                                    print("Error check out 3")
+                                    self.showErrorAlert("Opss !", msg: "Error check out 3")
                                     
                                 }
                                 
