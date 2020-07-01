@@ -129,15 +129,6 @@ class CheckOutVC: UIViewController, UITextViewDelegate {
         }
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        
-        
-    }
-    
-
-    
     func textViewDidBeginEditing(_ textView: UITextView) {
            if textView.text == "Special instruction (Optional)" {
                
@@ -742,6 +733,9 @@ class CheckOutVC: UIViewController, UITextViewDelegate {
                                         
                                         let db = DataService.instance.mainFireStoreRef.collection("Processing_orders")
                                         DataService.instance.mainRealTimeDataBaseRef.child("Upcomming_order").child(i.Restaurant_ID!).setValue(["timeStamp": ServerValue.timestamp()])
+                                        DataService.instance.mainRealTimeDataBaseRef.child("Upcomming_menu").child(i.Restaurant_ID!).setValue(["timeStamp": ServerValue.timestamp()])
+                                        
+                                        
                                          
                                         db.addDocument(data: processing_orders) { err in
                                           

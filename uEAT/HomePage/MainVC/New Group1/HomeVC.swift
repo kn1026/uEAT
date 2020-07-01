@@ -131,7 +131,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         let geoFire = GeoFire(firebaseRef: geofireRef)
         let loc = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
        
-        let query = geoFire.query(at: loc, withRadius: 20)
+        let query = geoFire.query(at: loc, withRadius: 50)
             
         restaurant_key.removeAll()
         
@@ -160,6 +160,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
             
             query.removeAllObservers()
             
+            print(self.restaurant_key.count)
       
             self.restaurant_list.removeAll()
             if self.restaurant_key.isEmpty != true {
@@ -181,16 +182,23 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     
     func loadRestaurant(id: String) {
         
+        print("Loading \(id)")
         
         DataService.instance.mainFireStoreRef.collection("Restaurant").whereField("Restaurant_id", isEqualTo: id).getDocuments { (snapCheck, err) in
             
             if err != nil {
             
-                SwiftLoader.hide()
+                
                 self.showErrorAlert("Opss !", msg: err!.localizedDescription)
-                print(err?.localizedDescription as Any)
+                
                 return
             
+            }
+            
+            if snapCheck?.isEmpty == true {
+                
+                print("Can't find restaurant \(id)")
+                
             }
     
             for item in snapCheck!.documents {
