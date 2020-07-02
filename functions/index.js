@@ -52,7 +52,7 @@ exports.sendFollowerNotification = functions.database.ref('/userChatNoti/{uid}/{
          notification: {
            title: `Order #CC - ${infomation.val().order_id}`,
            body: `${infomation.val().Last_message}`,
-           badge : '0',
+           badge : '1',
            sound: 'default',
          },
          data: {
@@ -123,7 +123,7 @@ exports.userReadyNoti = functions.database.ref('/userReadyNoti/{uid}/{orderKey}'
          notification: {
            title: `Order #CC - ${orderKey}`,
            body: `Your order is ready for pick up`,
-           badge : '0',
+           badge : '1',
            sound: 'default',
          },
          data: {
@@ -193,8 +193,8 @@ exports.userStartNoti = functions.database.ref('/userStartNoti/{uid}/{orderKey}'
        var payload = {
          notification: {
            title: `Order #CC - ${orderKey}`,
-           body: `Your order has started cooking process`,
-           badge : '0',
+           body: `Your order has been started cooking`,
+           badge : '1',
            sound: 'default',
          },
          data: {
@@ -265,7 +265,7 @@ exports.restaurantNoti = functions.database.ref('/restaurantNoti/{uid}/{orderKey
          notification: {
            title: `Order #CC - ${orderKey}`,
            body: `You just have a new order #CC - ${orderKey} `,
-           badge : '0',
+           badge : '1',
            sound: 'default',
          },
          data: {

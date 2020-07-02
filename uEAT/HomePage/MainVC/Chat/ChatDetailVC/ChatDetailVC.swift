@@ -35,7 +35,7 @@ class ChatDetailVC: JSQMessagesViewController, UINavigationControllerDelegate, U
         super.viewDidLoad()
         
         
-        self.inputToolbar.contentView.textView.becomeFirstResponder()
+        //self.inputToolbar.contentView.textView.becomeFirstResponder()
 
         // Do any additional setup after loading the view.
 
