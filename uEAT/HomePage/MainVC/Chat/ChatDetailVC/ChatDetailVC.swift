@@ -22,6 +22,7 @@ class ChatDetailVC: JSQMessagesViewController, UINavigationControllerDelegate, U
     var chatOrderID = ""
     var chatKey = ""
     var displayName = ""
+    var restaurant_key = ""
     
     
     var handleObserve: UInt!
@@ -100,6 +101,29 @@ class ChatDetailVC: JSQMessagesViewController, UINavigationControllerDelegate, U
         observeMessages(FinalKey: chatKey)
         keysend = chatKey
         
+        setOnline()
+        
+    }
+    
+    
+    func setOnline() {
+        
+        
+        if let uid = Auth.auth().currentUser?.uid {
+            DataService.instance.mainRealTimeDataBaseRef.child("Order_Chat_Info").child(self.chatKey).updateChildValues([uid: 1])
+        }
+
+        
+        
+    }
+    
+    func setOffline() {
+        
+     
+        if let uid = Auth.auth().currentUser?.uid {
+            DataService.instance.mainRealTimeDataBaseRef.child("Order_Chat_Info").child(self.chatKey).updateChildValues([uid: 0])
+        }
+        
     }
     
     @objc func dismissKeyboard(gesture: UITapGestureRecognizer) {
@@ -172,6 +196,64 @@ class ChatDetailVC: JSQMessagesViewController, UINavigationControllerDelegate, U
                     
                     newMessage.setValue(messageData)
                     DataService.instance.mainFireStoreRef.collection("Chat_orders").document(self.chatKey).updateData(chatInformation)
+                    
+                    
+                    
+                    DataService.instance.mainRealTimeDataBaseRef.child("Order_Chat_Info").child(key).updateChildValues(["Last_message": text!])
+                    
+                    
+                    DataService.instance.mainRealTimeDataBaseRef.child("Order_Chat_Info").child(self.chatKey).observeSingleEvent(of: .value, with: { (snapInfo) in
+                    
+                    
+                        if snapInfo.exists() {
+                            
+                            if let postDict = snapInfo.value as? Dictionary<String, Any> {
+                                
+                                if let status = postDict[self.restaurant_key] as? Int {
+                                    
+                                    if status == 0 {
+                                        
+                                        DataService.instance.mainRealTimeDataBaseRef.child("userChatNoti").child(self.restaurant_key).child(key).removeValue()
+                                        let values: Dictionary<String, AnyObject>  = [key: 1 as AnyObject]
+                                        DataService.instance.mainRealTimeDataBaseRef.child("userChatNoti").child(self.restaurant_key).setValue(values)
+                                        
+                                    } else if status == 1 {
+                                        
+                                        print("Online")
+                                        
+                                    } else {
+                                        
+                                        DataService.instance.mainRealTimeDataBaseRef.child("userChatNoti").child(self.restaurant_key).child(key).removeValue()
+                                        let values: Dictionary<String, AnyObject>  = [key: 1 as AnyObject]
+                                        DataService.instance.mainRealTimeDataBaseRef.child("userChatNoti").child(self.restaurant_key).setValue(values)
+                                        
+                                    }
+                                    
+                                } else {
+                                    
+                                    DataService.instance.mainRealTimeDataBaseRef.child("userChatNoti").child(self.restaurant_key).child(key).removeValue()
+                                    let values: Dictionary<String, AnyObject>  = [key: 1 as AnyObject]
+                                    DataService.instance.mainRealTimeDataBaseRef.child("userChatNoti").child(self.restaurant_key).setValue(values)
+                                    
+                                    
+                                }
+                                
+                            }
+                            
+                        } else {
+                            
+                            DataService.instance.mainRealTimeDataBaseRef.child("userChatNoti").child(self.restaurant_key).child(key).removeValue()
+                            let values: Dictionary<String, AnyObject>  = [key: 1 as AnyObject]
+                            DataService.instance.mainRealTimeDataBaseRef.child("userChatNoti").child(self.restaurant_key).setValue(values)
+                            
+                            
+                        }
+                        
+                        
+                    })
+                    
+                    
+                    
                     
                     
                 }
@@ -301,6 +383,8 @@ class ChatDetailVC: JSQMessagesViewController, UINavigationControllerDelegate, U
 
         let messageRef = DataService.instance.mainRealTimeDataBaseRef.child("Order_Chat").child(chatKey).child("message")
         messageRef.removeObserver(withHandle: handleObserve)
+        
+        setOffline()
         
         self.dismiss(animated: true, completion: nil)
         

@@ -19,9 +19,22 @@ class MenuCell: UICollectionViewCell {
        
        func configureCell(_ Information: ItemModel) {
            self.info = Information
-           
         
-        nameLbl.text = self.info.name
+
+        if info.status == "Offline" {
+            
+            nameLbl.text = "\(self.info.name!) - unavailable"
+            
+        } else if info.status == "Online" {
+            
+            nameLbl.text = "\(self.info.name!)"
+            
+        } else {
+            
+            nameLbl.text = "\(self.info.name!) - Error"
+            
+        }
+        
            
            if info.url != "" {
                

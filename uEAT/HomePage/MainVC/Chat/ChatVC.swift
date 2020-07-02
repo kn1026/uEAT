@@ -20,6 +20,7 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var chatOrderID = ""
     var chatKey = ""
     var displayName = ""
+    var restaurant_key = ""
     
     
     private var pullControl = UIRefreshControl()
@@ -127,6 +128,7 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                         self.chatUID = item.userUID
                         self.chatOrderID = item.order_id
                         self.chatKey = item.chat_key!
+                        self.restaurant_key = item.Restaurant_ID
                         
                         DispatchQueue.main.async { // Make sure you're on the main thread here
                                 self.performSegue(withIdentifier: "moveToChatVC", sender: nil)
@@ -139,6 +141,7 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                         self.chatUID = item.userUID
                         self.chatOrderID = item.order_id
                         self.chatKey = item.chat_key!
+                        self.restaurant_key = item.Restaurant_ID
                         
                         
                         DispatchQueue.main.async { // Make sure you're on the main thread here
@@ -170,6 +173,7 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             ChatController?.chatUID = chatUID
             ChatController?.chatOrderID = chatOrderID
             ChatController?.chatKey = chatKey
+            ChatController?.restaurant_key = restaurant_key
 
                   
         }

@@ -35,7 +35,7 @@ class itemDetail: UIViewController, UICollectionViewDelegate, UICollectionViewDe
         
         titleTxt.text = item.name
         priceTxt.text = "$\(item.price!)"
-        descriptionTxt.text = "Follow our Custom Collection View Layout Video Tutorial Series. There you can learn how to build amazing custom layouts inspired by popular iOS apps. You'll also dig into some advanced topics like creating interactive layouts and manipulating scroll behavior."
+        descriptionTxt.text = item.description
         
         collectionView.delegate = self
         collectionView.dataSource = self

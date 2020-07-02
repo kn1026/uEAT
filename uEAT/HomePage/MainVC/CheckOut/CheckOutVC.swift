@@ -491,9 +491,6 @@ class CheckOutVC: UIViewController, UITextViewDelegate {
                             
                             let new = num - i.quanlity
                             
-                            
-                            
-                            
                             if new <= 0 {
                                 
                                 DataService.instance.mainFireStoreRef.collection("Menu").document(id).updateData(["status": "Offline", "count": 0])
@@ -727,6 +724,8 @@ class CheckOutVC: UIViewController, UITextViewDelegate {
                                         
                                         let processing_orders = ["Order_id": Order_id as Any, "Restaurant_id": i.Restaurant_ID! as Any, "Restaurant_name": businessName as Any, "Status": "Processed" as Any, "userUID": Auth.auth().currentUser!.uid as Any, "Order_time": FieldValue.serverTimestamp()]
                                         
+                                        let chatInfo = ["Order_id": Order_id as Any, "Order_time": FieldValue.serverTimestamp()]
+                                        
                                         
                                         DataService.instance.mainFireStoreRef.collection("Order_id").document(document_order_id).updateData(["Order_ID": Order_id, "Order_time": FieldValue.serverTimestamp()])
                                         
@@ -842,6 +841,10 @@ class CheckOutVC: UIViewController, UITextViewDelegate {
         
         let chatInformation: Dictionary<String, AnyObject> = ["order_id": self.order_id as AnyObject, "timeStamp": FieldValue.serverTimestamp() , "Restaurant_ID": restaurant_key as AnyObject, "userUID": Auth.auth().currentUser!.uid as AnyObject, "Status": open as AnyObject]
         
+        let chat = ["order_id": self.order_id as AnyObject, "timeStamp": ServerValue.timestamp()] as [String : Any]
+        
+        let order_info = ["order_id": self.order_id as AnyObject, "timeStamp": ServerValue.timestamp()] as [String : Any]
+        
         
         
         ref = DataService.instance.mainFireStoreRef.collection("Chat_orders").addDocument(data: chatInformation) { err in
@@ -850,7 +853,14 @@ class CheckOutVC: UIViewController, UITextViewDelegate {
                 print("Error adding document: \(err)")
             } else {
                 let chat_key = ref!.documentID
+                
+
+                
                 DataService.instance.mainFireStoreRef.collection("Chat_orders").document(chat_key).updateData(["chat_key": chat_key])
+                DataService.instance.mainRealTimeDataBaseRef.child("Order_Chat_Info").child(chat_key).setValue(chat)
+                DataService.instance.mainRealTimeDataBaseRef.child("Order_Info").child(self.order_id).setValue(order_info)
+                
+                self.restaurantNoti(restaurant_key: self.restaurant_key, orderID: self.order_id)
                 SwiftLoader.hide()
                 self.loadAlert(message: "You order has been placed successfully, your order number is CC - \(self.order_id). You can now chat with the restaurant and keep track of your order. Thank you for choosing us !")
                 
@@ -860,7 +870,15 @@ class CheckOutVC: UIViewController, UITextViewDelegate {
         
     }
     
+    // func restaurant noti
     
+    func restaurantNoti(restaurant_key: String, orderID: String) {
+        
+        DataService.instance.mainRealTimeDataBaseRef.child("restaurantNoti").child(restaurant_key).child(orderID).removeValue()
+        let values: Dictionary<String, AnyObject>  = [orderID: 1 as AnyObject]
+        DataService.instance.mainRealTimeDataBaseRef.child("restaurantNoti").child(restaurant_key).setValue(values)
+        
+    }
     
     
     

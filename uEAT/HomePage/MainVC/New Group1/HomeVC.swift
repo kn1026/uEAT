@@ -76,6 +76,57 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
             HomecollectionView.addSubview(pullControl)
         }
         
+        
+        setupFCMToken()
+        
+    }
+    
+    func setupFCMToken() {
+        
+        guard let fcmToken = Messaging.messaging().fcmToken else { return }
+             
+             DataService.instance.fcmTokenUserRef.child(Auth.auth().currentUser!.uid).observeSingleEvent(of: .value, with: { (snapInfo) in
+             
+             
+                 if snapInfo.exists() {
+                     
+                     
+                     if let snap = snapInfo.children.allObjects as? [DataSnapshot] {
+          
+                     var final = false
+                         
+                     for item in snap {
+                         
+                         if item.key == fcmToken {
+                             
+                             final = true
+                             
+                         }
+                         
+                     }
+                         
+                         if final == false {
+                             
+                             let profile = [fcmToken: 0 as AnyObject]
+                             DataService.instance.fcmTokenUserRef.child(Auth.auth().currentUser!.uid).updateChildValues(profile)
+                             
+                         }
+                    
+                     
+                 } else {
+                     
+                     let profile = [fcmToken: 0 as AnyObject]
+                     DataService.instance.fcmTokenUserRef.child(Auth.auth().currentUser!.uid).updateChildValues(profile)
+                     
+                     
+                 }
+        
+                     
+             }
+                 
+             })
+        
+        
     }
     
     @objc private func refreshListData(_ sender: Any) {

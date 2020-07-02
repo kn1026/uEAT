@@ -144,10 +144,22 @@ class MenuVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
+        
+    
         let items = itemArr[indexPath.row]
         self.item = items
+        
+        if items.status == "Online" {
+            
+            self.performSegue(withIdentifier: "moveToDetailItemVC", sender: nil)
+            
+        } else {
+            
+            self.showErrorAlert("Oops !", msg: "This item is temporary unavailable")
+            
+        }
  
-        self.performSegue(withIdentifier: "moveToDetailItemVC", sender: nil)
+        
        
     }
     

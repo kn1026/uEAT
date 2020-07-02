@@ -45,6 +45,10 @@ class DataService {
     var checkDefaultUserRef: DatabaseReference {
         return mainRealTimeDataBaseRef.child("Default_card")
     }
+    
+    var fcmTokenUserRef: DatabaseReference {
+        return mainRealTimeDataBaseRef.child("fcmToken")
+    }
 
     let connectedRef = Database.database().reference(withPath: ".info/connected")
     
