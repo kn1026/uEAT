@@ -125,6 +125,7 @@ exports.userReadyNoti = functions.database.ref('/userReadyNoti/{uid}/{orderKey}'
            body: `Your order is ready for pick up`,
            badge : '1',
            sound: 'default',
+           icon: 'https://firebasestorage.googleapis.com/v0/b/ueat-4397e.appspot.com/o/pickup_active_icn.png?alt=media&token=184f2ee2-6af7-43e3-9d8a-dcc16ab5af8c',
          },
          data: {
            followerId: orderKey
@@ -196,6 +197,7 @@ exports.userStartNoti = functions.database.ref('/userStartNoti/{uid}/{orderKey}'
            body: `Your order has been started cooking`,
            badge : '1',
            sound: 'default',
+           icon: 'https://firebasestorage.googleapis.com/v0/b/ueat-4397e.appspot.com/o/order_popupheader_icn.png?alt=media&token=9a1e4c3a-3f0b-4bac-a415-c26496d3f71a',
          },
          data: {
            followerId: orderKey
