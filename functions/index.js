@@ -50,7 +50,7 @@ exports.sendFollowerNotification = functions.database.ref('/userChatNoti/{uid}/{
        // Notification details.
        var payload = {
          notification: {
-           title: `Order #CC - ${infomation.val().order_id}`,
+           title: `New message for order #CC - ${infomation.val().order_id}`,
            body: `${infomation.val().Last_message}`,
            badge : '1',
            sound: 'default',
@@ -272,6 +272,75 @@ exports.restaurantNoti = functions.database.ref('/restaurantNoti/{uid}/{orderKey
          },
          data: {
            followerId: orderKey
+         }
+       }
+
+       // Listing all tokens as an array.
+       tokens = Object.keys(tokensSnapshot.val());
+       // Send notifications to all tokens.
+       console.log(tokens[0]);
+       const response = await admin.messaging().sendToDevice(tokens, payload);
+       // For each message check if there was an error.
+       const tokensToRemove = [];
+       response.results.forEach((result, index) => {
+         const error = result.error;
+         if (error) {
+           console.error('Failure sending notification to', tokens[index], error);
+           // Cleanup the tokens who are not registered anymore.
+           if (error.code === 'messaging/invalid-registration-token' ||
+               error.code === 'messaging/registration-token-not-registered') {
+             tokensToRemove.push(tokensSnapshot.ref.child(tokens[index]).remove());
+           }
+         } else {
+           console.log('sent Successfully');
+         }
+       });
+       return Promise.all(tokensToRemove);
+
+
+});
+
+
+exports.ResOpentNoti = functions.database.ref('/ResOpentNoti/{uid}/{orderKey}')
+    .onWrite(async (change, context) => {
+      const gettingUID = context.params.uid;
+      // If un-follow we exit the function.
+      if (!change.after.val()) {
+        return console.log('User ', gettingUID, 'is receiving a notification for reopen the restaurant', gettingUID);
+      }
+
+      // Get the list of device notification tokens.
+      const getDeviceTokensPromise = admin.database()
+          .ref(`/fcmToken/${gettingUID}`).once('value');
+
+          // The snapshot to the user's tokens.
+          let tokensSnapshot;
+
+          // The array containing all the user's tokens.
+          let tokens;
+
+          const results = await Promise.all([getDeviceTokensPromise]);
+          tokensSnapshot = results[0];
+
+
+
+          // Check if there are any device tokens.
+       if (!tokensSnapshot.hasChildren()) {
+         return console.log('There are no notification tokens to send to.');
+       }
+
+       console.log('There are', tokensSnapshot.numChildren(), 'tokens to send notifications to.');
+
+       // Notification details.
+       var payload = {
+         notification: {
+           title: `Re-opening alert`,
+           body: `You have been offline for awhile, you should reopen your restaurant to serve your customers or if you need some helps, please contact us for more support `,
+           badge : '1',
+           sound: 'default',
+         },
+         data: {
+           followerId: gettingUID
          }
        }
 
