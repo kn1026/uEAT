@@ -144,7 +144,7 @@ class OrderDetailVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                  
              } else {
                  
-                 stripeFee = subtotal * 2.9 / 100 + 0.0
+                 stripeFee = subtotal * 2.9 / 100 + 0.3
                  Application = subtotal * 5 / 100 + stripeFee
                  Tax = subtotal * 9 / 100
                  total = subtotal + Application + Tax

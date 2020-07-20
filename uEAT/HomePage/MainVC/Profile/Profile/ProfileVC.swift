@@ -288,9 +288,9 @@ class ProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSource, U
             self.performSegue(withIdentifier: "moveToSignIn3VC", sender: nil)
             
             
+        } else if item == "Help & Support" {
             
-            
-            
+            self.performSegue(withIdentifier: "moveToHelpSupportVC", sender: nil)
             
         }
     }

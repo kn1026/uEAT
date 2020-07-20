@@ -368,3 +368,219 @@ exports.ResOpentNoti = functions.database.ref('/ResOpentNoti/{uid}/{orderKey}')
 
 
 });
+
+
+exports.newApplicationNoti = functions.database.ref('/newApplicationNoti/{id}/{businessName}')
+    .onWrite(async (change, context) => {
+
+      const gettingUID = context.params.id;
+      const businessName = context.params.businessName;
+      // If un-follow we exit the function.
+      if (!change.after.val()) {
+        return console.log('User ', gettingUID, 'is receiving a notification new application', businessName);
+      }
+
+      // Get the list of device notification tokens.
+      const getDeviceTokensPromise = admin.database()
+          .ref(`/fcmToken/${gettingUID}`).once('value');
+
+          // The snapshot to the user's tokens.
+          let tokensSnapshot;
+
+          // The array containing all the user's tokens.
+          let tokens;
+
+          const results = await Promise.all([getDeviceTokensPromise]);
+          tokensSnapshot = results[0];
+
+
+
+          // Check if there are any device tokens.
+       if (!tokensSnapshot.hasChildren()) {
+         return console.log('There are no notification tokens to send to.');
+       }
+
+       console.log('There are', tokensSnapshot.numChildren(), 'tokens to send notifications to.');
+
+       // Notification details.
+       var payload = {
+         notification: {
+           title: `New application alert`,
+           body: `${businessName} has just applied an application to become our partner, please take a look and review the applitcation`,
+           badge : '1',
+           sound: 'default',
+         },
+         data: {
+           followerId: gettingUID
+         }
+       }
+
+       // Listing all tokens as an array.
+       tokens = Object.keys(tokensSnapshot.val());
+       // Send notifications to all tokens.
+       console.log(tokens[0]);
+       const response = await admin.messaging().sendToDevice(tokens, payload);
+       // For each message check if there was an error.
+       const tokensToRemove = [];
+       response.results.forEach((result, index) => {
+         const error = result.error;
+         if (error) {
+           console.error('Failure sending notification to', tokens[index], error);
+           // Cleanup the tokens who are not registered anymore.
+           if (error.code === 'messaging/invalid-registration-token' ||
+               error.code === 'messaging/registration-token-not-registered') {
+             tokensToRemove.push(tokensSnapshot.ref.child(tokens[index]).remove());
+           }
+         } else {
+           console.log('sent Successfully');
+         }
+       });
+       return Promise.all(tokensToRemove);
+
+
+});
+
+
+exports.newIssueNoti = functions.database.ref('/newIssueNoti/{id}/{Issue}')
+    .onWrite(async (change, context) => {
+
+      const gettingUID = context.params.id;
+      const Issue = context.params.Issue;
+      // If un-follow we exit the function.
+      if (!change.after.val()) {
+        return console.log('User ', gettingUID, 'is receiving a notification new issues', businessName);
+      }
+
+      // Get the list of device notification tokens.
+      const getDeviceTokensPromise = admin.database()
+          .ref(`/fcmToken/${gettingUID}`).once('value');
+
+          // The snapshot to the user's tokens.
+          let tokensSnapshot;
+
+          // The array containing all the user's tokens.
+          let tokens;
+
+          const results = await Promise.all([getDeviceTokensPromise]);
+          tokensSnapshot = results[0];
+
+
+
+          // Check if there are any device tokens.
+       if (!tokensSnapshot.hasChildren()) {
+         return console.log('There are no notification tokens to send to.');
+       }
+
+       console.log('There are', tokensSnapshot.numChildren(), 'tokens to send notifications to.');
+
+       // Notification details.
+       var payload = {
+         notification: {
+           title: `Issue alert`,
+           body: `There is an issue that needs chat supporting -  ${Issue}`,
+           badge : '1',
+           sound: 'default',
+         },
+         data: {
+           followerId: gettingUID
+         }
+       }
+
+       // Listing all tokens as an array.
+       tokens = Object.keys(tokensSnapshot.val());
+       // Send notifications to all tokens.
+       console.log(tokens[0]);
+       const response = await admin.messaging().sendToDevice(tokens, payload);
+       // For each message check if there was an error.
+       const tokensToRemove = [];
+       response.results.forEach((result, index) => {
+         const error = result.error;
+         if (error) {
+           console.error('Failure sending notification to', tokens[index], error);
+           // Cleanup the tokens who are not registered anymore.
+           if (error.code === 'messaging/invalid-registration-token' ||
+               error.code === 'messaging/registration-token-not-registered') {
+             tokensToRemove.push(tokensSnapshot.ref.child(tokens[index]).remove());
+           }
+         } else {
+           console.log('sent Successfully');
+         }
+       });
+       return Promise.all(tokensToRemove);
+
+
+});
+
+exports.sendIssueNotification = functions.database.ref('/IssueChatNoti/{uid}/{chatKey}')
+    .onWrite(async (change, context) => {
+      const gettingUID = context.params.uid;
+      const chatKey = context.params.chatKey;
+      // If un-follow we exit the function.
+      if (!change.after.val()) {
+        return console.log('User ', gettingUID, 'is receiving a message for issue', chatKey);
+      }
+
+      // Get the list of device notification tokens.
+      const getDeviceTokensPromise = admin.database()
+          .ref(`/fcmToken/${gettingUID}`).once('value');
+
+      // get Game_Chat_Info
+
+      const getInfoProfile = admin.database().ref(`/Issue_Chat_Info/${chatKey}`).once('value');
+
+          // The snapshot to the user's tokens.
+          let tokensSnapshot;
+
+          // The array containing all the user's tokens.
+          let tokens;
+
+          const results = await Promise.all([getDeviceTokensPromise, getInfoProfile]);
+          tokensSnapshot = results[0];
+          const infomation = results[1];
+
+
+          // Check if there are any device tokens.
+       if (!tokensSnapshot.hasChildren()) {
+         return console.log('There are no notification tokens to send to.');
+       }
+
+       console.log('There are', tokensSnapshot.numChildren(), 'tokens to send notifications to.');
+       console.log('Order id', infomation.val().order_id);
+
+       // Notification details.
+       var payload = {
+         notification: {
+           title: `New message for current issue`,
+           body: `${infomation.val().Last_message}`,
+           badge : '1',
+           sound: 'default',
+         },
+         data: {
+           followerId: chatKey
+         }
+       }
+
+       // Listing all tokens as an array.
+       tokens = Object.keys(tokensSnapshot.val());
+       // Send notifications to all tokens.
+       console.log(tokens[0]);
+       const response = await admin.messaging().sendToDevice(tokens, payload);
+       // For each message check if there was an error.
+       const tokensToRemove = [];
+       response.results.forEach((result, index) => {
+         const error = result.error;
+         if (error) {
+           console.error('Failure sending notification to', tokens[index], error);
+           // Cleanup the tokens who are not registered anymore.
+           if (error.code === 'messaging/invalid-registration-token' ||
+               error.code === 'messaging/registration-token-not-registered') {
+             tokensToRemove.push(tokensSnapshot.ref.child(tokens[index]).remove());
+           }
+         } else {
+           console.log('sent Successfully');
+         }
+       });
+       return Promise.all(tokensToRemove);
+
+
+});

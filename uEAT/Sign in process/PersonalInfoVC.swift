@@ -298,7 +298,7 @@ class PersonalInfoVC: UIViewController, UITextFieldDelegate, ZSWTappableLabelTap
                         guard let fcmToken = Messaging.messaging().fcmToken else { return }
                         var token = [String]()
                         token.append(fcmToken)
-                        let data = ["Fcm_token": token] as [String : Any]
+                        let data = ["Fcm_token": token, "timeStamp": FieldValue.serverTimestamp()] as [String : Any]
                             
                         DataService.instance.checkEmailUserRef.child(testEmailed).setValue(["Timestamp": ServerValue.timestamp()])
                         DataService.instance.checkPhoneUserRef.child(self.phoneNumber!).setValue(["Timestamp": ServerValue.timestamp(), "Email": self.email!])

@@ -3092,6 +3092,7 @@
                         <segue destination="v7X-w8-pLu" kind="show" identifier="moveToSecurityVC" id="G31-Bu-Ef8"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="moveToSignIn3VC" id="zzB-zk-BOX"/>
                         <segue destination="heL-Rb-APS" kind="show" identifier="moveToProfileDetailVC" id="uin-XT-wio"/>
+                        <segue destination="TUR-JF-L15" kind="show" identifier="moveToHelpSupportVC" id="qDd-8k-G7b"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FBc-ib-ZeP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -3371,7 +3372,7 @@
             <objects>
                 <viewController id="ipY-TI-4CJ" customClass="CartVC" customModule="uEAT" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="T87-lL-hU6">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="notification_icn" translatesAutoresizingMaskIntoConstraints="NO" id="aEd-ld-uwb">
@@ -3382,7 +3383,7 @@
                                 </constraints>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bH3-Ne-H61">
-                                <rect key="frame" x="0.0" y="396" width="375" height="180"/>
+                                <rect key="frame" x="0.0" y="416" width="375" height="180"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Oec-gx-6EV">
                                         <rect key="frame" x="20" y="8" width="118.5" height="106.5"/>
@@ -3481,7 +3482,7 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Sat-7d-sj0">
-                                <rect key="frame" x="8" y="78" width="359" height="310"/>
+                                <rect key="frame" x="8" y="78" width="359" height="330"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="CartCell" rowHeight="84" id="MvG-eW-jy6" customClass="CartCell" customModule="uEAT" customModuleProvider="target">
@@ -4356,6 +4357,194 @@
             </objects>
             <point key="canvasLocation" x="4884" y="3197"/>
         </scene>
+        <!--HelpVC-->
+        <scene sceneID="Ahh-4c-dTf">
+            <objects>
+                <viewController id="TUR-JF-L15" customClass="HelpVC" customModule="uEAT" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="pvf-tO-NCs">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qoi-FI-iBm">
+                                <rect key="frame" x="16" y="16" width="72" height="63"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="63" id="foh-rB-IEy"/>
+                                    <constraint firstAttribute="width" constant="72" id="j9v-Cm-wPP"/>
+                                </constraints>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bL6-dm-e3A">
+                                <rect key="frame" x="23" y="41" width="20" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="BMS-wX-wZh"/>
+                                    <constraint firstAttribute="width" constant="20" id="JTf-Tm-VG9"/>
+                                </constraints>
+                                <state key="normal" image="back_icn"/>
+                                <connections>
+                                    <action selector="back1BtnPressed:" destination="xXQ-2C-0Lq" eventType="touchUpInside" id="0Eh-E8-TQW"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Help &amp; Support" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IsZ-Xq-gcI">
+                                <rect key="frame" x="23" y="87" width="174" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="kum-o0-SW2"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="24"/>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="YZU-96-EDS">
+                                <rect key="frame" x="23" y="133" width="329" height="412"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <mutableString key="text">FAQs
+What is UberEATS?
+UberEATS is our new food delivery platform, which makes getting great food from your favourite local restaurants as easy as requesting a ride.
+
+How do I start using UberEATS?
+Download the app and add your delivery address.
+Choose from the full menu of your city’s best restaurants.
+Place your order and follow along as your meal is prepared and delivered!
+What is the Booking Fee on UberEATS?
+The Booking Fee on UberEATS is a charge you pay to Uber on every delivery, which helps to cover operational costs.
+
+Why am I paying a fee for busy areas?
+The extra fee ensures reliability. Sometimes there are more orders in a certain area than delivery partners who are able to deliver them. The fee ensures that even when UberEATS is busy in certain areas, you can still get the food you want, when you want it.
+
+Is the fee for busy areas different from the booking fee?
+Yes. Booking fees are the standard fee that you pay for using our service. This additional fee will only appear if UberEATS is busy in that particular area.
+
+How will I be able to tell if there is a fee for busy areas?
+Before you even click on a restaurant, an arrow icon will appear below the restaurant name and ETA. As you click on the restaurant, the exact amount for the additional fee that you are paying will also appear.
+
+How is the fee for busy areas calculated?
+Pricing is dynamic and is calculated by taking into account how many people want to use the service and how many delivery partners are on the road in a certain area.
+
+Do busy areas mean that every restaurant in the city will have an additional fee?
+No, not at all. The extra fee will only appear when UberEATS is busy in certain areas, and will disappear when the amount of orders balances with the number of delivery partners.
+
+How long will this fee last?
+Fees for busy areas are dynamic, so they may come and go depending on the availability of delivery partners in a specific area and demand for EATS in that same area.
+
+What if I have food allergies or want to change the order?
+For most meals that you order through UberEATS, you’ll be able to add special instructions to let restaurants know about any modifications you may need.
+
+Do I need to tip my courier?
+Tips aren't included and they aren't expected or required. You can always rate your experience after you order.
+
+What if I have a problem with my order?
+We’re here to help. Once you’ve placed an order, just contact our support team from within the app and we’ll take care of your issue.
+
+Will my courier bring the meal to my door or inside my office?
+Your courier will bring your order right to your door. If it's easiest for you to walk outside – that's fine too. You can always meet the courier at the kerb.
+
+Where do I find my personal UberEATS promo code?
+You can find your UberEATS promo code by opening the UberEATS app, tapping on the hamburger icon at the top left and then tapping on "free food"
+
+How do I share my code and get the discount?
+You can use the share buttons on the "free food" page, or copy/paste the text onto emails, social media or anywhere else. When a friend makes an order using your code, you will receive the discount.
+
+Can I apply the discount to rides in the Uber app?
+Sorry, UberEATS discounts are for UberEATS orders only.
+
+Does the discount apply in other cities?
+The discount is valid in UberEATS cities that have the same currency. If you travel to a country with a different currency, the discount will not apply.
+
+I’m a restaurant and am interested in partnering with UberEATS. How do I get more information?
+Thanks for your interest! We’re always looking to deliver great new dishes. Please start by filling out this form.</mutableString>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QZx-GC-3FV">
+                                <rect key="frame" x="23" y="561" width="329" height="45"/>
+                                <color key="backgroundColor" red="0.88733142610000004" green="0.86754173040000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="ifL-dw-DPe"/>
+                                </constraints>
+                                <state key="normal">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="20"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="ChatSupportBtnPressed:" destination="TUR-JF-L15" eventType="touchUpInside" id="8nq-Q6-Txg"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.98038285970000005" green="0.98038583989999994" blue="0.98039251569999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstItem="qoi-FI-iBm" firstAttribute="top" secondItem="cGG-MX-7AR" secondAttribute="top" constant="16" id="1TG-e8-mM0"/>
+                            <constraint firstItem="QZx-GC-3FV" firstAttribute="top" secondItem="YZU-96-EDS" secondAttribute="bottom" constant="16" id="47T-AG-hKh"/>
+                            <constraint firstItem="YZU-96-EDS" firstAttribute="leading" secondItem="cGG-MX-7AR" secondAttribute="leading" constant="23" id="Afm-Uh-4ZO"/>
+                            <constraint firstItem="IsZ-Xq-gcI" firstAttribute="top" secondItem="qoi-FI-iBm" secondAttribute="bottom" constant="8" id="DBX-fs-7uj"/>
+                            <constraint firstItem="IsZ-Xq-gcI" firstAttribute="leading" secondItem="cGG-MX-7AR" secondAttribute="leading" constant="23" id="M3P-Gg-nck"/>
+                            <constraint firstItem="cGG-MX-7AR" firstAttribute="bottom" secondItem="QZx-GC-3FV" secondAttribute="bottom" constant="41" id="Roz-kh-ydg"/>
+                            <constraint firstItem="bL6-dm-e3A" firstAttribute="top" secondItem="cGG-MX-7AR" secondAttribute="top" constant="41" id="dyj-ig-IdF"/>
+                            <constraint firstItem="cGG-MX-7AR" firstAttribute="trailing" secondItem="YZU-96-EDS" secondAttribute="trailing" constant="23" id="e17-o4-OdD"/>
+                            <constraint firstItem="cGG-MX-7AR" firstAttribute="trailing" secondItem="QZx-GC-3FV" secondAttribute="trailing" constant="23" id="gAV-X6-ewh"/>
+                            <constraint firstItem="YZU-96-EDS" firstAttribute="top" secondItem="IsZ-Xq-gcI" secondAttribute="bottom" constant="16" id="rEW-Xu-yVr"/>
+                            <constraint firstItem="QZx-GC-3FV" firstAttribute="leading" secondItem="cGG-MX-7AR" secondAttribute="leading" constant="23" id="xcl-hz-1f8"/>
+                            <constraint firstItem="qoi-FI-iBm" firstAttribute="leading" secondItem="cGG-MX-7AR" secondAttribute="leading" constant="16" id="yBO-3b-hnJ"/>
+                            <constraint firstItem="bL6-dm-e3A" firstAttribute="leading" secondItem="cGG-MX-7AR" secondAttribute="leading" constant="23" id="yIp-TF-TRJ"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="cGG-MX-7AR"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="kNd-B6-hPn"/>
+                    <connections>
+                        <outlet property="issueBtn" destination="QZx-GC-3FV" id="jO1-Uv-7Hg"/>
+                        <segue destination="Pos-14-t17" kind="show" identifier="moveToChatIssueVC" id="EM6-NR-vbf"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5Wm-uK-PD6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5628" y="3197"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="4b9-JG-ArQ">
+            <objects>
+                <navigationController modalPresentationStyle="fullScreen" id="Pos-14-t17" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="QqD-8D-JvA"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="fFa-rA-nHI">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.98038285970000005" green="0.98038583989999994" blue="0.98039251569999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="dg8-aq-Xlr" kind="relationship" relationship="rootViewController" id="biB-Ij-5i4"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xWx-S6-ROY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6382" y="3196"/>
+        </scene>
+        <!--Help MessageVC-->
+        <scene sceneID="4f9-xe-LK3">
+            <objects>
+                <viewController id="dg8-aq-Xlr" customClass="HelpMessageVC" customModule="uEAT" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Puu-XH-DvQ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="mO3-Nl-Ajz"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="DvP-iM-cIl">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="cQa-ZS-kAQ">
+                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="back1BtnPressed:" destination="dg8-aq-Xlr" id="2m6-55-3g8"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="J3c-li-24I" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="7118" y="3190"/>
+        </scene>
         <!--Home PageVC-->
         <scene sceneID="Qg3-YB-bkH">
             <objects>
@@ -4657,7 +4846,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="xdT-dx-oE6"/>
-        <segue reference="8FE-sV-xsg"/>
+        <segue reference="Oz7-tT-ep3"/>
         <segue reference="Uyq-SV-kVq"/>
         <segue reference="1Ls-9U-6Op"/>
         <segue reference="zzB-zk-BOX"/>

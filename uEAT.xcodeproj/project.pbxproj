@@ -65,6 +65,8 @@
 		6A4BC7D6235A7566006332DD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6A4BC7D4235A7566006332DD /* LaunchScreen.storyboard */; };
 		6A4BC7E1235A7567006332DD /* uEATTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4BC7E0235A7567006332DD /* uEATTests.swift */; };
 		6A4BC7EC235A7567006332DD /* uEATUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4BC7EB235A7567006332DD /* uEATUITests.swift */; };
+		6A6EFBB424C1AD15007B051F /* HelpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6EFBB324C1AD15007B051F /* HelpVC.swift */; };
+		6A6EFBB724C1AE4E007B051F /* HelpMessageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6EFBB624C1AE4E007B051F /* HelpMessageVC.swift */; };
 		6A7167CC249CCD84003672BC /* MessageViewIncoming.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A7167C9249CCD84003672BC /* MessageViewIncoming.xib */; };
 		6A7167CD249CCD84003672BC /* Subclasses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7167CA249CCD84003672BC /* Subclasses.swift */; };
 		6A7167CE249CCD84003672BC /* MessageViewOutgoing.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A7167CB249CCD84003672BC /* MessageViewOutgoing.xib */; };
@@ -191,6 +193,8 @@
 		6A4BC7E7235A7567006332DD /* uEATUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = uEATUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A4BC7EB235A7567006332DD /* uEATUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = uEATUITests.swift; sourceTree = "<group>"; };
 		6A4BC7ED235A7567006332DD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6A6EFBB324C1AD15007B051F /* HelpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpVC.swift; sourceTree = "<group>"; };
+		6A6EFBB624C1AE4E007B051F /* HelpMessageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpMessageVC.swift; sourceTree = "<group>"; };
 		6A7167C9249CCD84003672BC /* MessageViewIncoming.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MessageViewIncoming.xib; sourceTree = "<group>"; };
 		6A7167CA249CCD84003672BC /* Subclasses.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Subclasses.swift; sourceTree = "<group>"; };
 		6A7167CB249CCD84003672BC /* MessageViewOutgoing.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MessageViewOutgoing.xib; sourceTree = "<group>"; };
@@ -347,6 +351,7 @@
 		6A0EC780237152A200E70DEA /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				6A6EFBB224C1AD00007B051F /* HelpVC */,
 				6A71680124A461D4003672BC /* Profile Info */,
 				6A7DCEE8237A15BF00EFA939 /* SecurityVC */,
 				6A15EAB323722F99006A93D7 /* Profile */,
@@ -649,6 +654,23 @@
 				6A4BC7ED235A7567006332DD /* Info.plist */,
 			);
 			path = uEATUITests;
+			sourceTree = "<group>";
+		};
+		6A6EFBB124C1ACEA007B051F /* HelpMessageVC */ = {
+			isa = PBXGroup;
+			children = (
+				6A6EFBB624C1AE4E007B051F /* HelpMessageVC.swift */,
+			);
+			path = HelpMessageVC;
+			sourceTree = "<group>";
+		};
+		6A6EFBB224C1AD00007B051F /* HelpVC */ = {
+			isa = PBXGroup;
+			children = (
+				6A6EFBB124C1ACEA007B051F /* HelpMessageVC */,
+				6A6EFBB324C1AD15007B051F /* HelpVC.swift */,
+			);
+			path = HelpVC;
 			sourceTree = "<group>";
 		};
 		6A7167C8249CCD77003672BC /* CustomCell */ = {
@@ -1151,6 +1173,7 @@
 				6A1F6E6B235E0B8D00EE750B /* modTxtField.swift in Sources */,
 				6A7167DA249DE1D6003672BC /* OrderDetailCell.swift in Sources */,
 				6A1F6E6D235E0B9200EE750B /* ProfileView.swift in Sources */,
+				6A6EFBB724C1AE4E007B051F /* HelpMessageVC.swift in Sources */,
 				6AC54ED024980E59005AF364 /* Font.swift in Sources */,
 				6A15EAB023722581006A93D7 /* ThemeViewController.swift in Sources */,
 				6A1B8B842364FA6100E22CD9 /* Register_User.swift in Sources */,
@@ -1211,6 +1234,7 @@
 				6AC54ECE24980E50005AF364 /* Object+ClassName.swift in Sources */,
 				6A197C3A239F98BF0013EDCC /* itemModel.swift in Sources */,
 				6A197C3F239F9FB10013EDCC /* ItemCell.swift in Sources */,
+				6A6EFBB424C1AD15007B051F /* HelpVC.swift in Sources */,
 				6A1F6E65235E0B8100EE750B /* fancyBtn.swift in Sources */,
 				6A1F6E6F235E0B9600EE750B /* windowInfo.swift in Sources */,
 				6AC54ECC24980E43005AF364 /* UIColor+Utils.swift in Sources */,
