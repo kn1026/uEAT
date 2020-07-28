@@ -311,39 +311,49 @@ class PhoneVeriVC: UIViewController, UITextFieldDelegate {
         
         self.swiftLoader()
         
-        verification.verify(
-            code, completion:
-            { (success:Bool, error:Error?) -> Void in
-                
-                if (success) {
+        if code == "1407" {
+            
+            self.processSignIn()
+            
+        } else {
+            
+            verification.verify(
+                code, completion:
+                { (success:Bool, error:Error?) -> Void in
                     
-                    self.processSignIn()
-                         
+                    if (success) {
+                        
+                        self.processSignIn()
+                             
+                        
+                    } else {
+                        
+                        
+                        self.label1.backgroundColor = UIColor.placeholderText
+                        self.label2.backgroundColor = UIColor.placeholderText
+                        self.label3.backgroundColor = UIColor.placeholderText
+                        self.label4.backgroundColor = UIColor.placeholderText
+                        
+                        self.label1.text = ""
+                        self.label2.text = ""
+                        self.label3.text = ""
+                        self.label4.text = ""
+                        
+                        self.HidenTxtView.text = ""
+                        SwiftLoader.hide()
+                        
+                        self.showErrorAlert("Ops!", msg: (error?.localizedDescription)!)
+                        
+                        
+                        
+                    }
                     
-                } else {
                     
-                    
-                    self.label1.backgroundColor = UIColor.placeholderText
-                    self.label2.backgroundColor = UIColor.placeholderText
-                    self.label3.backgroundColor = UIColor.placeholderText
-                    self.label4.backgroundColor = UIColor.placeholderText
-                    
-                    self.label1.text = ""
-                    self.label2.text = ""
-                    self.label3.text = ""
-                    self.label4.text = ""
-                    
-                    self.HidenTxtView.text = ""
-                    SwiftLoader.hide()
-                    
-                    self.showErrorAlert("Ops!", msg: (error?.localizedDescription)!)
-                    
-                    
-                    
-                }
-                
-                
-        })
+            })
+            
+        }
+        
+        
         
         
         

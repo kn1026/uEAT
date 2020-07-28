@@ -77,7 +77,13 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         }
         
         
-        setupFCMToken()
+        if let uid = Auth.auth().currentUser?.uid, uid != "" {
+        
+             setupFCMToken()
+        
+        }
+        
+       
         
     }
     

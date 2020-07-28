@@ -87,7 +87,8 @@ class CartCell: MGSwipeTableCell {
                     if let quanlity = item["quanlity"] as? Int {
                         
                         let price = self.info.price * Float(quanlity)
-                        self.price.text = "$ \(price)"
+                        
+                        self.price.text = "$\(String(format:"%.2f", price))"
                         self.count.text = "\(quanlity)"
                         
                     }
