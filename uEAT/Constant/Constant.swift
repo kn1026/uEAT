@@ -253,3 +253,8 @@ func loadAlertAnimation(title: String, desc: String) {
 var keysend = ""
 var frNotiUID = ""
 var frNotiType = ""
+
+
+var AdjustSubtotal: Float!
+var promo: Float!
+var Promo_id = ""

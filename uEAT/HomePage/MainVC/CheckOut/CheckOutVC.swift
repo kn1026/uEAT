@@ -25,11 +25,11 @@ class CheckOutVC: UIViewController, UITextViewDelegate {
     @IBOutlet weak var AddPaymentBtn: UIButton!
     @IBOutlet weak var cardImg: UIImageView!
     @IBOutlet weak var cardLastFour: UILabel!
+    @IBOutlet weak var promoBtn: UIButton!
     
     
     var orderArr = [CartModel]()
     
-    var promo: Float!
     
     var subtotal: Float!
     var isReturn = false
@@ -78,31 +78,29 @@ class CheckOutVC: UIViewController, UITextViewDelegate {
             
         }
         
-        
+        loadRestaurantID()
        
+  
+    }
+    
+    func loadRestaurantID() {
         
+        for i in self.orderArr {
+            
+            restaurant_id = i.Restaurant_ID
+            
+        }
         
-        
+
     }
     
     func loadPrice() {
+        
         if let sub = subtotal {
+            
+            AdjustSubtotal = sub
              
-            var new: Float!
-            new = 0.0
-            
-            if promo != nil {
-                
-               new = sub * promo / 100
-               
-                
-            } else {
-                
-                new = sub
-                promo = 0.0
-            }
-            
-            
+
             var Application: Float!
             var Tax: Float!
             var total: Float!
@@ -116,11 +114,12 @@ class CheckOutVC: UIViewController, UITextViewDelegate {
             
             stripeFee = subtotal * 2.9 / 100 + 0.30
             Application = subtotal * 5 / 100 + stripeFee
-            Tax = new * 9 / 100
-            total = new + Application + Tax
+            Tax = subtotal * 9 / 100
+            total = subtotal + Application + Tax
             
-            
-            subtotalLbl.text = "$\(String(format:"%.2f", new))"
+            promo = 0.00
+            Promo_id = "Nil"
+            subtotalLbl.text = "$\(String(format:"%.2f", subtotal))"
             FeeLbl.text = "$\(String(format:"%.2f", Application!))"
             TaxLbl.text = "$\(String(format:"%.2f", Tax!))"
             PromoLbl.text = "$\(String(format:"%.2f", promo!))"
@@ -172,7 +171,47 @@ class CheckOutVC: UIViewController, UITextViewDelegate {
     }
     @IBAction func addPromoBtnPressed(_ sender: Any) {
         
-        print("Promo button pressed")
+        NotificationCenter.default.addObserver(self, selector: #selector(CheckOutVC.adjustPrice), name: (NSNotification.Name(rawValue: "adjustPrice")), object: nil)
+        AdjustSubtotal = subtotal
+        self.performSegue(withIdentifier: "MoveToPromoVC", sender: nil)
+        
+    }
+    
+    @objc func adjustPrice() {
+        
+        
+        NotificationCenter.default.removeObserver(self, name: (NSNotification.Name(rawValue: "adjustPrice")), object: nil)
+        
+        promoBtn.setTitle("Applied", for: .normal)
+
+
+        if AdjustSubtotal != nil {
+            
+            var Application: Float!
+            var Tax: Float!
+            var total: Float!
+            var stripeFee: Float!
+            
+            
+            Application = 0.0
+            Tax = 0.0
+            total = 0.0
+            stripeFee = 0.0
+            
+            stripeFee = AdjustSubtotal * 2.9 / 100 + 0.30
+            Application = AdjustSubtotal * 5 / 100 + stripeFee
+            Tax = AdjustSubtotal * 9 / 100
+            total = AdjustSubtotal + Application + Tax
+            
+            
+            subtotalLbl.text = "$\(String(format:"%.2f", subtotal))"
+            FeeLbl.text = "$\(String(format:"%.2f", Application!))"
+            TaxLbl.text = "$\(String(format:"%.2f", Tax!))"
+            PromoLbl.text = "-$\(String(format:"%.2f", promo!))"
+            TotalLbl.text = "$\(String(format:"%.2f", total!))"
+            
+        }
+          
         
     }
     
@@ -298,8 +337,6 @@ class CheckOutVC: UIViewController, UITextViewDelegate {
                         if quan == "None" {
                          
                             self.start += 1
-                            
-    
                             
                             if self.start == self.count {
                                 
@@ -556,7 +593,6 @@ class CheckOutVC: UIViewController, UITextViewDelegate {
     
     func startCheckOut() {
         
-        
         print("Start check out ")
         
         if isReturn == true {
@@ -569,95 +605,101 @@ class CheckOutVC: UIViewController, UITextViewDelegate {
         } else {
             
             if chargedCardBrand != "Apple_pay" {
-                
-                if chargedCardID == "" {
-                    
-                    SwiftLoader.hide()
-
-                    NotificationCenter.default.addObserver(self, selector: #selector(CheckOutVC.setPayment), name: (NSNotification.Name(rawValue: "setPayment")), object: nil)
-                    self.performSegue(withIdentifier: "moveToSelectPaymentVC", sender: nil)
-                    
-                    return
-                    
-                }
-                
-            }
-            
-     
-            if let txt = TotalLbl.text {
-                
-                if orderArr.isEmpty != true {
-                    
-                    swiftLoader(title: "Payment processing")
-                    print("Start processing payment")
-                    
-                    let currentDateTime = Date()
-                    
-                    // initialize the date formatter and set the style
-                    let formatter = DateFormatter()
-                    formatter.timeStyle = .medium
-                    formatter.dateStyle = .long
-                    
-                    // get the date time String from the date object
-                    let result = formatter.string(from: currentDateTime)
-                    let description = "Authorize payment for food ordering from uEAT at \(result)"
-    
-                    let price = String(txt.dropFirst())
-                    
-                    let new = price.toDouble()! * 100
-                    
-                  
-                    if chargedCardBrand == "Apple_pay" {
                         
-                        SwiftLoader.hide()
-                        self.makeApple_pay(text: description)
+                        if chargedCardID == "" {
+                            
+                            SwiftLoader.hide()
+
+                            NotificationCenter.default.addObserver(self, selector: #selector(CheckOutVC.setPayment), name: (NSNotification.Name(rawValue: "setPayment")), object: nil)
+                            self.performSegue(withIdentifier: "moveToSelectPaymentVC", sender: nil)
+                            
+                            return
+                            
+                        }
+                        
+                    }
+                    
+             
+                    if let txt = TotalLbl.text {
+                        
+                        if orderArr.isEmpty != true {
+                            
+                            swiftLoader(title: "Payment processing")
+                           
+                            
+                            let currentDateTime = Date()
+                            
+                            // initialize the date formatter and set the style
+                            let formatter = DateFormatter()
+                            formatter.timeStyle = .medium
+                            formatter.dateStyle = .long
+                            
+                            // get the date time String from the date object
+                            let result = formatter.string(from: currentDateTime)
+                            let description = "Authorize payment for food ordering from uEAT at \(result)"
+            
+                            let price = String(txt.dropFirst())
+                            
+                            print(price)
+                            
+                            let new = price.toDouble()! * 100
+                            
+                          
+                            if chargedCardBrand == "Apple_pay" {
+                                
+                                SwiftLoader.hide()
+                                self.makeApple_pay(text: description)
+                                
+                            } else {
+                                
+                                makePayment(captured: false, price: new, message: description) {
+                                       
+                                       print("Payment completed")
+                                       self.swiftLoader(title: "Placing order")
+                                       self.totalItem = self.orderArr.count
+                                       self.placingOrder() {
+                                           
+                                
+                                           
+                                           self.take_hold_clean() {
+                                  
+                                               self.createChatRoom()
+                                               
+                                               
+                                           }
+                                           
+                                           
+                                       }
+                                       
+                                   }
+                                
+                            }
+
+                            
+                            
+                        } else {
+                            
+                            self.showErrorAlert("Opss !", msg: "Can't load cart")
+                            
+                        }
+                        
+
                         
                     } else {
                         
-                        makePayment(captured: false, price: new, message: description) {
-                               
-                               print("Payment completed")
-                               self.swiftLoader(title: "Placing order")
-                               self.totalItem = self.orderArr.count
-                               self.placingOrder() {
-                                   
                         
-                                   
-                                   self.take_hold_clean() {
-                          
-                                       self.createChatRoom()
-                                       
-                                       
-                                   }
-                                   
-                                   
-                               }
-                               
-                           }
                         
-                    }
-
-                    
-                    
-                } else {
-                    
-                    self.showErrorAlert("Opss !", msg: "Can't load cart")
-                    
                 }
-                
-
-                
-            } else {
-                
-                
-                
-            }
+                    
             
         }
-        
+            
+            
         self.isReturn = false
         self.start = 0
         self.count = 0
+            
+            
 
     }
     
@@ -716,18 +758,34 @@ class CheckOutVC: UIViewController, UITextViewDelegate {
                                                return
                                                
                                     }
+                                 
+                                
+                                var isPromo = false
+                                
+                                if promo != 0.00 {
+                                    
+                                    isPromo = true
+                                    
+                                }
                                 
                                 
                                 for z in business!.documents {
                                     
                                     if let businessName = z.data()["businessName"] as? String {
                                         
-                                        let processing_orders = ["Order_id": Order_id as Any, "Restaurant_id": i.Restaurant_ID! as Any, "Restaurant_name": businessName as Any, "Status": "Processed" as Any, "userUID": Auth.auth().currentUser!.uid as Any, "Order_time": FieldValue.serverTimestamp()]
+                                        let processing_orders = ["Order_id": Order_id as Any, "Restaurant_id": i.Restaurant_ID! as Any, "Restaurant_name": businessName as Any, "Status": "Processed" as Any, "userUID": Auth.auth().currentUser!.uid as Any, "Order_time": FieldValue.serverTimestamp(), "isPromo": isPromo, "Promo_id": Promo_id]
                                         
-                                        let chatInfo = ["Order_id": Order_id as Any, "Order_time": FieldValue.serverTimestamp()]
-                                        
-                                        
+                                        if Promo_id != "Nil", isPromo == true {
+                                            
+                                            let promo_dict = ["Order_time": ServerValue.timestamp()]
+                                            
+                                            DataService.instance.mainRealTimeDataBaseRef.child("Promo_applied").child(Auth.auth().currentUser!.uid).child(Promo_id).setValue(promo_dict)
+                                            
+                                            
+                                        }
+    
                                         DataService.instance.mainFireStoreRef.collection("Order_id").document(document_order_id).updateData(["Order_ID": Order_id, "Order_time": FieldValue.serverTimestamp()])
+                                        
                                         
                                         
                                         let db = DataService.instance.mainFireStoreRef.collection("Processing_orders")
@@ -1326,6 +1384,25 @@ extension CheckOutVC: PKPaymentAuthorizationViewControllerDelegate {
     func paymentAuthorizationViewControllerDidFinish(_ controller: PKPaymentAuthorizationViewController) {
         
         controller.dismiss(animated: true, completion: nil)
+        
+        
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        
+        if segue.identifier == "MoveToPromoVC"{
+            if let destination = segue.destination as? PromoVC
+            {
+                
+                destination.restaurant_id = self.restaurant_id
+                destination.orderArr = self.orderArr
+                
+               
+                
+            }
+        }
+        
         
         
     }

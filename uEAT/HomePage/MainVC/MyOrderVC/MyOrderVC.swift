@@ -18,6 +18,7 @@ class MyOrderVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     var check_order_id = ""
     var check_restaurant_name = ""
     var check_status = ""
+    var promo_id = ""
     
     private var pullControl = UIRefreshControl()
     
@@ -171,6 +172,7 @@ class MyOrderVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
         check_order_id = item.Order_id
         check_restaurant_name = item.Restaurant_name
         check_status = item.Status
+        promo_id = item.Promo_id
         
         
         self.performSegue(withIdentifier: "moveToOrderDetail", sender: nil)
@@ -189,6 +191,7 @@ class MyOrderVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
                 destination.check_order_id = self.check_order_id
                 destination.check_restaurant_name = self.check_restaurant_name
                 destination.check_status = self.check_status
+                destination.promo_id = self.promo_id
                
                 
             }

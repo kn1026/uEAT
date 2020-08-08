@@ -11,6 +11,8 @@ import Foundation
 
 class Recent_order_model {
     
+    
+    fileprivate var _Promo_id: String!
     fileprivate var _Order_id: String!
     fileprivate var _Restaurant_id: String!
     fileprivate var _Restaurant_name: String!
@@ -19,6 +21,17 @@ class Recent_order_model {
     fileprivate var _Status: String!
     fileprivate var _Order_time: Any!
     
+    
+    
+    var Promo_id: String! {
+        get {
+            if _Promo_id == nil {
+                _Promo_id = "Nil"
+            }
+            return _Promo_id
+        }
+        
+    }
     
     var Status: String! {
         get {
@@ -116,6 +129,11 @@ class Recent_order_model {
         
         if let Order_time = Order_model["Order_time"] {
             self._Order_time = Order_time
+            
+        }
+        
+        if let Promo_id = Order_model["Promo_id"] as? String {
+            self._Promo_id = Promo_id
             
         }
         

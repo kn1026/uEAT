@@ -65,6 +65,9 @@
 		6A4BC7D6235A7566006332DD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6A4BC7D4235A7566006332DD /* LaunchScreen.storyboard */; };
 		6A4BC7E1235A7567006332DD /* uEATTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4BC7E0235A7567006332DD /* uEATTests.swift */; };
 		6A4BC7EC235A7567006332DD /* uEATUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4BC7EB235A7567006332DD /* uEATUITests.swift */; };
+		6A6D0B5324DAB4CB00D3194D /* PromoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6D0B5224DAB4CB00D3194D /* PromoVC.swift */; };
+		6A6D0B5524DAB54400D3194D /* PromotionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6D0B5424DAB54400D3194D /* PromotionModel.swift */; };
+		6A6D0B5724DAB55E00D3194D /* PromotionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6D0B5624DAB55E00D3194D /* PromotionCell.swift */; };
 		6A6EFBB424C1AD15007B051F /* HelpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6EFBB324C1AD15007B051F /* HelpVC.swift */; };
 		6A6EFBB724C1AE4E007B051F /* HelpMessageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6EFBB624C1AE4E007B051F /* HelpMessageVC.swift */; };
 		6A7167CC249CCD84003672BC /* MessageViewIncoming.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A7167C9249CCD84003672BC /* MessageViewIncoming.xib */; };
@@ -193,6 +196,9 @@
 		6A4BC7E7235A7567006332DD /* uEATUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = uEATUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A4BC7EB235A7567006332DD /* uEATUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = uEATUITests.swift; sourceTree = "<group>"; };
 		6A4BC7ED235A7567006332DD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6A6D0B5224DAB4CB00D3194D /* PromoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromoVC.swift; sourceTree = "<group>"; };
+		6A6D0B5424DAB54400D3194D /* PromotionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromotionModel.swift; sourceTree = "<group>"; };
+		6A6D0B5624DAB55E00D3194D /* PromotionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromotionCell.swift; sourceTree = "<group>"; };
 		6A6EFBB324C1AD15007B051F /* HelpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpVC.swift; sourceTree = "<group>"; };
 		6A6EFBB624C1AE4E007B051F /* HelpMessageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpMessageVC.swift; sourceTree = "<group>"; };
 		6A7167C9249CCD84003672BC /* MessageViewIncoming.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MessageViewIncoming.xib; sourceTree = "<group>"; };
@@ -656,6 +662,32 @@
 			path = uEATUITests;
 			sourceTree = "<group>";
 		};
+		6A6D0B4F24DAB49E00D3194D /* Promotion */ = {
+			isa = PBXGroup;
+			children = (
+				6A6D0B5124DAB4B800D3194D /* PromotionCell */,
+				6A6D0B5024DAB4AA00D3194D /* PromotionModel */,
+				6A6D0B5224DAB4CB00D3194D /* PromoVC.swift */,
+			);
+			path = Promotion;
+			sourceTree = "<group>";
+		};
+		6A6D0B5024DAB4AA00D3194D /* PromotionModel */ = {
+			isa = PBXGroup;
+			children = (
+				6A6D0B5424DAB54400D3194D /* PromotionModel.swift */,
+			);
+			path = PromotionModel;
+			sourceTree = "<group>";
+		};
+		6A6D0B5124DAB4B800D3194D /* PromotionCell */ = {
+			isa = PBXGroup;
+			children = (
+				6A6D0B5624DAB55E00D3194D /* PromotionCell.swift */,
+			);
+			path = PromotionCell;
+			sourceTree = "<group>";
+		};
 		6A6EFBB124C1ACEA007B051F /* HelpMessageVC */ = {
 			isa = PBXGroup;
 			children = (
@@ -839,6 +871,7 @@
 		6AC54ED3249931FE005AF364 /* CheckOut */ = {
 			isa = PBXGroup;
 			children = (
+				6A6D0B4F24DAB49E00D3194D /* Promotion */,
 				6AC54ED42499321B005AF364 /* CheckOutVC.swift */,
 			);
 			path = CheckOut;
@@ -1203,9 +1236,11 @@
 				6AA397D02360388100D482D7 /* EmailVerificationVC.swift in Sources */,
 				6A197C42239FAC470013EDCC /* itemDetail.swift in Sources */,
 				6AC54EBE2497832B005AF364 /* CartVC.swift in Sources */,
+				6A6D0B5724DAB55E00D3194D /* PromotionCell.swift in Sources */,
 				6A7167CD249CCD84003672BC /* Subclasses.swift in Sources */,
 				6A0EC7862371544500E70DEA /* NotificationVC.swift in Sources */,
 				6AC54ED224980E63005AF364 /* CGRect+Utils.swift in Sources */,
+				6A6D0B5524DAB54400D3194D /* PromotionModel.swift in Sources */,
 				6A15EAAE23722005006A93D7 /* extension-UIView.swift in Sources */,
 				6A0EC7892371575400E70DEA /* PaymentVC.swift in Sources */,
 				6A7DCEE72379559C00EFA939 /* LocationRequestVC.swift in Sources */,
@@ -1232,6 +1267,7 @@
 				6A4BC7CC235A7565006332DD /* SceneDelegate.swift in Sources */,
 				6A016D6C235EB34B0065D0D5 /* PhoneVeriVC.swift in Sources */,
 				6AC54ECE24980E50005AF364 /* Object+ClassName.swift in Sources */,
+				6A6D0B5324DAB4CB00D3194D /* PromoVC.swift in Sources */,
 				6A197C3A239F98BF0013EDCC /* itemModel.swift in Sources */,
 				6A197C3F239F9FB10013EDCC /* ItemCell.swift in Sources */,
 				6A6EFBB424C1AD15007B051F /* HelpVC.swift in Sources */,

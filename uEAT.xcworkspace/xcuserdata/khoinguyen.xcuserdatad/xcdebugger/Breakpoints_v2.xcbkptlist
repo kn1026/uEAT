@@ -1358,8 +1358,8 @@
             filePath = "uEAT/HomePage/MainVC/CheckOut/CheckOutVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "270"
-            endingLineNumber = "270"
+            startingLineNumber = "309"
+            endingLineNumber = "309"
             landmarkName = "checkAvailableStock(url:key:quanlity:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1374,8 +1374,8 @@
             filePath = "uEAT/HomePage/MainVC/CheckOut/CheckOutVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "272"
-            endingLineNumber = "272"
+            startingLineNumber = "311"
+            endingLineNumber = "311"
             landmarkName = "checkAvailableStock(url:key:quanlity:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1390,8 +1390,8 @@
             filePath = "uEAT/HomePage/MainVC/CheckOut/CheckOutVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "237"
-            endingLineNumber = "237"
+            startingLineNumber = "276"
+            endingLineNumber = "276"
             landmarkName = "getItem()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1406,8 +1406,8 @@
             filePath = "uEAT/HomePage/MainVC/CheckOut/CheckOutVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "236"
-            endingLineNumber = "236"
+            startingLineNumber = "275"
+            endingLineNumber = "275"
             landmarkName = "getItem()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1422,8 +1422,8 @@
             filePath = "uEAT/HomePage/MainVC/CheckOut/CheckOutVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "234"
-            endingLineNumber = "234"
+            startingLineNumber = "273"
+            endingLineNumber = "273"
             landmarkName = "getItem()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1438,8 +1438,8 @@
             filePath = "uEAT/HomePage/MainVC/CheckOut/CheckOutVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "239"
-            endingLineNumber = "239"
+            startingLineNumber = "278"
+            endingLineNumber = "278"
             landmarkName = "getItem()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1454,8 +1454,8 @@
             filePath = "uEAT/HomePage/MainVC/CheckOut/CheckOutVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "254"
-            endingLineNumber = "254"
+            startingLineNumber = "293"
+            endingLineNumber = "293"
             landmarkName = "checkAvailableStock(url:key:quanlity:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1470,8 +1470,8 @@
             filePath = "uEAT/HomePage/MainVC/CheckOut/CheckOutVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "252"
-            endingLineNumber = "252"
+            startingLineNumber = "291"
+            endingLineNumber = "291"
             landmarkName = "checkAvailableStock(url:key:quanlity:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1486,8 +1486,8 @@
             filePath = "uEAT/HomePage/MainVC/CheckOut/CheckOutVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "901"
-            endingLineNumber = "901"
+            startingLineNumber = "959"
+            endingLineNumber = "959"
             landmarkName = "PayNowBtnPressed(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1502,8 +1502,8 @@
             filePath = "uEAT/HomePage/MainVC/CheckOut/CheckOutVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1085"
-            endingLineNumber = "1085"
+            startingLineNumber = "1143"
+            endingLineNumber = "1143"
             landmarkName = "loadAlert(message:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1518,8 +1518,8 @@
             filePath = "uEAT/HomePage/MainVC/CheckOut/CheckOutVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1086"
-            endingLineNumber = "1086"
+            startingLineNumber = "1144"
+            endingLineNumber = "1144"
             landmarkName = "loadAlert(message:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1534,8 +1534,8 @@
             filePath = "uEAT/HomePage/MainVC/CheckOut/CheckOutVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1087"
-            endingLineNumber = "1087"
+            startingLineNumber = "1145"
+            endingLineNumber = "1145"
             landmarkName = "loadAlert(message:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1550,8 +1550,8 @@
             filePath = "uEAT/HomePage/MainVC/CheckOut/CheckOutVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "557"
-            endingLineNumber = "557"
+            startingLineNumber = "594"
+            endingLineNumber = "594"
             landmarkName = "startCheckOut()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1566,8 +1566,8 @@
             filePath = "uEAT/HomePage/MainVC/CheckOut/CheckOutVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "406"
-            endingLineNumber = "406"
+            startingLineNumber = "443"
+            endingLineNumber = "443"
             landmarkName = "checkAvailableStock(url:key:quanlity:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1582,8 +1582,8 @@
             filePath = "uEAT/HomePage/MainVC/CheckOut/CheckOutVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "404"
-            endingLineNumber = "404"
+            startingLineNumber = "441"
+            endingLineNumber = "441"
             landmarkName = "checkAvailableStock(url:key:quanlity:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1598,8 +1598,8 @@
             filePath = "uEAT/HomePage/MainVC/CheckOut/CheckOutVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "376"
-            endingLineNumber = "376"
+            startingLineNumber = "413"
+            endingLineNumber = "413"
             landmarkName = "checkAvailableStock(url:key:quanlity:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1614,8 +1614,8 @@
             filePath = "uEAT/HomePage/MainVC/CheckOut/CheckOutVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "378"
-            endingLineNumber = "378"
+            startingLineNumber = "415"
+            endingLineNumber = "415"
             landmarkName = "checkAvailableStock(url:key:quanlity:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1630,8 +1630,8 @@
             filePath = "uEAT/HomePage/MainVC/CheckOut/CheckOutVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "358"
-            endingLineNumber = "358"
+            startingLineNumber = "395"
+            endingLineNumber = "395"
             landmarkName = "checkAvailableStock(url:key:quanlity:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1646,8 +1646,8 @@
             filePath = "uEAT/HomePage/MainVC/CheckOut/CheckOutVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "328"
-            endingLineNumber = "328"
+            startingLineNumber = "365"
+            endingLineNumber = "365"
             landmarkName = "checkAvailableStock(url:key:quanlity:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1662,8 +1662,8 @@
             filePath = "uEAT/HomePage/MainVC/CheckOut/CheckOutVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "331"
-            endingLineNumber = "331"
+            startingLineNumber = "368"
+            endingLineNumber = "368"
             landmarkName = "checkAvailableStock(url:key:quanlity:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1678,8 +1678,8 @@
             filePath = "uEAT/HomePage/MainVC/CheckOut/CheckOutVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "971"
-            endingLineNumber = "971"
+            startingLineNumber = "1029"
+            endingLineNumber = "1029"
             landmarkName = "makePayment(captured:price:message:completed:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1694,8 +1694,8 @@
             filePath = "uEAT/HomePage/MainVC/CheckOut/CheckOutVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1002"
-            endingLineNumber = "1002"
+            startingLineNumber = "1060"
+            endingLineNumber = "1060"
             landmarkName = "makePayment(captured:price:message:completed:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1710,8 +1710,8 @@
             filePath = "uEAT/HomePage/MainVC/CheckOut/CheckOutVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "564"
-            endingLineNumber = "564"
+            startingLineNumber = "600"
+            endingLineNumber = "600"
             landmarkName = "startCheckOut()"
             landmarkType = "7">
          </BreakpointContent>
@@ -2238,8 +2238,8 @@
             filePath = "uEAT/HomePage/MainVC/CheckOut/CheckOutVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "857"
-            endingLineNumber = "857"
+            startingLineNumber = "915"
+            endingLineNumber = "915"
             landmarkName = "createChatRoom()"
             landmarkType = "7">
          </BreakpointContent>
@@ -2254,8 +2254,8 @@
             filePath = "uEAT/HomePage/MainVC/CheckOut/CheckOutVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "858"
-            endingLineNumber = "858"
+            startingLineNumber = "916"
+            endingLineNumber = "916"
             landmarkName = "createChatRoom()"
             landmarkType = "7">
          </BreakpointContent>
@@ -2270,8 +2270,8 @@
             filePath = "uEAT/HomePage/MainVC/CheckOut/CheckOutVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "860"
-            endingLineNumber = "860"
+            startingLineNumber = "918"
+            endingLineNumber = "918"
             landmarkName = "createChatRoom()"
             landmarkType = "7">
          </BreakpointContent>
@@ -2286,8 +2286,8 @@
             filePath = "uEAT/HomePage/MainVC/CheckOut/CheckOutVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "864"
-            endingLineNumber = "864"
+            startingLineNumber = "922"
+            endingLineNumber = "922"
             landmarkName = "createChatRoom()"
             landmarkType = "7">
          </BreakpointContent>
@@ -2302,8 +2302,8 @@
             filePath = "uEAT/HomePage/MainVC/CheckOut/CheckOutVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "859"
-            endingLineNumber = "859"
+            startingLineNumber = "917"
+            endingLineNumber = "917"
             landmarkName = "createChatRoom()"
             landmarkType = "7">
          </BreakpointContent>
@@ -2318,8 +2318,8 @@
             filePath = "uEAT/HomePage/MainVC/CheckOut/CheckOutVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "496"
-            endingLineNumber = "496"
+            startingLineNumber = "533"
+            endingLineNumber = "533"
             landmarkName = "take_hold_clean(completed:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2334,8 +2334,8 @@
             filePath = "uEAT/HomePage/MainVC/CheckOut/CheckOutVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "500"
-            endingLineNumber = "500"
+            startingLineNumber = "537"
+            endingLineNumber = "537"
             landmarkName = "take_hold_clean(completed:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2350,8 +2350,8 @@
             filePath = "uEAT/HomePage/MainVC/CheckOut/CheckOutVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "494"
-            endingLineNumber = "494"
+            startingLineNumber = "531"
+            endingLineNumber = "531"
             landmarkName = "take_hold_clean(completed:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2366,8 +2366,8 @@
             filePath = "uEAT/HomePage/MainVC/CheckOut/CheckOutVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "498"
-            endingLineNumber = "498"
+            startingLineNumber = "535"
+            endingLineNumber = "535"
             landmarkName = "take_hold_clean(completed:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2382,8 +2382,8 @@
             filePath = "uEAT/HomePage/MainVC/CheckOut/CheckOutVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "502"
-            endingLineNumber = "502"
+            startingLineNumber = "539"
+            endingLineNumber = "539"
             landmarkName = "take_hold_clean(completed:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2577,6 +2577,134 @@
             startingLineNumber = "55"
             endingLineNumber = "55"
             landmarkName = "checkIssue(id:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "502CC646-A6C9-4647-8EBA-1CA625ED60B0"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "uEAT/HomePage/MainVC/CheckOut/Promotion/PromoVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "256"
+            endingLineNumber = "256"
+            landmarkName = "tableView(_:didSelectRowAt:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A995A7E3-3783-42FE-A652-A91AD460C586"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "uEAT/HomePage/MainVC/CheckOut/Promotion/PromoVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "258"
+            endingLineNumber = "258"
+            landmarkName = "tableView(_:didSelectRowAt:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "1EB9EF47-933E-4975-8E37-E546FC647A43"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "uEAT/HomePage/MainVC/CheckOut/Promotion/PromoVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "261"
+            endingLineNumber = "261"
+            landmarkName = "tableView(_:didSelectRowAt:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "363FC471-0EDE-4401-BCE9-6F6EEA7F0B2A"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "uEAT/HomePage/MainVC/CheckOut/Promotion/PromoVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "278"
+            endingLineNumber = "278"
+            landmarkName = "tableView(_:didSelectRowAt:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C92AAA07-13F1-4077-98D1-464152C07881"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "uEAT/HomePage/MainVC/CheckOut/Promotion/PromoVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "279"
+            endingLineNumber = "279"
+            landmarkName = "tableView(_:didSelectRowAt:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "758448CD-59CA-4F75-8CFB-05E2DD57049B"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "uEAT/HomePage/MainVC/CheckOut/Promotion/PromoVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "285"
+            endingLineNumber = "285"
+            landmarkName = "tableView(_:didSelectRowAt:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "FD3724FC-CEB4-4C4D-90CB-9849A1035632"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "uEAT/HomePage/MainVC/CheckOut/Promotion/PromoVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "290"
+            endingLineNumber = "290"
+            landmarkName = "tableView(_:didSelectRowAt:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "5F05802D-A2DD-4611-A1D5-2B31D4F21FE7"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "uEAT/HomePage/MainVC/CheckOut/Promotion/PromoVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "277"
+            endingLineNumber = "277"
+            landmarkName = "tableView(_:didSelectRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
