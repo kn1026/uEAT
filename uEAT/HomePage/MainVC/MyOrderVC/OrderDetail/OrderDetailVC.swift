@@ -237,7 +237,7 @@ class OrderDetailVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                                                   let Application = AdjustSubtotal * 5 / 100 + stripeFee
                                                   let Tax = AdjustSubtotal * 9 / 100
                                         
-                                                  let total = subtotal + Application + Tax
+                                                  let total = AdjustSubtotal + Application + Tax
                                                   
 
                                                   
@@ -273,7 +273,7 @@ class OrderDetailVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                                                 let Application = AdjustSubtotal * 5 / 100 + stripeFee
                                                 let Tax = AdjustSubtotal * 9 / 100
                                                 
-                                                let total = subtotal + Application + Tax
+                                                let total = AdjustSubtotal + Application + Tax
                                                           
 
                                                           
