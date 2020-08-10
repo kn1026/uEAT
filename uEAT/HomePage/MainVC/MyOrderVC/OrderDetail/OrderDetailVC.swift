@@ -241,11 +241,11 @@ class OrderDetailVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                                                   
 
                                                   
-                                                self.SubtotalPrice.text = "  $\(String(format:"%.2f", subtotal))"
-                                                self.ApplicationFee.text = "  $\(String(format:"%.2f", Application))"
-                                                self.TaxFee.text = "  $\(String(format:"%.2f", Tax))"
-                                                self.PromoLbl.text = "- $\(String(format:"%.2f", promo))"
-                                                self.TotalFee.text = "  $\(String(format:"%.2f", total))"
+                                                self.SubtotalPrice.text = "$\(String(format:"%.2f", subtotal))"
+                                                self.ApplicationFee.text = "$\(String(format:"%.2f", Application))"
+                                                self.TaxFee.text = "$\(String(format:"%.2f", Tax))"
+                                                self.PromoLbl.text = "-$\(String(format:"%.2f", promo))"
+                                                self.TotalFee.text = "$\(String(format:"%.2f", total))"
                                                                                                   
                                               }
                                                   else {
@@ -277,11 +277,11 @@ class OrderDetailVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                                                           
 
                                                           
-                                                self.SubtotalPrice.text = "  $\(String(format:"%.2f", subtotal))"
-                                                self.ApplicationFee.text = "  $\(String(format:"%.2f", Application))"
-                                                self.TaxFee.text = "  $\(String(format:"%.2f", Tax))"
-                                                self.PromoLbl.text = "- $\(String(format:"%.2f", promo))"
-                                                self.TotalFee.text = "  $\(String(format:"%.2f", total))"
+                                                self.SubtotalPrice.text = "$\(String(format:"%.2f", subtotal))"
+                                                self.ApplicationFee.text = "$\(String(format:"%.2f", Application))"
+                                                self.TaxFee.text = "$\(String(format:"%.2f", Tax))"
+                                                self.PromoLbl.text = "-$\(String(format:"%.2f", promo))"
+                                                self.TotalFee.text = "$\(String(format:"%.2f", total))"
                                                   
                                               }
                                               else {

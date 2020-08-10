@@ -90,7 +90,16 @@ class PromoVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                             
                             
                             let dict = PromotionModel(postKey: item.documentID, Voucher_model: item.data())
-                            self.voucher_list.append(dict)
+                            
+                            if self.checkDuplicate(item: dict) == false {
+                                
+                                     self.voucher_list.append(dict)
+                                
+                                } else {
+                                    
+                                    print("Found duplication")
+                                    
+                            }
                             
                             count += 1
                             
@@ -149,7 +158,17 @@ class PromoVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                          } else {
                             
                             let dict = PromotionModel(postKey: item.documentID, Voucher_model: item.data())
-                            self.voucher_list.insert(dict, at: 0)
+                            
+                            if self.checkDuplicate(item: dict) == false {
+                                
+                                     self.voucher_list.insert(dict, at: 0)
+                                
+                                } else {
+                                    
+                                    print("Found duplication")
+                                    
+                            }
+                
                             
                             count += 1
                             
@@ -186,6 +205,25 @@ class PromoVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 }
             
             }
+        
+    }
+    
+    
+    func checkDuplicate(item: PromotionModel) -> Bool {
+
+        
+        for i in voucher_list {
+            
+            if i.category == item.category, i.category_url == item.category_url, i.description == item.description, i.title == item.title, i.type == item.type {
+                
+                return true
+                
+            }
+            
+        }
+        
+        
+        return false
         
     }
     
