@@ -144,9 +144,6 @@ class PromoVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 
             } else {
                 
-                
-                
-                
                 var count = 0
                 let limit  = snap?.count
                 
@@ -173,7 +170,7 @@ class PromoVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                                             
                                             } else {
                                                 
-                                                print("Found duplication")
+                                                print("Found duplication \(item.documentID)")
                                                 
                                         }
                             
