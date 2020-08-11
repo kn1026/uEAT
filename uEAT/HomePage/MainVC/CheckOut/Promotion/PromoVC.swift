@@ -64,54 +64,56 @@ class PromoVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 let limit  = snap?.count
                 
                 for item in snap!.documents {
+            
                     
-                    /*
-                     
+            
                     if let FromTimes = item.data()["fromDate"] as? Date {
                     
                     if date > FromTimes {
                         
-                        let dict = PromotionModel(postKey: item.documentID, Voucher_model: item.data())
+                        DataService.instance.mainRealTimeDataBaseRef.child("Promo_applied").child(Auth.auth().currentUser!.uid).child(item.documentID).observeSingleEvent(of: .value, with: { (snapInfo) in
+                         
+                         
+                             if snapInfo.exists() {
+                                
+                                count += 1
+                                
+                             } else {
+                                
+                                
+                                let dict = PromotionModel(postKey: item.documentID, Voucher_model: item.data())
+                                
+                                if self.checkDuplicate(item: dict) == false {
+                                    
+                                         self.voucher_list.append(dict)
+                                    
+                                    } else {
+                                        
+                                        print("Found duplication")
+                                        
+                                }
+                                
+                                count += 1
+                                
+                            }
+                            
+                            if count == limit {
+                                
+                                completed()
+                                
+                            }
+                            
+                        })
                         
-                        self.voucher_list.append(dict)
+                    } else {
+                        
+                        print("Expired \(item.documentID)")
                         
                     }
                     
-                    }*/
+                    }
                     
-                     DataService.instance.mainRealTimeDataBaseRef.child("Promo_applied").child(Auth.auth().currentUser!.uid).child(item.documentID).observeSingleEvent(of: .value, with: { (snapInfo) in
                      
-                     
-                         if snapInfo.exists() {
-                            
-                            count += 1
-                            
-                         } else {
-                            
-                            
-                            let dict = PromotionModel(postKey: item.documentID, Voucher_model: item.data())
-                            
-                            if self.checkDuplicate(item: dict) == false {
-                                
-                                     self.voucher_list.append(dict)
-                                
-                                } else {
-                                    
-                                    print("Found duplication")
-                                    
-                            }
-                            
-                            count += 1
-                            
-                        }
-                        
-                        if count == limit {
-                            
-                            completed()
-                            
-                        }
-                        
-                    })
                     
                     
                           
