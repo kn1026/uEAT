@@ -62,7 +62,7 @@ class PhoneVeriVC: UIViewController, UITextFieldDelegate {
                             
                             if let status = dict["Status"] as? Int {
                                 
-                                if status == 0 {
+                                if status == 1 {
                                     
                                     dict.updateValue(item.key, forKey: "School_Name")
                                     
