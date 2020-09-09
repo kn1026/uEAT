@@ -1,6 +1,0 @@
-framework module Pods_uEAT {
-  umbrella header "Pods-uEAT-umbrella.h"
-
-  export *
-  module * { export * }
-}
