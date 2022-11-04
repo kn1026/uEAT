@@ -36,15 +36,11 @@ class OrderStatusVC: UIViewController {
                 loadOrderStatus(uid: uid, order_id: status_order_id)
                 
             } else {
-                
-                
+                  
                 print(status_order_id)
-                
-                
+            
             }
-            
-            
-            
+    
             
         }
         

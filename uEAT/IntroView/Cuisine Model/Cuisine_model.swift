@@ -8,10 +8,6 @@
 
 import Foundation
 
-
-
-
-
 class Cuisine_model {
     
     

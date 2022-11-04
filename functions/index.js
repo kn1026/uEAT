@@ -584,3 +584,32 @@ exports.sendIssueNotification = functions.database.ref('/IssueChatNoti/{uid}/{ch
 
 
 });
+
+
+return Video.Assets.create({
+
+    input: url,
+    "mp4_support": "standard",
+
+}).then(asset => {
+
+  return Video.Assets.createPlaybackId(asset.id, {
+      policy: 'public',
+      "mp4_support": "standard",
+    }).then(result => {
+
+      const id = result.id;
+
+      const highlightRef = db.collection('Highlights').doc(ref);
+
+      const res = await highlightRef.update({
+        Mux_processed: true,
+        Mux_playbackID: id,
+        status: 'ready'});
+
+      console.log('Mux processed')
+
+      return null;
+    });
+
+});

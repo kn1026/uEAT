@@ -209,6 +209,7 @@ class PaymentVC: UIViewController, UITableViewDelegate, UITableViewDataSource, M
         
         
         self.dismiss(animated: true, completion: nil)
+        
     }
     
     func swipeTableCell(_ cell: MGSwipeTableCell, canSwipe direction: MGSwipeDirection) -> Bool {

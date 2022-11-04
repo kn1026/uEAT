@@ -64,8 +64,9 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         }
         HomecollectionView?.contentInset = UIEdgeInsets(top: 23, left: 16, bottom: 10, right: 16)
        
-        getNearByRestaurant()
+        //getNearByRestaurant()
         
+        check_Apple_inReview()
         
         //pullControl.backgroundColor = UIColor.darkGray
         pullControl.tintColor = UIColor.black
@@ -154,6 +155,48 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         
     }
     
+    func check_Apple_inReview() {
+        
+        DataService.instance.mainRealTimeDataBaseRef.child("Apple_Review").observeSingleEvent(of: .value, with: { (snapInfo) in
+        
+        
+            if snapInfo.exists() {
+                
+                if let postDict = snapInfo.value as? Dictionary<String, Any> {
+                
+                if let status = postDict["Status"] as? Int {
+                    
+                    if status == 0 {
+                        
+                         self.getNearByRestaurant()
+                        
+                    } else {
+                        
+                         
+                        self.loadTestRestaurant()
+                        
+                    }
+                    
+                }
+                
+                
+                
+                
+            } else {
+                
+                
+                    self.getNearByRestaurant()
+                
+            }
+            
+            
+        }
+            
+        })
+        
+        
+    }
+    
     
     func getNearByRestaurant() {
         
@@ -214,9 +257,72 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     
     }
     
+    
+    func loadTestRestaurant() {
+        
+        DataService.instance.mainFireStoreRef.collection("Restaurant").whereField("Restaurant_id", isEqualTo: "TAp2Ja3EpgIaKaQszPpM").getDocuments { (snapCheck, err) in
+                
+                if err != nil {
+                
+                    
+                    self.showErrorAlert("Opss !", msg: err!.localizedDescription)
+                    
+                    return
+                
+                }
+                
+                if snapCheck?.isEmpty == true {
+                    
+                    //print("Can't find restaurant \(id)")
+                    
+                }
+        
+                for item in snapCheck!.documents {
+                
+                
+                        let dict = RestaurantModel(postKey: item.documentID, Restaurant_model: item.data())
+                        
+                        if let open = item.data()["Open"] as? Bool {
+                            
+                            if open ==  true {
+                                
+                                self.restaurant_list.insert(dict, at: 0)
+                                
+                            } else {
+                                
+                                self.restaurant_list.append(dict)
+                                
+                            }
+                            
+                            
+                        } else {
+                            
+                            self.restaurant_list.append(dict)
+                            
+                        }
+                        
+                        self.HomecollectionView.reloadData()
+                        
+                        
+                        if self.pullControl.isRefreshing == true {
+                            self.pullControl.endRefreshing()
+                        }
+
+                    
+                }
+                
+                
+                
+                
+                
+            }
+        
+        
+    }
+    
     func loadRestaurant(id: String) {
         
-        print("Loading \(id)")
+        
         
         DataService.instance.mainFireStoreRef.collection("Restaurant").whereField("Restaurant_id", isEqualTo: id).getDocuments { (snapCheck, err) in
             

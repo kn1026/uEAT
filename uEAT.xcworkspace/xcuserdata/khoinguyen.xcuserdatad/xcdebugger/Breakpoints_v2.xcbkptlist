@@ -30,8 +30,8 @@
             filePath = "uEAT/Sign in process/PhoneVeriVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "264"
-            endingLineNumber = "264"
+            startingLineNumber = "286"
+            endingLineNumber = "286"
             landmarkName = "textFieldDidChange(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -46,8 +46,8 @@
             filePath = "uEAT/Sign in process/PhoneVeriVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "268"
-            endingLineNumber = "268"
+            startingLineNumber = "290"
+            endingLineNumber = "290"
             landmarkName = "textFieldDidChange(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -62,8 +62,8 @@
             filePath = "uEAT/Sign in process/PhoneVeriVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "262"
-            endingLineNumber = "262"
+            startingLineNumber = "284"
+            endingLineNumber = "284"
             landmarkName = "textFieldDidChange(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -78,8 +78,8 @@
             filePath = "uEAT/Sign in process/PhoneVeriVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "266"
-            endingLineNumber = "266"
+            startingLineNumber = "288"
+            endingLineNumber = "288"
             landmarkName = "textFieldDidChange(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -276,7 +276,7 @@
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "AFEB561F-55CF-4C76-90C2-BB92AF14D9C2 - 14ddfb23662b91b6"
+                  uuid = "AFEB561F-55CF-4C76-90C2-BB92AF14D9C2 - bb61fccdf8e0fcfc"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -291,7 +291,7 @@
                   offsetFromSymbolStart = "2540">
                </Location>
                <Location
-                  uuid = "AFEB561F-55CF-4C76-90C2-BB92AF14D9C2 - 361f5086dbee9bc"
+                  uuid = "AFEB561F-55CF-4C76-90C2-BB92AF14D9C2 - acddf2e6f3758497"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -420,7 +420,7 @@
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "64BF1F25-3A63-4A1C-93CF-71B96F1C8DCE - 149c7e6312d5987b"
+                  uuid = "64BF1F25-3A63-4A1C-93CF-71B96F1C8DCE - bb20798d8c1f09b2"
                   shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -435,7 +435,7 @@
                   offsetFromSymbolStart = "308">
                </Location>
                <Location
-                  uuid = "64BF1F25-3A63-4A1C-93CF-71B96F1C8DCE - b55d834b36dcae49"
+                  uuid = "64BF1F25-3A63-4A1C-93CF-71B96F1C8DCE - 1ae184a5a8163f3d"
                   shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -596,7 +596,7 @@
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "D5E48309-7F50-4920-97C6-81A0D329C678 - b55d834b36dcae49"
+                  uuid = "D5E48309-7F50-4920-97C6-81A0D329C678 - 1ae184a5a81638e8"
                   shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -611,7 +611,7 @@
                   offsetFromSymbolStart = "1624">
                </Location>
                <Location
-                  uuid = "D5E48309-7F50-4920-97C6-81A0D329C678 - 9b986f866b8f7afa"
+                  uuid = "D5E48309-7F50-4920-97C6-81A0D329C678 - 34246868f545ec78"
                   shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -692,7 +692,7 @@
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "C8D10493-3499-40BE-8C1D-69FA42594AB0 - 3dc35f20ebad1369"
+                  uuid = "C8D10493-3499-40BE-8C1D-69FA42594AB0 - 589cc807d80d8245"
                   shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -707,7 +707,7 @@
                   offsetFromSymbolStart = "992">
                </Location>
                <Location
-                  uuid = "C8D10493-3499-40BE-8C1D-69FA42594AB0 - 53f8f58980321641"
+                  uuid = "C8D10493-3499-40BE-8C1D-69FA42594AB0 - 36a762aeb39286ab"
                   shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -846,8 +846,8 @@
             filePath = "uEAT/HomePage/MainVC/New Group1/HomeVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "185"
-            endingLineNumber = "185"
+            startingLineNumber = "228"
+            endingLineNumber = "228"
             landmarkName = "getRestaurantRadius(query:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -862,13 +862,13 @@
             filePath = "uEAT/HomePage/MainVC/New Group1/HomeVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "181"
-            endingLineNumber = "181"
+            startingLineNumber = "224"
+            endingLineNumber = "224"
             landmarkName = "getRestaurantRadius(query:)"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "13ED9193-889E-488A-B504-61B7C4EDC140 - cb65a90e7272dfd3"
+                  uuid = "13ED9193-889E-488A-B504-61B7C4EDC140 - 9c84339a3de33500"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -883,7 +883,7 @@
                   offsetFromSymbolStart = "100">
                </Location>
                <Location
-                  uuid = "13ED9193-889E-488A-B504-61B7C4EDC140 - cc8c5ce8e70df841"
+                  uuid = "13ED9193-889E-488A-B504-61B7C4EDC140 - 9b6dc67ca89c1250"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -910,13 +910,13 @@
             filePath = "uEAT/HomePage/MainVC/New Group1/HomeVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "192"
-            endingLineNumber = "192"
+            startingLineNumber = "235"
+            endingLineNumber = "235"
             landmarkName = "getRestaurantRadius(query:)"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "17D76B12-188F-4D3E-A116-F9C263970416 - cb65a90e7272dfd3"
+                  uuid = "17D76B12-188F-4D3E-A116-F9C263970416 - 9c84339a3de33295"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -931,7 +931,7 @@
                   offsetFromSymbolStart = "372">
                </Location>
                <Location
-                  uuid = "17D76B12-188F-4D3E-A116-F9C263970416 - f50828b7e1150de6"
+                  uuid = "17D76B12-188F-4D3E-A116-F9C263970416 - a2e9b223ae84e143"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -958,8 +958,8 @@
             filePath = "uEAT/HomePage/MainVC/New Group1/HomeVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "195"
-            endingLineNumber = "195"
+            startingLineNumber = "238"
+            endingLineNumber = "238"
             landmarkName = "getRestaurantRadius(query:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -974,8 +974,8 @@
             filePath = "uEAT/HomePage/MainVC/New Group1/HomeVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "211"
-            endingLineNumber = "211"
+            startingLineNumber = "254"
+            endingLineNumber = "254"
             landmarkName = "getRestaurantRadius(query:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -990,8 +990,8 @@
             filePath = "uEAT/HomePage/MainVC/New Group1/HomeVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "536"
-            endingLineNumber = "536"
+            startingLineNumber = "642"
+            endingLineNumber = "642"
             landmarkName = "collectionView(_:heightForPhotoAtIndexPath:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1006,8 +1006,8 @@
             filePath = "uEAT/HomePage/MainVC/New Group1/HomeVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "545"
-            endingLineNumber = "545"
+            startingLineNumber = "651"
+            endingLineNumber = "651"
             landmarkName = "collectionView(_:heightForPhotoAtIndexPath:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1022,8 +1022,8 @@
             filePath = "uEAT/HomePage/MainVC/New Group1/HomeVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "158"
-            endingLineNumber = "158"
+            startingLineNumber = "201"
+            endingLineNumber = "201"
             landmarkName = "getNearByRestaurant()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1038,8 +1038,8 @@
             filePath = "uEAT/HomePage/MainVC/New Group1/HomeVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "207"
-            endingLineNumber = "207"
+            startingLineNumber = "250"
+            endingLineNumber = "250"
             landmarkName = "getRestaurantRadius(query:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1054,8 +1054,8 @@
             filePath = "uEAT/HomePage/MainVC/New Group1/HomeVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "179"
-            endingLineNumber = "179"
+            startingLineNumber = "222"
+            endingLineNumber = "222"
             landmarkName = "getRestaurantRadius(query:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1070,8 +1070,8 @@
             filePath = "uEAT/HomePage/MainVC/New Group1/HomeVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "163"
-            endingLineNumber = "163"
+            startingLineNumber = "206"
+            endingLineNumber = "206"
             landmarkName = "getNearByRestaurant()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1086,8 +1086,8 @@
             filePath = "uEAT/HomePage/MainVC/New Group1/HomeVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "183"
-            endingLineNumber = "183"
+            startingLineNumber = "226"
+            endingLineNumber = "226"
             landmarkName = "getRestaurantRadius(query:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1102,8 +1102,8 @@
             filePath = "uEAT/HomePage/MainVC/New Group1/HomeVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "187"
-            endingLineNumber = "187"
+            startingLineNumber = "230"
+            endingLineNumber = "230"
             landmarkName = "getRestaurantRadius(query:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1118,8 +1118,8 @@
             filePath = "uEAT/HomePage/MainVC/New Group1/HomeVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "190"
-            endingLineNumber = "190"
+            startingLineNumber = "233"
+            endingLineNumber = "233"
             landmarkName = "getRestaurantRadius(query:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1134,8 +1134,8 @@
             filePath = "uEAT/HomePage/MainVC/New Group1/HomeVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "200"
-            endingLineNumber = "200"
+            startingLineNumber = "243"
+            endingLineNumber = "243"
             landmarkName = "getRestaurantRadius(query:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1150,8 +1150,8 @@
             filePath = "uEAT/HomePage/MainVC/New Group1/HomeVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "201"
-            endingLineNumber = "201"
+            startingLineNumber = "244"
+            endingLineNumber = "244"
             landmarkName = "getRestaurantRadius(query:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1166,8 +1166,8 @@
             filePath = "uEAT/HomePage/MainVC/New Group1/HomeVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "531"
-            endingLineNumber = "531"
+            startingLineNumber = "637"
+            endingLineNumber = "637"
             landmarkName = "collectionView(_:heightForPhotoAtIndexPath:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1198,8 +1198,8 @@
             filePath = "uEAT/HomePage/MainVC/New Group1/HomeVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "182"
-            endingLineNumber = "182"
+            startingLineNumber = "225"
+            endingLineNumber = "225"
             landmarkName = "getRestaurantRadius(query:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1854,8 +1854,8 @@
             filePath = "uEAT/HomePage/MainVC/New Group1/HomeVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "522"
-            endingLineNumber = "522"
+            startingLineNumber = "628"
+            endingLineNumber = "628"
             landmarkName = "collectionView(_:didSelectItemAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1870,8 +1870,8 @@
             filePath = "uEAT/HomePage/MainVC/New Group1/HomeVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "267"
-            endingLineNumber = "267"
+            startingLineNumber = "373"
+            endingLineNumber = "373"
             landmarkName = "loadRestaurant(id:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1886,8 +1886,8 @@
             filePath = "uEAT/HomePage/MainVC/New Group1/HomeVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "258"
-            endingLineNumber = "258"
+            startingLineNumber = "364"
+            endingLineNumber = "364"
             landmarkName = "loadRestaurant(id:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1902,8 +1902,8 @@
             filePath = "uEAT/HomePage/MainVC/New Group1/HomeVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "247"
-            endingLineNumber = "247"
+            startingLineNumber = "353"
+            endingLineNumber = "353"
             landmarkName = "loadRestaurant(id:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2052,7 +2052,7 @@
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "4D0318A0-A8EB-468E-A583-FF714B38FA08 - 8c86129524dbb58a"
+                  uuid = "4D0318A0-A8EB-468E-A583-FF714B38FA08 - ff7a4ad56c6499bf"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -2067,7 +2067,7 @@
                   offsetFromSymbolStart = "1076">
                </Location>
                <Location
-                  uuid = "4D0318A0-A8EB-468E-A583-FF714B38FA08 - 3629b3775becf39c"
+                  uuid = "4D0318A0-A8EB-468E-A583-FF714B38FA08 - 45d5eb371353df86"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -2100,7 +2100,7 @@
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "2A5263BD-66AA-436B-96D5-C261C1F4B309 - 48ce2ad1c9b92c93"
+                  uuid = "2A5263BD-66AA-436B-96D5-C261C1F4B309 - 3b32729181061600"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -2115,7 +2115,7 @@
                   offsetFromSymbolStart = "224">
                </Location>
                <Location
-                  uuid = "2A5263BD-66AA-436B-96D5-C261C1F4B309 - 676361bcb5c7f797"
+                  uuid = "2A5263BD-66AA-436B-96D5-C261C1F4B309 - 149f39fcfd78cd46"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -2158,8 +2158,8 @@
             filePath = "uEAT/HomePage/MainVC/New Group1/HomeVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "262"
-            endingLineNumber = "262"
+            startingLineNumber = "368"
+            endingLineNumber = "368"
             landmarkName = "loadRestaurant(id:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2174,8 +2174,8 @@
             filePath = "uEAT/HomePage/MainVC/New Group1/HomeVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "251"
-            endingLineNumber = "251"
+            startingLineNumber = "357"
+            endingLineNumber = "357"
             landmarkName = "loadRestaurant(id:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2190,13 +2190,13 @@
             filePath = "uEAT/HomePage/MainVC/New Group1/HomeVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "221"
-            endingLineNumber = "221"
+            startingLineNumber = "327"
+            endingLineNumber = "327"
             landmarkName = "loadRestaurant(id:)"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "77804C8F-5481-4EF8-BC27-F885DB08334E - 587701749d01a4e3"
+                  uuid = "77804C8F-5481-4EF8-BC27-F885DB08334E - f969be0d2905044"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -2211,7 +2211,7 @@
                   offsetFromSymbolStart = "516">
                </Location>
                <Location
-                  uuid = "77804C8F-5481-4EF8-BC27-F885DB08334E - 8bb8b400090d0852"
+                  uuid = "77804C8F-5481-4EF8-BC27-F885DB08334E - dc592e94469cfcb7"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -2436,7 +2436,7 @@
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "5F0745D5-9299-4DA1-A234-FA76CA859D0C - 3a13e19a923c7168"
+                  uuid = "5F0745D5-9299-4DA1-A234-FA76CA859D0C - 4d048251e38bb0ca"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -2451,7 +2451,7 @@
                   offsetFromSymbolStart = "112">
                </Location>
                <Location
-                  uuid = "5F0745D5-9299-4DA1-A234-FA76CA859D0C - 51c876233c70a0fc"
+                  uuid = "5F0745D5-9299-4DA1-A234-FA76CA859D0C - 26df15e84dc7619c"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -2706,6 +2706,38 @@
             endingLineNumber = "326"
             landmarkName = "unknown"
             landmarkType = "0">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "DB2EE70E-EC74-4B23-886C-02F420C97533"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "uEAT/HomePage/MainVC/New Group1/HomeVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "171"
+            endingLineNumber = "171"
+            landmarkName = "check_Apple_inReview()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E1FEC807-7962-4D1E-8FBC-9DDE08BF0B2C"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "uEAT/HomePage/MainVC/New Group1/HomeVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "176"
+            endingLineNumber = "176"
+            landmarkName = "check_Apple_inReview()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

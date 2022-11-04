@@ -163,15 +163,13 @@ class PhoneVC: UIViewController, UITextFieldDelegate {
                     
                 } else {
                     
-                    
                     finalPhone = "+1\(converted)"
                     
                 }
                 
                 
                 
-                  
-                  
+        
                   self.verification = SMSVerification(applicationKey, phoneNumber: finalPhone)
                   
                   

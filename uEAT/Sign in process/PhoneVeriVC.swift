@@ -206,10 +206,6 @@ class PhoneVeriVC: UIViewController, UITextFieldDelegate {
         
         return "Fail"
         
-        
-        
-        
-        
     }
     
     
@@ -221,26 +217,47 @@ class PhoneVeriVC: UIViewController, UITextFieldDelegate {
             
             
             label1.backgroundColor = BColor
-            label2.backgroundColor = UIColor.placeholderText
-            label3.backgroundColor = UIColor.placeholderText
-            label4.backgroundColor = UIColor.placeholderText
+            if #available(iOS 13.0, *) {
+                label2.backgroundColor = UIColor.placeholderText
+            } else {
+                // Fallback on earlier versions
+                label2.backgroundColor = UIColor.groupTableViewBackground
+            }
+            if #available(iOS 13.0, *) {
+                label3.backgroundColor = UIColor.placeholderText
+            } else {
+                // Fallback on earlier versions
+                label3.backgroundColor = UIColor.groupTableViewBackground
+            }
+            if #available(iOS 13.0, *) {
+                label4.backgroundColor = UIColor.placeholderText
+            } else {
+                // Fallback on earlier versions
+                label4.backgroundColor = UIColor.groupTableViewBackground
+            }
             
             label1.text = getTextInPosition(text: HidenTxtView.text!, position: 0)
             label2.text = ""
             label3.text = ""
             label4.text = ""
-            
-            
-            
-            
-            
+
         } else if HidenTxtView.text?.count == 2 {
             
             
             label1.backgroundColor = BColor
             label2.backgroundColor = BColor
-            label3.backgroundColor = UIColor.placeholderText
-            label4.backgroundColor = UIColor.placeholderText
+            if #available(iOS 13.0, *) {
+                label3.backgroundColor = UIColor.placeholderText
+            } else {
+                // Fallback on earlier versions
+                label3.backgroundColor = UIColor.groupTableViewBackground
+            }
+            if #available(iOS 13.0, *) {
+                label4.backgroundColor = UIColor.placeholderText
+            } else {
+                // Fallback on earlier versions
+                label4.backgroundColor = UIColor.groupTableViewBackground
+            }
             
             label2.text = getTextInPosition(text: HidenTxtView.text!, position: 1)
             label3.text = ""
@@ -252,7 +269,12 @@ class PhoneVeriVC: UIViewController, UITextFieldDelegate {
             label1.backgroundColor = BColor
             label2.backgroundColor = BColor
             label3.backgroundColor = BColor
-            label4.backgroundColor = UIColor.placeholderText
+            if #available(iOS 13.0, *) {
+                label4.backgroundColor = UIColor.placeholderText
+            } else {
+                // Fallback on earlier versions
+                label3.backgroundColor = UIColor.groupTableViewBackground
+            }
             
             label3.text = getTextInPosition(text: HidenTxtView.text!, position: 2)
             label4.text = ""
@@ -273,10 +295,30 @@ class PhoneVeriVC: UIViewController, UITextFieldDelegate {
                 
             } else {
                 
-                label1.backgroundColor = UIColor.placeholderText
-                label2.backgroundColor = UIColor.placeholderText
-                label3.backgroundColor = UIColor.placeholderText
-                label4.backgroundColor = UIColor.placeholderText
+                if #available(iOS 13.0, *) {
+                    label1.backgroundColor = UIColor.placeholderText
+                } else {
+                    // Fallback on earlier versions
+                    label1.backgroundColor = UIColor.groupTableViewBackground
+                }
+                if #available(iOS 13.0, *) {
+                    label2.backgroundColor = UIColor.placeholderText
+                } else {
+                    // Fallback on earlier versions
+                    label2.backgroundColor = UIColor.groupTableViewBackground
+                }
+                if #available(iOS 13.0, *) {
+                    label3.backgroundColor = UIColor.placeholderText
+                } else {
+                    // Fallback on earlier versions
+                    label3.backgroundColor = UIColor.groupTableViewBackground
+                }
+                if #available(iOS 13.0, *) {
+                    label4.backgroundColor = UIColor.placeholderText
+                } else {
+                    // Fallback on earlier versions
+                    label4.backgroundColor = UIColor.groupTableViewBackground
+                }
                 
                 label1.text = ""
                 label2.text = ""
@@ -291,10 +333,30 @@ class PhoneVeriVC: UIViewController, UITextFieldDelegate {
             
         } else if HidenTxtView.text?.count == 0 {
             
-            label1.backgroundColor = UIColor.placeholderText
-            label2.backgroundColor = UIColor.placeholderText
-            label3.backgroundColor = UIColor.placeholderText
-            label4.backgroundColor = UIColor.placeholderText
+            if #available(iOS 13.0, *) {
+                label1.backgroundColor = UIColor.placeholderText
+            } else {
+                // Fallback on earlier versions
+                label1.backgroundColor = UIColor.groupTableViewBackground
+            }
+            if #available(iOS 13.0, *) {
+                label2.backgroundColor = UIColor.placeholderText
+            } else {
+                // Fallback on earlier versions
+                label2.backgroundColor = UIColor.groupTableViewBackground
+            }
+            if #available(iOS 13.0, *) {
+                label3.backgroundColor = UIColor.placeholderText
+            } else {
+                // Fallback on earlier versions
+                label3.backgroundColor = UIColor.groupTableViewBackground
+            }
+            if #available(iOS 13.0, *) {
+                label4.backgroundColor = UIColor.placeholderText
+            } else {
+                // Fallback on earlier versions
+                label4.backgroundColor = UIColor.groupTableViewBackground
+            }
             
             label1.text = ""
             label2.text = ""
@@ -329,10 +391,30 @@ class PhoneVeriVC: UIViewController, UITextFieldDelegate {
                     } else {
                         
                         
-                        self.label1.backgroundColor = UIColor.placeholderText
-                        self.label2.backgroundColor = UIColor.placeholderText
-                        self.label3.backgroundColor = UIColor.placeholderText
-                        self.label4.backgroundColor = UIColor.placeholderText
+                        if #available(iOS 13.0, *) {
+                            self.label1.backgroundColor = UIColor.placeholderText
+                        } else {
+                            // Fallback on earlier versions
+                            self.label1.backgroundColor = UIColor.groupTableViewBackground
+                        }
+                        if #available(iOS 13.0, *) {
+                            self.label2.backgroundColor = UIColor.placeholderText
+                        } else {
+                            // Fallback on earlier versions
+                            self.label2.backgroundColor = UIColor.groupTableViewBackground
+                        }
+                        if #available(iOS 13.0, *) {
+                            self.label3.backgroundColor = UIColor.placeholderText
+                        } else {
+                            // Fallback on earlier versions
+                            self.label3.backgroundColor = UIColor.groupTableViewBackground
+                        }
+                        if #available(iOS 13.0, *) {
+                            self.label4.backgroundColor = UIColor.placeholderText
+                        } else {
+                            // Fallback on earlier versions
+                            self.label4.backgroundColor = UIColor.groupTableViewBackground
+                        }
                         
                         self.label1.text = ""
                         self.label2.text = ""
@@ -545,10 +627,30 @@ class PhoneVeriVC: UIViewController, UITextFieldDelegate {
             
         } else {
             
-            label1.backgroundColor = UIColor.placeholderText
-            label2.backgroundColor = UIColor.placeholderText
-            label3.backgroundColor = UIColor.placeholderText
-            label4.backgroundColor = UIColor.placeholderText
+            if #available(iOS 13.0, *) {
+                label1.backgroundColor = UIColor.placeholderText
+            } else {
+                // Fallback on earlier versions
+                label1.backgroundColor = UIColor.groupTableViewBackground
+            }
+            if #available(iOS 13.0, *) {
+                label2.backgroundColor = UIColor.placeholderText
+            } else {
+                // Fallback on earlier versions
+                label2.backgroundColor = UIColor.groupTableViewBackground
+            }
+            if #available(iOS 13.0, *) {
+                label3.backgroundColor = UIColor.placeholderText
+            } else {
+                // Fallback on earlier versions
+                label3.backgroundColor = UIColor.groupTableViewBackground
+            }
+            if #available(iOS 13.0, *) {
+                label4.backgroundColor = UIColor.placeholderText
+            } else {
+                // Fallback on earlier versions
+                label4.backgroundColor = UIColor.groupTableViewBackground
+            }
             
             label1.text = ""
             label2.text = ""

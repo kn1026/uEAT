@@ -77,6 +77,7 @@ class Intro2VC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         let cell = collectionView.cellForItem(at: indexPath as IndexPath)
+        
         if cell?.isSelected == true {
             
             cell!.backgroundColor = .clear

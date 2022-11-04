@@ -76,7 +76,12 @@ extension HalfSheetPresentationController {
     private func makePaddingView() -> UIView {
         let view = UIView()
    
-        view.backgroundColor = UIColor.systemBackground
+        if #available(iOS 13.0, *) {
+            view.backgroundColor = UIColor.systemBackground
+        } else {
+            // Fallback on earlier versions
+            view.backgroundColor = UIColor.groupTableViewBackground
+        }
 
         return view
     }

@@ -15,7 +15,7 @@ import SwiftEntryKit
 let googleMap_Key = "AIzaSyAAYuBDXTubo_qcayPX6og_MrWq9-iM_KE"
 let googlePlace_key = "AIzaSyAAYuBDXTubo_qcayPX6og_MrWq9-iM_KE"
 let Stripe_key = "pk_live_1AA3PY5adk3jGDL1Eo5Db3PZ"
-var applicationKey = "fd466555-559c-447e-95a0-4cc5ffbf303c"
+var applicationKey = "2c3ccae1-c080-467b-b989-d1d70aaf159c"
 let stripe_test_key = "pk_test_9edrI9MoXrXoYp591KT93gxW"
 let dpwd = "ooewiuroiweyuruwehrgwehfgdsjhf"
 
@@ -226,10 +226,6 @@ func applyShadowOnView(_ view:UIView) {
 
 func loadAlertAnimation(title: String, desc: String) {
     
-    let image = UIImage(named: "uEAT_logo")
-    let resizeImg = resizeImage(image: image!, targetSize: CGSize(width: 30.0, height: 30.0))
-    let ekImage = EKProperty.ImageContent(image: resizeImg)
-    
     // Generate top floating entry and set some properties
     var attributes = EKAttributes.topToast
     attributes.popBehavior = .animated(animation: .init(translate: .init(duration: 0.3), scale: .init(from: 1, to: 0.7, duration: 0.7)))
@@ -242,7 +238,7 @@ func loadAlertAnimation(title: String, desc: String) {
 
     let title = EKProperty.LabelContent(text: title, style: .init(font: UIFont.systemFont(ofSize: 20, weight: UIFont.Weight.bold), color: EKColor.white))
     let description = EKProperty.LabelContent(text: desc, style: .init(font: UIFont.systemFont(ofSize: 15, weight: UIFont.Weight.medium), color: EKColor.white))
-    let simpleMessage = EKSimpleMessage(image: ekImage, title: title, description: description)
+    let simpleMessage = EKSimpleMessage(image: nil, title: title, description: description)
     let notificationMessage = EKNotificationMessage(simpleMessage: simpleMessage)
 
     let contentView = EKNotificationMessageView(with: notificationMessage)

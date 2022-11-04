@@ -23,7 +23,7 @@ class ProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSource, U
     @IBOutlet weak var PhoneLbl: UILabel!
     @IBOutlet weak var avatarImg: UIButton!
     
-    var feature = ["Payment", "Security", "Voucher", "Profile Info", "Help & Support", "Log out"]
+    var feature = ["Payment", "Security", "Profile Info", "Help & Support", "Log out"]
     
     var url = ""
     var avaUrl = ""

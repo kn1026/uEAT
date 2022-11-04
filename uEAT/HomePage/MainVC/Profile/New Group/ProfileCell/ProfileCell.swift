@@ -42,6 +42,9 @@ class ProfileCell: UITableViewCell {
             
             count.text = ""
             
+        } else {
+            
+            
         }
 
         
